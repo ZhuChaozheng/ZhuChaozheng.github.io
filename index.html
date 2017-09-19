@@ -1,9 +1,9 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-  <meta charset="utf-8">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
   
-  <title>X-Space</title>
+  <title>BlackAnt</title>
   <meta name="author" content="ZhuChaozheng SunTong ChuZhefan">
   
   <meta name="description" content="This website is designed by x-space, and use to offer a professional robot solutions.">
@@ -12,14 +12,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
   
-  <meta property="og:site_name" content="X-Space"/>
+  <meta property="og:site_name" content="BlackAnt"/>
 
   
     <meta property="og:image" content=""/>
   
 
   <link rel="icon" type="image/x-icon" href="/favicon.ico">
-  <link rel="alternate" href="/atom.xml" title="X-Space" type="application/atom+xml">
+  <link rel="alternate" href="/atom.xml" title="BlackAnt" type="application/atom+xml">
   <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
   <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
   
@@ -33,14 +33,14 @@ var _hmt = _hmt || [];
   var s = document.getElementsByTagName("script")[0]; 
   s.parentNode.insertBefore(hm, s);
 })();
-</script>
+</script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 
 </head>
 
 
 <body>
-  <header id="header" class="inner"><div class="alignleft">
-  <h1><a href="/">X-Space</a></h1>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><header id="header" class="inner"><div class="alignleft">
+  <h1><a href="/">BlackAnt</a></h1>
   <h2><a href="/"></a></h2>
 </div>
 <nav id="main-nav" class="alignright">
@@ -217,11 +217,335 @@ var _hmt = _hmt || [];
     <header>
       
         <div class="icon"></div>
-        <time datetime="2017-09-06T13:18:27.000Z"><a href="/2017/09/06/SVO-SEMI-DIRECT-MONOCULAR-VISUAL-ODOMETRY-详解/">2017-09-06</a></time>
+        <time datetime="2017-09-19T02:31:14.000Z"><a href="/2017/09/19/DSO详解/">2017-09-19</a></time>
       
       
   
-    <h1 class="title"><a href="/2017/09/06/SVO-SEMI-DIRECT-MONOCULAR-VISUAL-ODOMETRY-详解/">SVO ( SEMI-DIRECT MONOCULAR VISUAL ODOMETRY)详解</a></h1>
+    <h1 class="title"><a href="/2017/09/19/DSO详解/">DSO详解</a></h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <p>DSO（Direct Sparse Odometry），是慕尼黑工业大学（Technical University of Munich, TUM）计算机视觉实验室的雅各布.恩格尔（Jakob Engel）博士，于2016年发布的一个视觉里程计方法（期刊论文见[1]，实验室主页见<a href="https://vision.in.tum.de/" target="_blank" rel="external">Computer Vision Group</a>）。在SLAM领域，DSO属于稀疏直接法，据论文称能达到传统特征点法的五倍速度（需要降低图像分辨率），并保持同等或更高精度，代码见：<a href="https://github.com/JakobEngel/dso" target="_blank" rel="external">JakobEngel/dso</a>。然而，由于某些历史和个人的原因，DSO的代码清晰度和可读性，明显弱于其他SLAM方案如ORB、SVO、okvis等，使得研究人员很难以它为基础，展开后续的研究工作。因此，本文希望从理论和实现层面解读DSO，尝试为其他对DSO感兴趣的研究人员提供一些有益的思路和观点。
+      
+    </div>
+    <footer>
+      
+        
+          <div class="alignleft">
+            <a href="/2017/09/19/DSO详解/#more" class="more-link">Read More</a>
+          </div>
+        
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+
+  <article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2017-09-18T15:44:38.000Z"><a href="/2017/09/18/一步步完善视觉里程计7——mapping/">2017-09-18</a></time>
+      
+      
+  
+    <h1 class="title"><a href="/2017/09/18/一步步完善视觉里程计7——mapping/">一步步完善视觉里程计7——mapping</a></h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <p>前面运动估计部分就已经完成了，虽然步骤很多但是总的目的是为了局部姿态估计的准确性。接下来我们要做的操作就是mapping，给mapping单独开出一个线程，主要的目的是根据给出的图像和其姿态I<sub>k</sub> , T<sub>k,w</sub>,用于估计那些不知道对应3D点的二维特征的深度信息。
+      
+    </div>
+    <footer>
+      
+        
+          <div class="alignleft">
+            <a href="/2017/09/18/一步步完善视觉里程计7——mapping/#more" class="more-link">Read More</a>
+          </div>
+        
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+
+  <article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2017-09-18T15:38:20.000Z"><a href="/2017/09/18/一步步完善视觉里程计6——运动估计Pose-and-Structure-Refinement/">2017-09-18</a></time>
+      
+      
+  
+    <h1 class="title"><a href="/2017/09/18/一步步完善视觉里程计6——运动估计Pose-and-Structure-Refinement/">一步步完善视觉里程计6——运动估计Pose and Structure Refinement</a></h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <p><strong>前面进行了feature align，也就是不仅考虑了相连的两帧，而且考虑了前面有相同视角的N个关键帧。通过前面的关键帧确定的特征及三维点，投影到当前帧中，来对当前帧中的特征进行优化。但是这一步发现，只是在图像层面进行了优化，而没有考虑级线约束等。<br>这就通过最小化投影误差来优化运动和结构,具体如下图：</strong>
+      
+    </div>
+    <footer>
+      
+        
+          <div class="alignleft">
+            <a href="/2017/09/18/一步步完善视觉里程计6——运动估计Pose-and-Structure-Refinement/#more" class="more-link">Read More</a>
+          </div>
+        
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+
+  <article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2017-09-18T14:29:14.000Z"><a href="/2017/09/18/一步步完善视觉里程计5——运动估计reproject-feature-align/">2017-09-18</a></time>
+      
+      
+  
+    <h1 class="title"><a href="/2017/09/18/一步步完善视觉里程计5——运动估计reproject-feature-align/">一步步完善视觉里程计5——运动估计reproject,feature align</a></h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <p><strong>通过前一篇博客我们目前可以计算出3d点和相机pose，但是我们根据之前阐述知道通过两帧的计算结果是不精确，会出现漂移的现象。这一篇文章考虑有共同视角的多个关键帧，具体示意图如下：</strong>
+      
+    </div>
+    <footer>
+      
+        
+          <div class="alignleft">
+            <a href="/2017/09/18/一步步完善视觉里程计5——运动估计reproject-feature-align/#more" class="more-link">Read More</a>
+          </div>
+        
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+
+  <article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2017-09-18T12:45:47.000Z"><a href="/2017/09/18/一步步完善视觉里程计4——运动估计image-align/">2017-09-18</a></time>
+      
+      
+  
+    <h1 class="title"><a href="/2017/09/18/一步步完善视觉里程计4——运动估计image-align/">一步步完善视觉里程计4——运动估计image align</a></h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <p><strong>上一步中已经确定了初始位置，下面就是对连续帧的处理，也就是开始进行运动估计。<br>前面已经说了，对后续姿态的估计不是采用特征检测和鲁棒性的特征匹配（因此操作较耗时），而采用最小化光度误差。</strong>
+      
+    </div>
+    <footer>
+      
+        
+          <div class="alignleft">
+            <a href="/2017/09/18/一步步完善视觉里程计4——运动估计image-align/#more" class="more-link">Read More</a>
+          </div>
+        
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+
+  <article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2017-09-18T12:09:26.000Z"><a href="/2017/09/18/一步步完善视觉里程计3——初始位置确定/">2017-09-18</a></time>
+      
+      
+  
+    <h1 class="title"><a href="/2017/09/18/一步步完善视觉里程计3——初始位置确定/">一步步完善视觉里程计3——初始位置确定</a></h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <p><strong>前面一篇博客，我们已经进行了特征提取，前面我们也说了，我们接下来不是通过特征匹配的方式来寻找对应特征点，而是采用跟踪的方式。<br>在前面视觉里程计总述中讲诉了误差的累计，因此初始位置的确定显得尤为重要，要确保初始位置的尽可能的准确。这一篇博客主要讲述了如何更精确的确定初始位置。</strong>
+      
+    </div>
+    <footer>
+      
+        
+          <div class="alignleft">
+            <a href="/2017/09/18/一步步完善视觉里程计3——初始位置确定/#more" class="more-link">Read More</a>
+          </div>
+        
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+
+  <article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2017-09-17T15:45:17.000Z"><a href="/2017/09/17/一步步完善视觉里程计2——FAST特征检测/">2017-09-17</a></time>
+      
+      
+  
+    <h1 class="title"><a href="/2017/09/17/一步步完善视觉里程计2——FAST特征检测/">一步步完善视觉里程计2——FAST特征检测</a></h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <p><strong>前一篇博客中已经将项目简单搭建起来，目前肯定不完善也可能会出现错误，这些在接下来的时间里会一步步的完善。</strong>
+      
+    </div>
+    <footer>
+      
+        
+          <div class="alignleft">
+            <a href="/2017/09/17/一步步完善视觉里程计2——FAST特征检测/#more" class="more-link">Read More</a>
+          </div>
+        
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+
+  <article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2017-09-16T13:02:49.000Z"><a href="/2017/09/16/一步步完善视觉里程计1——项目框架搭建/">2017-09-16</a></time>
+      
+      
+  
+    <h1 class="title"><a href="/2017/09/16/一步步完善视觉里程计1——项目框架搭建/">一步步完善视觉里程计1——项目框架搭建</a></h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <p><strong>前面我们基于OpenCV3.0实现了简单的VO，接下来我们对整个过程进行进一步优化。一步步实现可以使用的视觉里程计。<br>整个程序主要参考：<a href="https://github.com/uzh-rpg/rpg_svo" target="_blank" rel="external">https://github.com/uzh-rpg/rpg_svo</a><br>论文主要参考:<a href="http://rpg.ifi.uzh.ch/docs/ICRA14_Forster.pdf" target="_blank" rel="external">http://rpg.ifi.uzh.ch/docs/ICRA14_Forster.pdf</a> </strong><br>
+      
+    </div>
+    <footer>
+      
+        
+          <div class="alignleft">
+            <a href="/2017/09/16/一步步完善视觉里程计1——项目框架搭建/#more" class="more-link">Read More</a>
+          </div>
+        
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+
+  <article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2017-09-16T11:41:55.000Z"><a href="/2017/09/16/视觉里程计总介绍/">2017-09-16</a></time>
+      
+      
+  
+    <h1 class="title"><a href="/2017/09/16/视觉里程计总介绍/">【转】视觉里程计总介绍</a></h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <p><strong>接下来的文章就是对上述简单视觉里程计一步步优化，提高算法的精度，效率以及鲁棒性。<br>在此之前，我们先对视觉里程计整个发展做一个回顾。具体可以参考大牛Davide Scaramuzza的两篇文章<a href="http://rpg.ifi.uzh.ch/" target="_blank" rel="external">Visual Odometry: Part I</a>[1],Visual Odometry: Part II[2].<br>英语也不是很好，就不对这两篇文章进行翻译了，主要对这两篇文章进行一下回顾。</strong>
+      
+    </div>
+    <footer>
+      
+        
+          <div class="alignleft">
+            <a href="/2017/09/16/视觉里程计总介绍/#more" class="more-link">Read More</a>
+          </div>
+        
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+
+  <article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2017-09-15T15:36:21.000Z"><a href="/2017/09/15/SVO-SEMI-DIRECT-MONOCULAR-VISUAL-ODOMETRY/">2017-09-15</a></time>
+      
+      
+  
+    <h1 class="title"><a href="/2017/09/15/SVO-SEMI-DIRECT-MONOCULAR-VISUAL-ODOMETRY/">SVO ( SEMI-DIRECT MONOCULAR VISUAL ODOMETRY)</a></h1>
   
 
     </header>
@@ -234,259 +558,7 @@ var _hmt = _hmt || [];
       
         
           <div class="alignleft">
-            <a href="/2017/09/06/SVO-SEMI-DIRECT-MONOCULAR-VISUAL-ODOMETRY-详解/#more" class="more-link">Read More</a>
-          </div>
-        
-        
-      
-      <div class="clearfix"></div>
-    </footer>
-  </div>
-</article>
-
-
-
-
-  <article class="post">
-  
-  <div class="post-content">
-    <header>
-      
-        <div class="icon"></div>
-        <time datetime="2017-08-29T11:54:42.000Z"><a href="/2017/08/29/DDNS/">2017-08-29</a></time>
-      
-      
-  
-    <h1 class="title"><a href="/2017/08/29/DDNS/">DDNS</a></h1>
-  
-
-    </header>
-    <div class="entry">
-      
-        <h2 id="Background"><a href="#Background" class="headerlink" title="Background"></a>Background</h2><p><strong>项目所用的服务器是基础电信线路，没有申请固定ip，需要使用ddns实时更新服务器ipv4地址。</strong>
-      
-    </div>
-    <footer>
-      
-        
-          <div class="alignleft">
-            <a href="/2017/08/29/DDNS/#more" class="more-link">Read More</a>
-          </div>
-        
-        
-      
-      <div class="clearfix"></div>
-    </footer>
-  </div>
-</article>
-
-
-
-
-  <article class="post">
-  
-  <div class="post-content">
-    <header>
-      
-        <div class="icon"></div>
-        <time datetime="2016-01-10T11:08:39.000Z"><a href="/2016/01/10/Principle-of-real-time-video-transmission/">2016-01-10</a></time>
-      
-      
-  
-    <h1 class="title"><a href="/2016/01/10/Principle-of-real-time-video-transmission/">Principle of real time video transmission</a></h1>
-  
-
-    </header>
-    <div class="entry">
-      
-        <h2 id="Our-team-goal"><a href="#Our-team-goal" class="headerlink" title="Our team goal"></a>Our team goal</h2><p><strong>Our team is coming from China, named of X-Space. We are young, and we are naive, building an open source platform for the robot to provide solutions for the foundation of the robot, to help more people to better understand the industry, is our goal!!!!!</strong>
-      
-    </div>
-    <footer>
-      
-        
-          <div class="alignleft">
-            <a href="/2016/01/10/Principle-of-real-time-video-transmission/#more" class="more-link">Read More</a>
-          </div>
-        
-        
-      
-      <div class="clearfix"></div>
-    </footer>
-  </div>
-</article>
-
-
-
-
-  <article class="post">
-  
-  <div class="post-content">
-    <header>
-      
-        <div class="icon"></div>
-        <time datetime="2016-01-10T11:07:21.000Z"><a href="/2016/01/10/robot-control-principle/">2016-01-10</a></time>
-      
-      
-  
-    <h1 class="title"><a href="/2016/01/10/robot-control-principle/">robot control principle</a></h1>
-  
-
-    </header>
-    <div class="entry">
-      
-        <h2 id="Our-team-goal"><a href="#Our-team-goal" class="headerlink" title="Our team goal"></a>Our team goal</h2><p><strong>Our team is coming from China, named of X-Space. We are young, and we are naive, building an open source platform for the robot to provide solutions for the foundation of the robot, to help more people to better understand the industry, is our goal!!!!!</strong>
-      
-    </div>
-    <footer>
-      
-        
-          <div class="alignleft">
-            <a href="/2016/01/10/robot-control-principle/#more" class="more-link">Read More</a>
-          </div>
-        
-        
-      
-      <div class="clearfix"></div>
-    </footer>
-  </div>
-</article>
-
-
-
-
-  <article class="post">
-  
-  <div class="post-content">
-    <header>
-      
-        <div class="icon"></div>
-        <time datetime="2016-01-10T10:59:43.000Z"><a href="/2016/01/10/land-robot-already-open/">2016-01-10</a></time>
-      
-      
-  
-    <h1 class="title"><a href="/2016/01/10/land-robot-already-open/">land robot already open</a></h1>
-  
-
-    </header>
-    <div class="entry">
-      
-        <h2 id="Our-team-goal"><a href="#Our-team-goal" class="headerlink" title="Our team goal"></a>Our team goal</h2><p><strong>Our team is coming from China, named of X-Space. We are young, and we are naive, building an open source platform for the robot to provide solutions for the foundation of the robot, to help more people to better understand the industry, is our goal!!!!!</strong>
-      
-    </div>
-    <footer>
-      
-        
-          <div class="alignleft">
-            <a href="/2016/01/10/land-robot-already-open/#more" class="more-link">Read More</a>
-          </div>
-        
-        
-      
-      <div class="clearfix"></div>
-    </footer>
-  </div>
-</article>
-
-
-
-
-  <article class="post">
-  
-  <div class="post-content">
-    <header>
-      
-        <div class="icon"></div>
-        <time datetime="2016-01-10T10:58:30.000Z"><a href="/2016/01/10/the-big-data-is-coming/">2016-01-10</a></time>
-      
-      
-  
-    <h1 class="title"><a href="/2016/01/10/the-big-data-is-coming/">the big data is coming!</a></h1>
-  
-
-    </header>
-    <div class="entry">
-      
-        <h2 id="Our-team-goal"><a href="#Our-team-goal" class="headerlink" title="Our team goal"></a>Our team goal</h2><p><strong>Our team is coming from China, named of X-Space. We are young, and we are naive, building an open source platform for the robot to provide solutions for the foundation of the robot, to help more people to better understand the industry, is our goal!!!!!</strong>
-      
-    </div>
-    <footer>
-      
-        
-          <div class="alignleft">
-            <a href="/2016/01/10/the-big-data-is-coming/#more" class="more-link">Read More</a>
-          </div>
-        
-        
-      
-      <div class="clearfix"></div>
-    </footer>
-  </div>
-</article>
-
-
-
-
-  <article class="post">
-  
-  <div class="post-content">
-    <header>
-      
-        <div class="icon"></div>
-        <time datetime="2016-01-10T10:53:36.000Z"><a href="/2016/01/10/What-is-robot/">2016-01-10</a></time>
-      
-      
-  
-    <h1 class="title"><a href="/2016/01/10/What-is-robot/">What is robot?</a></h1>
-  
-
-    </header>
-    <div class="entry">
-      
-        <p>In our dream, there always some site where the tree is green, the sky is blue, the stream is running. However, I can’t see it again.
-      
-    </div>
-    <footer>
-      
-        
-          <div class="alignleft">
-            <a href="/2016/01/10/What-is-robot/#more" class="more-link">Read More</a>
-          </div>
-        
-        
-      
-      <div class="clearfix"></div>
-    </footer>
-  </div>
-</article>
-
-
-
-
-  <article class="post">
-  
-  <div class="post-content">
-    <header>
-      
-        <div class="icon"></div>
-        <time datetime="2016-01-10T05:10:18.000Z"><a href="/2016/01/10/this-is-a-first-blog/">2016-01-10</a></time>
-      
-      
-  
-    <h1 class="title"><a href="/2016/01/10/this-is-a-first-blog/">X-Space Blog</a></h1>
-  
-
-    </header>
-    <div class="entry">
-      
-        <h2 id="Our-team-goal"><a href="#Our-team-goal" class="headerlink" title="Our team goal"></a>Our team goal</h2><p><strong>Our team is coming from China, named of X-Space. We are young, and we are naive, building an open source platform for the robot to provide solutions for the foundation of the robot, to help more people to better understand the industry, is our goal!!!!!</strong>
-      
-    </div>
-    <footer>
-      
-        
-          <div class="alignleft">
-            <a href="/2016/01/10/this-is-a-first-blog/#more" class="more-link">Read More</a>
+            <a href="/2017/09/15/SVO-SEMI-DIRECT-MONOCULAR-VISUAL-ODOMETRY/#more" class="more-link">Read More</a>
           </div>
         
         
@@ -502,6 +574,8 @@ var _hmt = _hmt || [];
 
 <nav id="pagination">
   
+  
+    <a href="/page/2/" class="alignright next">Next</a>
   
   <div class="clearfix"></div>
 </nav></div></div>
@@ -539,8 +613,6 @@ var _hmt = _hmt || [];
 </div>
 
 
-  <iframe width="100%" height="550" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=550&fansRow=2&ptype=1&speed=0&skin=1&isTitle=1&noborder=1&isWeibo=1&isFans=0&uid=3188785033&verifier=c1f8031e&dpc=1"></iframe>
-
   <div class="widget tag">
 <h3 class="title">Link</h3>
 <ul class="entry">
@@ -571,7 +643,24 @@ var _hmt = _hmt || [];
 (function($){
   $('.fancybox').fancybox();
 })(jQuery);
+</script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
 </script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
 
 </body>
 </html>
