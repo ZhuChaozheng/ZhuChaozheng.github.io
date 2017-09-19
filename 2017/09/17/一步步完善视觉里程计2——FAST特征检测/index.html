@@ -1,0 +1,419 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
+  
+  <title>一步步完善视觉里程计2——FAST特征检测 | BlackAnt</title>
+  <meta name="author" content="ZhuChaozheng SunTong ChuZhefan">
+  
+  <meta name="description" content="This website is designed by x-space, and use to offer a professional robot solutions.">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="一步步完善视觉里程计2——FAST特征检测"/>
+  <meta property="og:site_name" content="BlackAnt"/>
+
+  
+    <meta property="og:image" content=""/>
+  
+
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  <link rel="alternate" href="/atom.xml" title="BlackAnt" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  
+
+  
+<script type="text/javascript">
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?77ef4451b3a9c64e7da624afdd20490e";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+</head>
+
+
+<body>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><header id="header" class="inner"><div class="alignleft">
+  <h1><a href="/">BlackAnt</a></h1>
+  <h2><a href="/"></a></h2>
+</div>
+<nav id="main-nav" class="alignright">
+  <ul>
+    
+      <li><a href="/">Home</a></li>
+    
+      <li><a href="/archives">Archives</a></li>
+    
+      <li><a href="/new-page">Blog</a></li>
+    
+      <li><a href="/about">about</a></li>
+    
+	<li> <a title="把这个链接拖到你的Chrome收藏夹工具栏中" href='javascript:(function() {
+	function c() {
+		var e = document.createElement("link");
+		e.setAttribute("type", "text/css");
+		e.setAttribute("rel", "stylesheet");
+		e.setAttribute("href", f);
+		e.setAttribute("class", l);
+		document.body.appendChild(e)
+	}
+ 
+	function h() {
+		var e = document.getElementsByClassName(l);
+		for (var t = 0; t < e.length; t++) {
+			document.body.removeChild(e[t])
+		}
+	}
+ 
+	function p() {
+		var e = document.createElement("div");
+		e.setAttribute("class", a);
+		document.body.appendChild(e);
+		setTimeout(function() {
+			document.body.removeChild(e)
+		}, 100)
+	}
+ 
+	function d(e) {
+		return {
+			height : e.offsetHeight,
+			width : e.offsetWidth
+		}
+	}
+ 
+	function v(i) {
+		var s = d(i);
+		return s.height > e && s.height < n && s.width > t && s.width < r
+	}
+ 
+	function m(e) {
+		var t = e;
+		var n = 0;
+		while (!!t) {
+			n += t.offsetTop;
+			t = t.offsetParent
+		}
+		return n
+	}
+ 
+	function g() {
+		var e = document.documentElement;
+		if (!!window.innerWidth) {
+			return window.innerHeight
+		} else if (e && !isNaN(e.clientHeight)) {
+			return e.clientHeight
+		}
+		return 0
+	}
+ 
+	function y() {
+		if (window.pageYOffset) {
+			return window.pageYOffset
+		}
+		return Math.max(document.documentElement.scrollTop, document.body.scrollTop)
+	}
+ 
+	function E(e) {
+		var t = m(e);
+		return t >= w && t <= b + w
+	}
+ 
+	function S() {
+		var e = document.createElement("audio");
+		e.setAttribute("class", l);
+		e.src = i;
+		e.loop = false;
+		e.addEventListener("canplay", function() {
+			setTimeout(function() {
+				x(k)
+			}, 500);
+			setTimeout(function() {
+				N();
+				p();
+				for (var e = 0; e < O.length; e++) {
+					T(O[e])
+				}
+			}, 15500)
+		}, true);
+		e.addEventListener("ended", function() {
+			N();
+			h()
+		}, true);
+		e.innerHTML = " <p>If you are reading this, it is because your browser does not support the audio element. We recommend that you get a new browser.</p> <p>";
+		document.body.appendChild(e);
+		e.play()
+	}
+ 
+	function x(e) {
+		e.className += " " + s + " " + o
+	}
+ 
+	function T(e) {
+		e.className += " " + s + " " + u[Math.floor(Math.random() * u.length)]
+	}
+ 
+	function N() {
+		var e = document.getElementsByClassName(s);
+		var t = new RegExp("\\b" + s + "\\b");
+		for (var n = 0; n < e.length; ) {
+			e[n].className = e[n].className.replace(t, "")
+		}
+	}
+ 
+	var e = 30;
+	var t = 30;
+	var n = 350;
+	var r = 350;
+	var i = "//s3.amazonaws.com/moovweb-marketing/playground/harlem-shake.mp3";
+	var s = "mw-harlem_shake_me";
+	var o = "im_first";
+	var u = ["im_drunk", "im_baked", "im_trippin", "im_blown"];
+	var a = "mw-strobe_light";
+	var f = "//s3.amazonaws.com/moovweb-marketing/playground/harlem-shake-style.css";
+	var l = "mw_added_css";
+	var b = g();
+	var w = y();
+	var C = document.getElementsByTagName("*");
+	var k = null;
+	for (var L = 0; L < C.length; L++) {
+		var A = C[L];
+		if (v(A)) {
+			if (E(A)) {
+				k = A;
+				break
+			}
+		}
+	}
+	if (A === null) {
+		console.warn("Could not find a node of the right size. Please try a different page.");
+		return
+	}
+	c();
+	S();
+	var O = [];
+	for (var L = 0; L < C.length; L++) {
+		var A = C[L];
+		if (v(A)) {
+			O.push(A)
+		}
+	}
+})()    '>High一下</a> </li>
+	<li> <a href="/atom.xml">RSS</a> </li>
+  </ul>
+  <div class="clearfix"></div>
+</nav>
+<div class="clearfix"></div></header>
+  <div id="content" class="inner">
+    <div id="main-col" class="alignleft"><div id="wrapper"><article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2017-09-17T15:45:17.000Z"><a href="/2017/09/17/一步步完善视觉里程计2——FAST特征检测/">2017-09-17</a></time>
+      
+      
+  
+    <h1 class="title">一步步完善视觉里程计2——FAST特征检测</h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <p><strong>前一篇博客中已经将项目简单搭建起来，目前肯定不完善也可能会出现错误，这些在接下来的时间里会一步步的完善。</strong><a id="more"></a><br>前面视觉里程计总结的时候，我们知道视觉里程计的大致流程如下图:<br><img src="http://7xl6tk.com1.z0.glb.clouddn.com/main_components.png" alt=""><br>对于<a href="https://github.com/uzh-rpg/rpg_svo" target="_blank" rel="external">svo</a>的作者，通过采用计算最小光度误差，来避免计算耗时较多的特征检测和鲁棒性的特征匹配。这一点在我们前面简单的视觉里程计就已经有所介绍。<br>对于svo的流程具体如下：<br><img src="http://7xl6tk.com1.z0.glb.clouddn.com/pipeline.png" alt=""><br>这一篇博客目前先实现Feature Extraction，如果是简单的FAST特征检测，我们在之前的博客中也已经说明，并且也基于OpenCV进行了实现，不过现在我们要从整个系统的角度去考虑这件事，也就是处理帧不仅仅是一幅图片。</p>
+<h2 id="基础成员数据结构"><a href="#基础成员数据结构" class="headerlink" title="基础成员数据结构"></a>基础成员数据结构</h2><h2 id="Frame"><a href="#Frame" class="headerlink" title="Frame"></a>Frame</h2><p>对于帧按照面向对象的思想，其应该包含自己固有的属性，比如帧的编号，帧对应的相机模型，对应的特征等等。具体定义如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div></pre></td><td class="code"><pre><div class="line">namespace mvo&#123;</div><div class="line"></div><div class="line">struct Feature;</div><div class="line"></div><div class="line">typedef std::list&lt;Feature*&gt; Features;//特征list</div><div class="line">typedef std::vector&lt;cv::Mat&gt; ImgPyr;//图像金字塔</div><div class="line"></div><div class="line">/**	定义帧，保证帧的唯一性</div><div class="line">*/</div><div class="line">class Frame : public Noncopyable</div><div class="line">&#123;</div><div class="line">public:</div><div class="line">/**	帧的实例化，通过传入相机参数，获得的当前帧，及时间戳来确定</div><div class="line">*/</div><div class="line">Frame(AbstractCamera* cam, const cv::Mat&amp; img, double timestamp);</div><div class="line">~Frame();</div><div class="line">/// 初始化新的图像帧，创建图像金字塔</div><div class="line">void initFrame(const cv::Mat&amp; img);</div><div class="line"></div><div class="line">private:</div><div class="line">/// 通过半采用的方式创建图像金字塔</div><div class="line">void createImgPyramid(const cv::Mat&amp; img_level_0, int n_levels, ImgPyr&amp; pyr);</div><div class="line"></div><div class="line">public:</div><div class="line">static int                    frame_counter_;         //!&lt; 创建帧的计数器，用于设置帧的唯一id</div><div class="line">int                           id_;                    //!&lt; 帧的唯一id</div><div class="line">double                        timestamp_;             //!&lt; 帧被记录的时间戳</div><div class="line">AbstractCamera                *cam_;                  //!&lt; 相机模型</div><div class="line">ImgPyr                        img_pyr_;               //!&lt; 图像金字塔</div><div class="line">Features                      fts_;                   //!&lt; 图像中的特征List</div><div class="line">&#125;;</div><div class="line">typedef std::shared_ptr&lt;Frame&gt; FramePtr;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>这边继承类Noncopyable，主要保证帧的唯一性，具体Noncopyable的思想就是把构造函数和析构函数设置为protected权限，这样子类可以调用，其它类不可以调用，然后其把复制构造函数和赋值函数设置为private，这也就意味着除非子类定义自己的copy构造和赋值函数，否则在子类没有定义的情况下，外面的调用者是不能够通过赋值和copy构造等手段来产生一个新的子类对象的，这样确保类的对象的唯一性，具体如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">class  Noncopyable</div><div class="line">&#123;</div><div class="line">protected:</div><div class="line">Noncopyable() &#123;&#125;</div><div class="line">~Noncopyable() &#123;&#125;</div><div class="line">private:</div><div class="line">Noncopyable(const Noncopyable &amp;);  // 这不需要再其它地方实现</div><div class="line">Noncopyable&amp; operator =(const Noncopyable &amp;);</div><div class="line">&#125;; // End of class def.</div></pre></td></tr></table></figure>
+<p>目前定义的帧成员变量主要有，帧的计数器用于设置帧的唯一id，帧创建的时间戳（后期用于同步，多传感器融合），相机模型（用于对图像进行畸变矫正），图像金字塔（主要用于提取不同尺度下的特征，具体尺度的讲解可以参考：<a href="http://www.cs.ubc.ca/~lowe/keypoints/" target="_blank" rel="external">sift</a>）以及帧对应的特征。</p>
+<h2 id="Camera"><a href="#Camera" class="headerlink" title="Camera"></a>Camera</h2><p>对于相机模型，定义了相机抽象类，提供了相机分辨率，定义摄像机坐标与图像像素坐标转换的相关抽象方法，具体如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div></pre></td><td class="code"><pre><div class="line">class  AbstractCamera</div><div class="line">&#123;</div><div class="line">public:</div><div class="line">AbstractCamera() &#123;&#125;; // 此构造函数供全景相机模型使用</div><div class="line">AbstractCamera(int width, int height) : width_(width), height_(height) &#123;&#125;;</div><div class="line"></div><div class="line">virtual ~AbstractCamera() &#123;&#125;;</div><div class="line"></div><div class="line">/// 图像像素坐标转摄像机坐标系下的点</div><div class="line">virtual Vector3d cam2world(const double&amp; x, const double&amp; y) const = 0;</div><div class="line"></div><div class="line">/// 图像像素坐标转摄像机坐标系下的点</div><div class="line">virtual Vector3d cam2world(const Vector2d&amp; px) const = 0;</div><div class="line"></div><div class="line">/// 摄像机坐标系下的点转图像像素坐标</div><div class="line">virtual Vector2d world2cam(const Vector3d&amp; xyz_c) const = 0;</div><div class="line"></div><div class="line">/// 图像平面像素的世界坐标转像素坐标</div><div class="line">virtual Vector2d world2cam(const Vector2d&amp; uv) const = 0;</div><div class="line"></div><div class="line">/// 返回x方向的焦距值</div><div class="line">virtual double getFocalLength() const = 0;</div><div class="line"></div><div class="line">/// 返回相机分辨率的宽度</div><div class="line">inline int width() const &#123; return width_; &#125;</div><div class="line">/// 返回相机分辨率的高度</div><div class="line">inline int height() const &#123; return height_; &#125;</div><div class="line"></div><div class="line">protected:</div><div class="line">int width_; //!&lt; 相机分辨率的宽度</div><div class="line">int height_; //!&lt; 相机分辨率的高度</div><div class="line">&#125;;</div></pre></td></tr></table></figure></p>
+<p>定义了抽象的相机类，目前实现了小孔相机模型，后期进一步考虑实现ATAN相机模型。<br>小孔相机模型主要考虑了5个畸变参数，具体定义如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div></pre></td><td class="code"><pre><div class="line">class PinholeCamera : public AbstractCamera &#123;</div><div class="line"></div><div class="line">public:</div><div class="line">// 考虑畸变参数k1,k2,p1,p2,k3</div><div class="line">PinholeCamera(double width, double height,</div><div class="line">double fx, double fy, double cx, double cy,</div><div class="line">double k1 = 0.0, double k2 = 0.0, double p1 = 0.0, double p2 = 0.0, double k3 = 0.0);</div><div class="line"></div><div class="line">~PinholeCamera();</div><div class="line"></div><div class="line">/// 图像像素坐标转摄像机坐标系下的点</div><div class="line">virtual Vector3d cam2world(const double&amp; x, const double&amp; y) const;</div><div class="line"></div><div class="line">/// 图像像素坐标转摄像机坐标系下的点</div><div class="line">virtual Vector3d cam2world(const Vector2d&amp; px) const;</div><div class="line"></div><div class="line">/// 摄像机坐标系下的点转图像像素坐标</div><div class="line">virtual Vector2d world2cam(const Vector3d&amp; xyz_c) const;</div><div class="line"></div><div class="line">/// 图像平面像素的世界坐标转像素坐标</div><div class="line">virtual Vector2d world2cam(const Vector2d&amp; uv) const;</div><div class="line"></div><div class="line">/// 返回x方向的焦距值</div><div class="line">virtual double getFocalLength() const</div><div class="line">&#123;</div><div class="line">return fabs(fx_);</div><div class="line">&#125;</div><div class="line"></div><div class="line">/// 获得矫正之后的图像，主要用于显示</div><div class="line">void undistortImage(const cv::Mat&amp; raw, cv::Mat&amp; rectified);</div><div class="line"></div><div class="line">/// 分别得到相机矩阵的4个参数</div><div class="line">inline double fx() const &#123; return fx_; &#125;;</div><div class="line">inline double fy() const &#123; return fy_; &#125;;</div><div class="line">inline double cx() const &#123; return cx_; &#125;;</div><div class="line">inline double cy() const &#123; return cy_; &#125;;</div><div class="line"></div><div class="line">private:</div><div class="line">double fx_, fy_;  //!&lt; 相机两个方向的焦距值</div><div class="line">double cx_, cy_;  //!&lt; 相机的中心点</div><div class="line">bool distortion_; //!&lt; 是单纯的小孔相机模型，还是带有畸变？</div><div class="line">double d_[5];     //!&lt; 畸变参数，参考 http://docs.opencv.org/modules/calib3d/doc/camera_calibration_and_3d_reconstruction.html</div><div class="line">cv::Mat cvK_, cvD_;//!&lt; 通过OpenCV表示的相机的相机矩阵和相机畸变参数</div><div class="line">cv::Mat undist_map1_, undist_map2_;//!&lt;相机畸变在两个方向的map，提供给remap函数使用</div><div class="line">&#125;;</div></pre></td></tr></table></figure><br>具体实现参考：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div></pre></td><td class="code"><pre><div class="line">// 考虑畸变参数k1,k2,p1,p2,k3</div><div class="line">PinholeCamera::PinholeCamera(double width, double height,</div><div class="line">double fx, double fy,</div><div class="line">double cx, double cy,</div><div class="line">double k1, double k2, double p1, double p2, double k3) :</div><div class="line">AbstractCamera(width, height),</div><div class="line">fx_(fx), fy_(fy), cx_(cx), cy_(cy),</div><div class="line">distortion_(fabs(k1) &gt; 0.0000001),</div><div class="line">undist_map1_(height_, width_, CV_16SC2),</div><div class="line">undist_map2_(height_, width_, CV_16SC2)</div><div class="line">&#123;</div><div class="line">// 径向畸变参数</div><div class="line">d_[0] = k1; d_[1] = k2; d_[2] = p1; d_[3] = p2; d_[4] = k3;</div><div class="line">cvK_ = (cv::Mat_&lt;float&gt;(3, 3) &lt;&lt; fx_, 0.0, cx_, 0.0, fy_, cy_, 0.0, 0.0, 1.0);</div><div class="line">cvD_ = (cv::Mat_&lt;float&gt;(1, 5) &lt;&lt; d_[0], d_[1], d_[2], d_[3], d_[4]);</div><div class="line">// 根据相机矩阵和畸变参数构建map</div><div class="line">cv::initUndistortRectifyMap(cvK_, cvD_, cv::Mat_&lt;double&gt;::eye(3, 3), cvK_,</div><div class="line">cv::Size(width_, height_), CV_16SC2, undist_map1_, undist_map2_);</div><div class="line">&#125;</div><div class="line"></div><div class="line">PinholeCamera::~PinholeCamera()&#123;&#125;</div><div class="line"></div><div class="line">Vector3d PinholeCamera::cam2world(const double&amp; u, const double&amp; v) const</div><div class="line">&#123;</div><div class="line">Vector3d xyz;</div><div class="line">if (!distortion_)</div><div class="line">&#123;</div><div class="line">xyz[0] = (u - cx_) / fx_;</div><div class="line">xyz[1] = (v - cy_) / fy_;</div><div class="line">xyz[2] = 1.0;</div><div class="line">&#125;</div><div class="line">else</div><div class="line">&#123;</div><div class="line">cv::Point2f uv(u, v), px;</div><div class="line">const cv::Mat src_pt(1, 1, CV_32FC2, &amp;uv.x);</div><div class="line">cv::Mat dst_pt(1, 1, CV_32FC2, &amp;px.x);</div><div class="line">cv::undistortPoints(src_pt, dst_pt, cvK_, cvD_);</div><div class="line">xyz[0] = px.x;</div><div class="line">xyz[1] = px.y;</div><div class="line">xyz[2] = 1.0;</div><div class="line">&#125;</div><div class="line">return xyz.normalized();</div><div class="line">&#125;</div><div class="line"></div><div class="line">Vector3d PinholeCamera::cam2world(const Vector2d&amp; uv) const</div><div class="line">&#123;</div><div class="line">return cam2world(uv[0], uv[1]);</div><div class="line">&#125;</div><div class="line"></div><div class="line">/// 摄像机坐标系下的点转图像像素坐标</div><div class="line">Vector2d PinholeCamera::world2cam(const Vector3d&amp; xyz) const</div><div class="line">&#123;</div><div class="line">Vector2d  uv = xyz.head&lt;2&gt;() / xyz[2];</div><div class="line">return world2cam(uv);</div><div class="line">&#125;</div><div class="line"></div><div class="line">/// 图像平面像素的世界坐标转像素坐标</div><div class="line">Vector2d PinholeCamera::world2cam(const Vector2d&amp; uv) const</div><div class="line">&#123;</div><div class="line">Vector2d px;</div><div class="line">if (!distortion_)</div><div class="line">&#123;</div><div class="line">px[0] = fx_*uv[0] + cx_;</div><div class="line">px[1] = fy_*uv[1] + cy_;</div><div class="line">&#125;</div><div class="line">else</div><div class="line">&#123;</div><div class="line">double x, y, r2, r4, r6, a1, a2, a3, cdist, xd, yd;</div><div class="line">x = uv[0];</div><div class="line">y = uv[1];</div><div class="line">r2 = x*x + y*y;</div><div class="line">r4 = r2*r2;</div><div class="line">r6 = r4*r2;</div><div class="line">a1 = 2 * x*y;</div><div class="line">a2 = r2 + 2 * x*x;</div><div class="line">a3 = r2 + 2 * y*y;</div><div class="line">cdist = 1 + d_[0] * r2 + d_[1] * r4 + d_[4] * r6;//1+k1r2+k2r4+k3r6</div><div class="line">xd = x*cdist + d_[2] * a1 + d_[3] * a2;</div><div class="line">yd = y*cdist + d_[2] * a3 + d_[3] * a1;</div><div class="line">px[0] = xd*fx_ + cx_;</div><div class="line">px[1] = yd*fy_ + cy_;</div><div class="line">&#125;</div><div class="line">return px;</div><div class="line">&#125;</div><div class="line"></div><div class="line">void PinholeCamera::undistortImage(const cv::Mat&amp; raw, cv::Mat&amp; rectified)</div><div class="line">&#123;</div><div class="line">if (distortion_)</div><div class="line">cv::remap(raw, rectified, undist_map1_, undist_map2_, CV_INTER_LINEAR);</div><div class="line">else</div><div class="line">rectified = raw.clone();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>对于小孔相机模型就不多说了，主要公式可以参考：<br><a href="http://docs.opencv.org/modules/calib3d/doc/camera_calibration_and_3d_reconstruction.html" target="_blank" rel="external">http://docs.opencv.org/modules/calib3d/doc/camera_calibration_and_3d_reconstruction.html</a></p>
+<h2 id="image-and-feature"><a href="#image-and-feature" class="headerlink" title="image and feature"></a>image and feature</h2><p>那这样我们基础的相机模型已经设计与实现完毕，那下面我们就考虑帧对应的图像金字塔，对于图像金字塔，直接采用了OpenCV的数据结构 <strong>cv::Mat</strong>，定义为 <strong>typedef std::vector<cv::mat> ImgPyr</cv::mat></strong>;而对于特征feature我们定义如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">struct Feature</div><div class="line">&#123;</div><div class="line">**EIGEN_MAKE_ALIGNED_OPERATOR_NEW**</div><div class="line"></div><div class="line">///特征类型,目前先只考虑角点，后续考虑其它特征的时候，再进行添加</div><div class="line">enum FeatureType &#123;</div><div class="line">CORNER//角点</div><div class="line">&#125;;</div><div class="line">FeatureType type;     //!&lt; 特征类型，角点</div><div class="line">Frame* frame;         //!&lt; 指针指向特征被检测到所对应的帧</div><div class="line">Vector2d px;          //!&lt; 特征在金字塔等级为0时的像素坐标</div><div class="line">int level;            //!&lt; 特征被提取时，图像金字塔的等级</div><div class="line"></div><div class="line">Feature(Frame* _frame, const Vector2d&amp; _px, int _level) :</div><div class="line">type(CORNER),</div><div class="line">frame(_frame),</div><div class="line">px(_px),</div><div class="line">level(_level)</div><div class="line">&#123;&#125;</div><div class="line"></div><div class="line">~Feature()&#123;&#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<p>由于包含了Eigen库中的成员变量，通过采用EIGEN_MAKE_ALIGNED_OPERATOR_NEW，会对结构体进行重载new操作，生成16字节对齐指针，具体可以参考<a href="http://eigen.tuxfamily.org/dox/group__TopicStructHavingEigenMembers.html" target="_blank" rel="external">http://eigen.tuxfamily.org/dox/group__TopicStructHavingEigenMembers.html</a><br>对于特征类型，目前先考虑为角点，后期考虑添加其它特征时再进行添加，具体还包含了指针指向特征被检测所对应的帧，特征在金字塔等级为0时的像素坐标，以及考虑特征所在的金字塔等级。</p>
+<h2 id="帧的初始化"><a href="#帧的初始化" class="headerlink" title="帧的初始化"></a>帧的初始化</h2><p>而具体帧初始化时，也就是对帧对应的图像进行构造图像金字塔。具体如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">void Frame::initFrame(const cv::Mat&amp; img)</div><div class="line">&#123;</div><div class="line">// 检测图像，保证图像大小与相机模型大小一致，以及图像为灰度图像</div><div class="line">if (img.empty() || img.type() != CV_8UC1 || img.cols != cam_-&gt;width() || img.rows != cam_-&gt;height())</div><div class="line">throw std::runtime_error(&quot;Frame: provided image has not the same size as the camera model or image is not grayscale&quot;);</div><div class="line"></div><div class="line">// 构建图像金字塔，默认金字塔的等级为5</div><div class="line">createImgPyramid(img, 5, img_pyr_);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>更详细实现参考<a href="https://github.com/yueying/OpenMVO" target="_blank" rel="external">github</a></p>
+<h2 id="特征检测"><a href="#特征检测" class="headerlink" title="特征检测"></a>特征检测</h2><p>上面基本的类型已经定义好了，下面进行特征提取，对于特征提取，为了特征跟踪的时候，不容易出现突变，通过将图像进行划分为单元格，使得检测到的特征尽可能的分散，尽量保证每个单元格有一个特征。<br>对特征检测也进行抽象，为了后期可以方便的切换到其它特征检测算法，具体定义如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line">/// 特征检测的抽象类</div><div class="line">class AbstractDetector</div><div class="line">&#123;</div><div class="line">public:</div><div class="line">AbstractDetector(</div><div class="line">const int img_width,</div><div class="line">const int img_height,</div><div class="line">const int cell_size,</div><div class="line">const int n_pyr_levels);</div><div class="line"></div><div class="line">virtual ~AbstractDetector() &#123;&#125;;</div><div class="line"></div><div class="line">virtual void detect(</div><div class="line">Frame* frame,</div><div class="line">const ImgPyr&amp; img_pyr,</div><div class="line">const double detection_threshold,</div><div class="line">Features&amp; fts) = 0;</div><div class="line"></div><div class="line">protected:</div><div class="line">/// 将所有格子重新设置，设置为没有占用</div><div class="line">void resetGrid();</div><div class="line"></div><div class="line">protected:</div><div class="line"></div><div class="line">const int cell_size_;             //!&lt; 设置寻找角点单元格的大小</div><div class="line">const int n_pyr_levels_;          //!&lt; 图像金字塔的等级</div><div class="line">const int grid_n_cols_;           //!&lt; 将图像划分为格子后的列数</div><div class="line">const int grid_n_rows_;           //!&lt; 将图像划分为格子后的行数</div><div class="line">std::vector&lt;bool&gt; grid_occupancy_;//!&lt; 设定划分的所有格子数是否被占用</div><div class="line">&#125;;</div></pre></td></tr></table></figure></p>
+<p>定义抽象特征提取的时候，考虑了特征的分散，将图像分成 <strong>grid_n<em>cols</em>*grid_n<em>rows</em></strong>个格子，每个格子尽量对应一个特征。<br>具体抽象类的实现如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">AbstractDetector::AbstractDetector(</div><div class="line">const int img_width,</div><div class="line">const int img_height,</div><div class="line">const int cell_size,</div><div class="line">const int n_pyr_levels) :</div><div class="line">cell_size_(cell_size),</div><div class="line">n_pyr_levels_(n_pyr_levels),</div><div class="line">grid_n_cols_(ceil(static_cast&lt;double&gt;(img_width) / cell_size_)),</div><div class="line">grid_n_rows_(ceil(static_cast&lt;double&gt;(img_height) / cell_size_)),</div><div class="line">grid_occupancy_(grid_n_cols_*grid_n_rows_, false)</div><div class="line">&#123;&#125;</div><div class="line"></div><div class="line">void AbstractDetector::resetGrid()</div><div class="line">&#123;</div><div class="line">std::fill(grid_occupancy_.begin(), grid_occupancy_.end(), false);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>定义好特征检测的抽象类，下面我们主要使用的特征检测算法为FAST特征检测，我们定义FAST特征检测类，实现抽象类中的抽象方法。<br>具体定义如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">class FastDetector : public AbstractDetector</div><div class="line">&#123;</div><div class="line">public:</div><div class="line">FastDetector(</div><div class="line">const int img_width,</div><div class="line">const int img_height,</div><div class="line">const int cell_size,</div><div class="line">const int n_pyr_levels);</div><div class="line"></div><div class="line">virtual ~FastDetector() &#123;&#125;</div><div class="line"></div><div class="line">virtual void detect(</div><div class="line">Frame* frame,</div><div class="line">const ImgPyr&amp; img_pyr,</div><div class="line">const double detection_threshold,</div><div class="line">Features&amp; fts);</div><div class="line"></div><div class="line">private:</div><div class="line">float shiTomasiScore(const cv::Mat&amp; img, int u, int v);</div><div class="line">&#125;;</div></pre></td></tr></table></figure></p>
+<p>我们看到，定义了<strong>shiTomasiScore</strong>方法，我们对通过FAST检测出的角点进行了进一步的筛选，添加Shi-Tomasi角点提取的方法，确保提取出的角点的稳定性。<br>而具体的FAST特征检测，我们采用了第三方库<a href="https://github.com/uzh-rpg/fast" target="_blank" rel="external">fast</a>，主要作者通过SSE2指令进行了实现，效率高。<br>具体实现如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div></pre></td><td class="code"><pre><div class="line">void FastDetector::detect(</div><div class="line">Frame* frame,</div><div class="line">const ImgPyr&amp; img_pyr,</div><div class="line">const double detection_threshold,</div><div class="line">Features&amp; fts)</div><div class="line">&#123;</div><div class="line">Corners corners(grid_n_cols_*grid_n_rows_, Corner(0, 0, detection_threshold, 0, 0.0f));</div><div class="line">// 对每层金字塔都进行fast特征检测</div><div class="line">for (int L = 0; L &lt; n_pyr_levels_; ++L)</div><div class="line">&#123;</div><div class="line">const int scale = (1 &lt;&lt; L);</div><div class="line">std::vector&lt;fast::fast_xy&gt; fast_corners;</div><div class="line">#if __SSE2__</div><div class="line">fast::fast_corner_detect_10_sse2(</div><div class="line">(fast::fast_byte*) img_pyr[L].data, img_pyr[L].cols,</div><div class="line">img_pyr[L].rows, img_pyr[L].cols, 20, fast_corners);</div><div class="line">#else</div><div class="line">fast::fast_corner_detect_10(</div><div class="line">(fast::fast_byte*) img_pyr[L].data, img_pyr[L].cols,</div><div class="line">img_pyr[L].rows, img_pyr[L].cols, 20, fast_corners);</div><div class="line">#endif</div><div class="line">std::vector&lt;int&gt; scores, nm_corners;</div><div class="line">fast::fast_corner_score_10((fast::fast_byte*) img_pyr[L].data, img_pyr[L].cols, fast_corners, 20, scores);</div><div class="line">fast::fast_nonmax_3x3(fast_corners, scores, nm_corners);</div><div class="line"></div><div class="line">for (auto it = nm_corners.begin(), ite = nm_corners.end(); it != ite; ++it)</div><div class="line">&#123;</div><div class="line">fast::fast_xy&amp; xy = fast_corners.at(*it);</div><div class="line">const int k = static_cast&lt;int&gt;((xy.y*scale) / cell_size_)*grid_n_cols_</div><div class="line">+ static_cast&lt;int&gt;((xy.x*scale) / cell_size_);// 获得一维列的索引</div><div class="line">if (grid_occupancy_[k])// 如果这个格子里面已经有特征，则该特征可以不必再进行计算了</div><div class="line">continue;</div><div class="line">const float score = shiTomasiScore(img_pyr[L], xy.x, xy.y);//计算shi-Tomasi角点检测，根据阈值选择更好的角点</div><div class="line">if (score &gt; corners.at(k).score)</div><div class="line">corners.at(k) = Corner(xy.x*scale, xy.y*scale, score, L, 0.0f);</div><div class="line">&#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">// 返回所有的特征</div><div class="line">std::for_each(corners.begin(), corners.end(), [&amp;](Corner&amp; c) &#123;</div><div class="line">if (c.score &gt; detection_threshold)</div><div class="line">fts.push_back(new Feature(frame, Vector2d(c.x, c.y), c.level));</div><div class="line">&#125;);</div><div class="line"></div><div class="line">resetGrid();</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>我们对金字塔的每层图像都进行fast特征检测，对检测出的角点再通过shi-Tomasi算法进一步进行角点确定，具体实现如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div></pre></td><td class="code"><pre><div class="line">float FastDetector::shiTomasiScore(const cv::Mat&amp; img, int u, int v)</div><div class="line">&#123;</div><div class="line">assert(img.type() == CV_8UC1);</div><div class="line"></div><div class="line">float dXX = 0.0;</div><div class="line">float dYY = 0.0;</div><div class="line">float dXY = 0.0;</div><div class="line">const int halfbox_size = 4;</div><div class="line">const int box_size = 2 * halfbox_size;</div><div class="line">const int box_area = box_size*box_size;</div><div class="line">const int x_min = u - halfbox_size;</div><div class="line">const int x_max = u + halfbox_size;</div><div class="line">const int y_min = v - halfbox_size;</div><div class="line">const int y_max = v + halfbox_size;</div><div class="line"></div><div class="line">if (x_min &lt; 1 || x_max &gt;= img.cols - 1 || y_min &lt; 1 || y_max &gt;= img.rows - 1)</div><div class="line">return 0.0; // 面片太靠近边界，返回0</div><div class="line"></div><div class="line">const int stride = img.step.p[0];//一行元素的个数</div><div class="line">for (int y = y_min; y &lt; y_max; ++y)</div><div class="line">&#123;</div><div class="line">const uint8_t* ptr_left = img.data + stride*y + x_min - 1;</div><div class="line">const uint8_t* ptr_right = img.data + stride*y + x_min + 1;</div><div class="line">const uint8_t* ptr_top = img.data + stride*(y - 1) + x_min;</div><div class="line">const uint8_t* ptr_bottom = img.data + stride*(y + 1) + x_min;</div><div class="line">for (int x = 0; x &lt; box_size; ++x, ++ptr_left, ++ptr_right, ++ptr_top, ++ptr_bottom)</div><div class="line">&#123;</div><div class="line">float dx = *ptr_right - *ptr_left;</div><div class="line">float dy = *ptr_bottom - *ptr_top;</div><div class="line">dXX += dx*dx;</div><div class="line">dYY += dy*dy;</div><div class="line">dXY += dx*dy;</div><div class="line">&#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">// 返回小的特征值</div><div class="line">dXX = dXX / (2.0 * box_area);</div><div class="line">dYY = dYY / (2.0 * box_area);</div><div class="line">dXY = dXY / (2.0 * box_area);</div><div class="line">return 0.5 * (dXX + dYY - sqrt((dXX + dYY) * (dXX + dYY) - 4 * (dXX * dYY - dXY * dXY)));</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>对于return的结果不是很明白，如果有人看博客，了解的话，还请不吝赐教。</p>
+<h2 id="特征检测测试"><a href="#特征检测测试" class="headerlink" title="特征检测测试"></a>特征检测测试</h2><p>上述过程，整个特征检测lib就已经差不多完善了，下面我们就写一个测试程序。<br>具体如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div></pre></td><td class="code"><pre><div class="line">#include &lt;string&gt;</div><div class="line">#include &lt;opencv2/opencv.hpp&gt;</div><div class="line">#include &lt;openmvo/utils/cmd_line.h&gt;</div><div class="line">#include &lt;openmvo/utils/timer.h&gt;</div><div class="line">#include &lt;openmvo/mvo/pinhole_camera.h&gt;</div><div class="line">#include &lt;openmvo/mvo/fast_detector.h&gt;</div><div class="line">#include &lt;openmvo/mvo/frame.h&gt;</div><div class="line"></div><div class="line">using namespace mvo;</div><div class="line">using namespace std;</div><div class="line"></div><div class="line">int main(int argc, char *argv[])</div><div class="line">&#123;</div><div class="line">CmdLine cmd;</div><div class="line">std::string img_name;</div><div class="line">cmd.add(make_option(&apos;i&apos;, img_name, &quot;imgname&quot;));</div><div class="line">try &#123;</div><div class="line">if (argc == 1) throw std::string(&quot;Invalid command line parameter.&quot;);</div><div class="line">cmd.process(argc, argv);</div><div class="line">&#125;</div><div class="line">catch (const std::string&amp; s) &#123;</div><div class="line">std::cerr &lt;&lt; &quot;Feature detector \nUsage: &quot; &lt;&lt; argv[0] &lt;&lt; &quot;\n&quot;</div><div class="line">&lt;&lt; &quot;[-i|--imgname name]\n&quot;</div><div class="line">&lt;&lt; std::endl;</div><div class="line"></div><div class="line">std::cerr &lt;&lt; s &lt;&lt; std::endl;</div><div class="line">return EXIT_FAILURE;</div><div class="line">&#125;</div><div class="line">cv::Mat img(cv::imread(img_name, 0));</div><div class="line">assert(img.type() == CV_8UC1 &amp;&amp; !img.empty());</div><div class="line"></div><div class="line">AbstractCamera* cam = new PinholeCamera(752, 480, 315.5, 315.5, 376.0, 240.0);</div><div class="line">FramePtr frame(new Frame(cam, img, 0.0));</div><div class="line">Features fts;</div><div class="line">FastDetector fast_detector(img.cols, img.rows, 25, 3);</div><div class="line">Timer t;</div><div class="line">for (int i = 0; i &lt; 100; ++i)</div><div class="line">&#123;</div><div class="line">fast_detector.detect(frame.get(), frame-&gt;img_pyr_, 20.0, fts);</div><div class="line">&#125;</div><div class="line">printf(&quot;Fast corner detection took %f ms, %d corners detected (ref i7-W520: 7.166360ms, 40000)\n&quot;, t.Stop() * 10, fts.size());</div><div class="line">printf(&quot;Note, in this case, feature detection also contains the cam2world projection of the feature.\n&quot;);</div><div class="line">cv::Mat img_rgb = cv::Mat(img.size(), CV_8UC3);</div><div class="line">cv::cvtColor(img, img_rgb, CV_GRAY2RGB);</div><div class="line">std::for_each(fts.begin(), fts.end(), [&amp;](Feature* i)&#123;</div><div class="line">cv::circle(img_rgb, cv::Point2f(i-&gt;px[0], i-&gt;px[1]), 4 * (i-&gt;level + 1), cv::Scalar(0, 255, 0), 1);</div><div class="line">&#125;);</div><div class="line">cv::imshow(&quot;ref_img&quot;, img_rgb);</div><div class="line">cv::waitKey(0);</div><div class="line"></div><div class="line">std::for_each(fts.begin(), fts.end(), [&amp;](Feature* i)&#123; delete i; &#125;);</div><div class="line">return 0;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>这边添加了CmdLine处理，通过对相关可调参数通过给main函数传参获得。具体效果如下：</p>
+<p><img src="http://7xl6tk.com1.z0.glb.clouddn.com/fast_detector.png" alt=""><br>圈的大小代表了尺度的大小，也就是在不同金字塔下检测的特征。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>到目前为止，一个fast特征检测差不多基本结束，完整的代码可参考<a href="https://github.com/yueying/OpenMVO" target="_blank" rel="external">https://github.com/yueying/OpenMVO</a><br>主要讲述了整个流程，而具体FAST特征检测的过程所述不多，第三方库FAST采用了SSE2指令，后续对这一块进一步学习。</p>
+<p>转载自冯兵的博客，<a href="http://fengbing.net/2015/08/08/%E4%B8%80%E6%AD%A5%E6%AD%A5%E5%AE%9E%E7%8E%B0%E5%8D%95%E7%9B%AE%E8%A7%86%E8%A7%89%E9%87%8C%E7%A8%8B%E8%AE%A12%E2%80%94%E2%80%94FAST%E7%89%B9%E5%BE%81%E6%A3%80%E6%B5%8B/" target="_blank" rel="external">原文链接</a></p>
+
+      
+    </div>
+    <footer>
+      
+        
+        
+        <div class="bdsharebuttonbox">
+		<a href="#" class="bds_more" data-cmd="more"></a>
+		<a href="#" class="bds_qzone" data-cmd="qzone"></a>
+		<a href="#" class="bds_tsina" data-cmd="tsina"></a>
+		<a href="#" class="bds_tqq" data-cmd="tqq"></a>
+		<a href="#" class="bds_renren" data-cmd="renren">
+		</a><a href="#" class="bds_weixin" data-cmd="weixin"></a>
+		</div>
+<script>
+window._bd_share_config={
+"common":{
+"bdSnsKey":{},
+"bdText":"",
+"bdMini":"2",
+"bdPic":"",
+"bdStyle":"0",
+"bdSize":"16"},
+"share":{},
+"image":{
+"viewList":[
+"qzone","tsina",
+"tqq","renren",
+"weixin"],
+"viewText":"分享到：",
+"viewSize":"16"},
+"selectShare":{
+"bdContainerClass":null,
+"bdSelectMiniList":[
+"qzone","tsina","tqq",
+"renren","weixin"]
+}
+};
+with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+</script>
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+<!-- 页面导航 -->
+ <nav id="pagination" >
+    
+    <a href="/2017/09/18/一步步完善视觉里程计3——初始位置确定/" class="alignleft prev" >Prev</a>
+    
+    
+    <a href="/2017/09/16/一步步完善视觉里程计1——项目框架搭建/" class="alignright next" >Next</a>
+    
+    <div class="clearfix"></div>
+</nav>
+<section id="comment">
+<!-- 多说评论框 start -->
+	<div class="ds-thread" data-category="<#article/category/id#>" data-thread-key="<#article/id#>" data-title="<#article/title#>" data-author-key="<#article/author/id#>"></div>
+<!-- 多说评论框 end -->
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"aichimantou"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+<!-- 多说公共JS代码 end -->
+
+</section>
+
+</div></div>
+    <aside id="sidebar" class="alignright">
+  <div class="search">
+  <form action="//google.com/search" method="get" accept-charset="utf-8">
+    <input type="search" name="q" results="0" placeholder="Search">
+    <input type="hidden" name="q" value="site:blog.blackant.org">
+  </form>
+</div>
+
+  
+<div class="widget tag">
+  <h3 class="title">Categories</h3>
+  <ul class="entry">
+  
+    <li><a href="/categories/robot/Java/Android/">Android</a><small>1</small></li>
+  
+    <li><a href="/categories/robot/Java/">Java</a><small>1</small></li>
+  
+    <li><a href="/categories/algorithm/">algorithm</a><small>1</small></li>
+  
+    <li><a href="/categories/robot/">robot</a><small>1</small></li>
+  
+  </ul>
+</div>
+
+
+  
+<div class="widget tagcloud">
+  <h3 class="title">Tag Cloud</h3>
+  <div class="entry">
+    <a href="/tags/SAE/" style="font-size: 10px;">SAE</a> <a href="/tags/bigdata/" style="font-size: 10px;">bigdata</a> <a href="/tags/directions/" style="font-size: 10px;">directions</a> <a href="/tags/donation/" style="font-size: 10px;">donation</a> <a href="/tags/goal/" style="font-size: 20px;">goal</a> <a href="/tags/hello/" style="font-size: 10px;">hello</a> <a href="/tags/helloworld/" style="font-size: 10px;">helloworld</a> <a href="/tags/robot/" style="font-size: 10px;">robot</a>
+  </div>
+</div>
+
+
+  <div class="widget tag">
+<h3 class="title">Link</h3>
+<ul class="entry">
+<li><a href="http://baidu.com/" title="Baidu Corportion">iRobot</a></li>
+<li><a href="http://baidu.com/" title="Baidu Corportion">Rocket</a></li>
+<li><a href="http://baidu.com/" title="Baidu Corportion">FFmpeg</a></li>
+</ul>
+</div>
+</aside>
+    <div class="clearfix"></div>
+  </div>
+  <footer id="footer" class="inner"><div class="alignleft">
+  
+  &copy; 2017 ZhuChaozheng SunTong ChuZhefan
+  
+</div>
+<div class="clearfix"></div></footer>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+
+</body>
+</html>
