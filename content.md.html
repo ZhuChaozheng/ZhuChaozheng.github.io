@@ -1450,8 +1450,9 @@ z_{k}=h(x_{k}) + v
 z_{k}=C_{k}x_{k}+v_{k}
 
 </script></span>
+<p>利用马尔可夫性，我们知道了k-1时刻的后验（在k-1时刻看来）状态估计 <span class="math"><script type="math/tex">\hat x_{k-1}</script></span> 以及协方差 <span class="math"><script type="math/tex">\hat P_{k-1}</script></span> ，现在要根据k时刻的输入（ <span class="math"><script type="math/tex">\hat x_{k-1}, \hat P_{k-1}</script></span> ）和观测数据（ <span class="math"><script type="math/tex">z_{k}</script></span> ），确定k时刻的后验分布 <span class="math"><script type="math/tex">\hat{x}_{k}</script></span> 。为区分先验和后验，我们分别以 <span class="math"><script type="math/tex">\bar{x}_{k}</script></span> ，<span class="math"><script type="math/tex">\hat{x}_{k}</script></span> 表示。</p>
 <p>其中假设 <span class="math"><script type="math/tex">x_{k-1}, z_{k}, w_{k}, v_{k}</script></span> 是满足高斯分布，分别为 <span class="math"><script type="math/tex">x_{k-1} \sim N(\hat{x}_{k-1}, \hat{P}_{k-1}), w_{k} \sim N(0, R), v_{k} \sim N(0, Q)</script></span></p>
-<p>为区分先验和后验，我们分别以 <span class="math"><script type="math/tex">\bar{x}_{k}</script></span> ，<span class="math"><script type="math/tex">\hat{x}_{k}</script></span> 表示，我们的目标是由k-1时刻的后验 <span class="math"><script type="math/tex">\hat{x}_{k-1}</script></span>，求k时刻的后验也即 <span class="math"><script type="math/tex">\hat{x}_{k}</script></span></p>
+<p>通过运动方程，确定 <span class="math"><script type="math/tex">x_{k}</script></span> 的先验分布，根据复合高斯分布的性质，显然有</p>
 <span class="math"><script type="math/tex; mode=display">x_{k}\sim N(\bar{x}_{k},\bar P_{k}) \\
 \bar{P}_{k}=A_{k}\hat{P}_{k-1}A^T_{k}+Q \\
 \bar{x}_{k}=A_{k}\hat{x}_{k-1}+u_{k}\\
@@ -1473,10 +1474,9 @@ C_{k}\bar x_{k}
 C_{k}\bar{P}_{k} & C_{k}\bar{P}_{k-1}C^T_{k}+Q
 \end{bmatrix})
 </script></span>
-<p>由贝叶斯公式 <span class="math"><script type="math/tex">p(x,y)=p(x|y)p(y)</script></span>，下文引自公式</p>
+<p>由于 <span class="math"><script type="math/tex">x_{k-1} \sim N(\hat{x}_{k-1}, \hat{P}_{k-1})</script></span>，即 <span class="math"><script type="math/tex">x_{k} \sim N(\hat{x}_{k}, \hat{P}_{k})</script></span> 。由贝叶斯公式 <span class="math"><script type="math/tex">p(x,y)=p(x|y)p(y)</script></span>，下文引自公式</p>
 <span class="math"><script type="math/tex; mode=display">x_{k} \sim N(\hat{x}_{k}, \hat{P}_{k})=p(x|y)=p(x_{k}|z_{k})=N(u_{x}+\Sigma_{xx}\Sigma^{-1}_{xy}(y_{k}-u_{y}),\Sigma_{xx}-\Sigma_{xy}\Sigma^{-1}_{yy}\Sigma_{yx})
 </script></span>
-<p>由于 <span class="math"><script type="math/tex">x_{k-1} \sim N(\hat{x}_{k-1}, \hat{P}_{k-1})</script></span>，即 <span class="math"><script type="math/tex">x_{k} \sim N(\hat{x}_{k}, \hat{P}_{k})</script></span></p>
 <span class="math"><script type="math/tex; mode=display">\hat x_{k}=\bar x_{k} + K_{k}(z_{k}-C_{k}\bar x_{k})\\
 K_{k}=\bar P_{k}C^T_{k}(C_{k}\bar P_{k}C^T_{k}+R_{k})^{-1}\\
 \hat P_{k}=(1-K_{k}C_{k})\bar P_{k}
