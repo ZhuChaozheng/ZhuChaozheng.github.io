@@ -4,6 +4,40 @@
   <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
   
   <title>DDNS | BlackAnt</title>
+  
+    <!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+
   <meta name="author" content="ZhuChaozheng SunTong ChuZhefan">
   
   <meta name="description" content="This website is designed by x-space, and use to offer a professional robot solutions.">
@@ -226,11 +260,19 @@ var _hmt = _hmt || [];
     </header>
     <div class="entry">
       
-        <h2 id="Background"><a href="#Background" class="headerlink" title="Background"></a>Background</h2><p><strong>项目所用的服务器是基础电信线路，没有申请固定ip，需要使用ddns实时更新服务器ipv4地址。</strong>  <a id="more"></a></p>
-<h2 id="Features"><a href="#Features" class="headerlink" title="Features"></a>Features</h2><p>&emsp;&emsp;最新版本的花生壳已不再支持动态域名（ddns），仅支持内网穿透。<br>&emsp;&emsp;而花生壳之前发布的软件phddns2.0仍支持ddns，在<a href="http://hsk.oray.com/download/" target="_blank" rel="external">http://hsk.oray.com/download/</a>下载经典版即可。 <br><br>&emsp;&emsp;在ubuntu下，使用dpkg安装<strong><em>(sudo dpkg -i  [软件包名])</em></strong>后，直接运行phddns即可进行交互式配置。服务器配置和网卡配置保持默认即可，花生壳官网的账号就是登陆所需的用户名密码。交互式配置完成后ddns服务就开始运行。<strong><em>务必记住配置文件所在位置，以便之后修改，这个位置可以在先前的交互式配置中设置</em></strong>。服务正常运行后，即可把它加入系统启动项中。<br><br>&emsp;&emsp;在ubuntu下，自订服务脚本需要自定init info，否则会报错。<br><br>&emsp;&emsp;以ubuntu16.04LTS为例，在/etc/init.d中新建一个shell脚本<br><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo vi phddns-autorun.sh</div></pre></td></tr></table></figure></p>
-<p>按i进入插入模式，<br>然后录入以下文本，#!/bin/sh以下是init info部分<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">#!/bin/sh</div><div class="line">### BEGIN INIT INFO</div><div class="line"># Provides:          phddns_oray_ddns</div><div class="line"># Required-Start:    $local_fs $network</div><div class="line"># Required-Stop:     $local_fs</div><div class="line"># Default-Start:     2 3 4 5</div><div class="line"># Default-Stop:      0 1 6</div><div class="line"># Short-Description: phddnsd</div><div class="line"># Description:       phddns daemon</div><div class="line">### END INIT INFO</div><div class="line">phddns -d</div><div class="line">exit 0</div></pre></td></tr></table></figure></p>
-<p>phddns -d 以守护程序方式运行，在前面的交互式配置之后，该方式会默认使用先前设置好的配置文件。<br><br>&emsp;&emsp;录入完成后按ESC然后输入:wq!保存缓冲区并退出。然后把该脚本设置为默认情况下的开机启动项。<br><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo update-rc.d phddns-autorun.sh defaults</div></pre></td></tr></table></figure></p>
-<p><br><br>&emsp;&emsp;设置成功后，为该服务器设置的动态域名可到<a href="https://b.oray.com/" target="_blank" rel="external">花生壳控制台</a>登录查看，默认情况下所有的壳域名均可作为动态域名使用。<br><br>&emsp;&emsp;花生壳官网同时提供了可免费申请的ddns服务SDK，可用于服务器集群的ddns配置。</p>
+        <h2 id="background">Background</h2>
+<p><strong>项目所用的服务器是基础电信线路，没有申请固定ip，需要使用ddns实时更新服务器ipv4地址。</strong> <a id="more"></a></p>
+<h2 id="features">Features</h2>
+<p>  最新版本的花生壳已不再支持动态域名（ddns），仅支持内网穿透。<br>  而花生壳之前发布的软件phddns2.0仍支持ddns，在<a href="http://hsk.oray.com/download/" class="uri" target="_blank" rel="external">http://hsk.oray.com/download/</a>下载经典版即可。</p>
+<p>  在ubuntu下，使用dpkg安装<strong><em>(sudo dpkg -i [软件包名])</em></strong>后，直接运行phddns即可进行交互式配置。服务器配置和网卡配置保持默认即可，花生壳官网的账号就是登陆所需的用户名密码。交互式配置完成后ddns服务就开始运行。<strong><em>务必记住配置文件所在位置，以便之后修改，这个位置可以在先前的交互式配置中设置</em></strong>。服务正常运行后，即可把它加入系统启动项中。</p>
+<p>  在ubuntu下，自订服务脚本需要自定init info，否则会报错。</p>
+<p>  以ubuntu16.04LTS为例，在/etc/init.d中新建一个shell脚本<br> <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo vi phddns-autorun.sh</div></pre></td></tr></table></figure></p>
+<p>按i进入插入模式，<br> 然后录入以下文本，#!/bin/sh以下是init info部分 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">#!/bin/sh</div><div class="line">### BEGIN INIT INFO</div><div class="line"># Provides:          phddns_oray_ddns</div><div class="line"># Required-Start:    $local_fs $network</div><div class="line"># Required-Stop:     $local_fs</div><div class="line"># Default-Start:     2 3 4 5</div><div class="line"># Default-Stop:      0 1 6</div><div class="line"># Short-Description: phddnsd</div><div class="line"># Description:       phddns daemon</div><div class="line">### END INIT INFO</div><div class="line">phddns -d</div><div class="line">exit 0</div></pre></td></tr></table></figure></p>
+<p>phddns -d 以守护程序方式运行，在前面的交互式配置之后，该方式会默认使用先前设置好的配置文件。</p>
+<p>  录入完成后按ESC然后输入:wq!保存缓冲区并退出。然后把该脚本设置为默认情况下的开机启动项。<br></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo update-rc.d phddns-autorun.sh defaults</div></pre></td></tr></table></figure>
+<p>  设置成功后，为该服务器设置的动态域名可到<a href="https://b.oray.com/" target="_blank" rel="external">花生壳控制台</a>登录查看，默认情况下所有的壳域名均可作为动态域名使用。</p>
+<p>  花生壳官网同时提供了可免费申请的ddns服务SDK，可用于服务器集群的ddns配置。</p>
 
       
     </div>
@@ -357,7 +399,7 @@ var duoshuoQuery = {short_name:"aichimantou"};
   </div>
   <footer id="footer" class="inner"><div class="alignleft">
   
-  &copy; 2017 ZhuChaozheng SunTong ChuZhefan
+  &copy; 2018 ZhuChaozheng SunTong ChuZhefan
   
 </div>
 <div class="clearfix"></div></footer>
