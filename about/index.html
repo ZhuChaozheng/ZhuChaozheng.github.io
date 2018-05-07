@@ -4,6 +4,40 @@
   <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
   
   <title>BlackAnt</title>
+  
+    <!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+
   <meta name="author" content="ZhuChaozheng SunTong ChuZhefan">
   
   <meta name="description" content="This website is designed by x-space, and use to offer a professional robot solutions.">
@@ -223,10 +257,12 @@ var _hmt = _hmt || [];
     </header>
     <div class="entry">
       
-        <p>#THE TEAM</p>
+        <h2 id="the-team">THE TEAM</h2>
 <p>Our team are constituted by four persons. We are all graduate student or above, young and full of energy. We are all very ordinary, but hava a great dream, through our efforts, so that learning Robot to become more easy!!!! Let’s go to know our team.</p>
-<h2 id="SunTong"><a href="#SunTong" class="headerlink" title="SunTong"></a>SunTong</h2><p>Graduated from HoHai University of communication and information engineering, graduate degree. Our hardware designer, embedded software engineer,responsible for the hardware design of the robot, and the preparation of the bottom of the robot driver, good at C language programming, also is the captain of our team. </p>
-<h2 id="ChuZefan"><a href="#ChuZefan" class="headerlink" title="ChuZefan"></a>ChuZefan</h2><p>Graduated from HoHai University of communication and information engineering, graduate degree. </p>
+<h2 id="suntong">SunTong</h2>
+<p>Graduated from HoHai University of communication and information engineering, graduate degree. Our hardware designer, embedded software engineer,responsible for the hardware design of the robot, and the preparation of the bottom of the robot driver, good at C language programming, also is the captain of our team.</p>
+<h2 id="chuzefan">ChuZefan</h2>
+<p>Graduated from HoHai University of communication and information engineering, graduate degree.</p>
 
       
     </div>
@@ -349,7 +385,7 @@ var duoshuoQuery = {short_name:"aichimantou"};
   </div>
   <footer id="footer" class="inner"><div class="alignleft">
   
-  &copy; 2017 ZhuChaozheng SunTong ChuZhefan
+  &copy; 2018 ZhuChaozheng SunTong ChuZhefan
   
 </div>
 <div class="clearfix"></div></footer>
