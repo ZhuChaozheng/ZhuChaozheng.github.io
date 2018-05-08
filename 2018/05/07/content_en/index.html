@@ -3,7 +3,7 @@
 <head>
   <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
   
-  <title>SVO详解 | BlackAnt</title>
+  <title>SVO详解（一） | BlackAnt</title>
   
     <!-- mathjax config similar to math.stackexchange -->
 
@@ -45,7 +45,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  <meta property="og:title" content="SVO详解"/>
+  <meta property="og:title" content="SVO详解（一）"/>
   <meta property="og:site_name" content="BlackAnt"/>
 
   
@@ -250,11 +250,11 @@ var _hmt = _hmt || [];
     <header>
       
         <div class="icon"></div>
-        <time datetime="2018-05-07T00:25:58.000Z"><a href="/2018/05/07/SVO详解/">2018-05-07</a></time>
+        <time datetime="2018-05-07T08:01:45.000Z"><a href="/2018/05/07/content_en/">2018-05-07</a></time>
       
       
   
-    <h1 class="title">SVO详解</h1>
+    <h1 class="title">SVO详解（一）</h1>
   
 
     </header>
@@ -267,7 +267,6 @@ var _hmt = _hmt || [];
 <h2 id="机器视觉">机器视觉</h2>
 <p>主要侧重对量的分析，比如用视觉去测量一个零件的直径。 <a id="more"></a></p>
 <h2 id="接下来开始说论文的重点">接下来开始说论文的重点</h2>
-<p><strong>我们对于矩阵求逆的时候，要主要必须得保证这个矩阵是一个方阵才行哦</strong></p>
 <h3 id="相机类型">相机类型</h3>
 <p>刚才介绍了普通的相机，现在介绍下RGB-D相机</p>
 <ol type="1">
@@ -299,7 +298,6 @@ v\\
 \end{bmatrix}=KP\]</span> 其中 <span class="math inline">\(K\)</span> 是内参，至此就是 <span class="math inline">\(\mathbb{R}^{3} \mapsto \mathbb{R}^{2}\)</span></p>
 <p>我们现在将推到 <span class="math inline">\(\mathbb{R}^{2} \mapsto \mathbb{R}^{3}\)</span>，不过在此之前我们必须要知道距离<span class="math inline">\(d\)</span></p>
 <p><span class="math display">\[ Z=d\]</span> <span class="math display">\[ X=\frac{u-c_{x}}{f_{x}}Z\]</span> <span class="math display">\[ Y=\frac{u-c_{x}}{f_{x}}Z\]</span></p>
-<p>上式就是<em>像素到相机坐标</em>的公式</p>
 <p>内参属于相机出产自带的属性，我们可以通过棋盘标定法来实现相机的标定</p>
 <h4 id="棋盘标定法">棋盘标定法</h4>
 <h4 id="推导外参">推导外参</h4>
@@ -308,8 +306,8 @@ u\\
 v\\
 1\\
 \end{bmatrix} \]</span></p>
-<h3 id="向量到矩阵的变换">向量到矩阵的变换</h3>
-<h4 id="外积计算">外积计算</h4>
+<h3 id="transform-to-matrix-from-vector">Transform to Matrix from Vector</h3>
+<h4 id="the-derivation-of-outer-product">the derivation of outer product</h4>
 <p><span class="math display">\[\vec a\times \vec b=\begin{bmatrix}
 i&amp;j&amp;k\\
 a_{1}&amp;a_{2}&amp;a_{3}\\
@@ -326,10 +324,10 @@ a_{3}&amp;0&amp;-a_{1}\\
 0&amp;b_{3}&amp;-b_{2}\\
 -b_{3}&amp;0&amp;b_{1}\\
 b_{2}&amp;-b_{1}&amp;0\\
-\end{bmatrix}\vec a=-b^{\wedge}\vec a\]</span> 故<span class="math inline">\(a^{\wedge}\vec b=-b^{\wedge}\vec a\)</span>，这个公式转换很最重要在后文中有提及</p>
-<h3 id="旋转矩阵">旋转矩阵</h3>
-<h4 id="刚体变换">刚体变换</h4>
-<p>相机运动是一个刚体运动，他保证了同一个向量在各个坐标系下的长度和夹角都不会发生变化，这种变换属于欧式变换。欧式变换包括了旋转和平移。首先我们考虑旋转。我们设某个正交单位基 <span class="math inline">\((e_{1},e_{2},e_{3})\)</span> 经过一次旋转后变成了 <span class="math inline">\((e&#39;_{1},e&#39;_{2},e&#39;_{3})\)</span>，那么同一向量 <span class="math inline">\(\vec a\)</span>，在两个坐标系下的坐标分别是 <span class="math inline">\([a_{1},a_{2},a_{3}]^T\)</span>和 <span class="math inline">\([a&#39;_{1},a&#39;_{2},a&#39;_{3}]^T\)</span>。根据定义，有： <span class="math display">\[(e_{1},e_{2},e_{3})\begin{bmatrix}
+\end{bmatrix}\vec a=-b^{\wedge}\vec a\]</span> so <span class="math inline">\(a^{\wedge}\vec b=-b^{\wedge}\vec a\)</span>, this formua is very important and will be mentioned in the follow part.</p>
+<h3 id="rotation-matrix">Rotation Matrix</h3>
+<h4 id="rigid-transformation">Rigid Transformation</h4>
+<p>the motion of camera is belong to a rigid motion, so it ensures the length and angle keep invariant in any coordinate system for a same vector, and it is called Euclidean Transformation which includes rotation and panning. firstly, we talk about rotation. we assume an orthogonal basis <span class="math inline">\((e_{1},e_{2},e_{3})\)</span> , after a rotation, become <span class="math inline">\((e&#39;_{1},e&#39;_{2},e&#39;_{3})\)</span>, so <span class="math inline">\([a_{1},a_{2},a_{3}]^T\)</span> and <span class="math inline">\([a&#39;_{1},a&#39;_{2},a&#39;_{3}]^T\)</span> are the same vector <span class="math inline">\(\vec a\)</span> in two coordinate system. By definition: <span class="math display">\[(e_{1},e_{2},e_{3})\begin{bmatrix}
 a_{1}\\
 a_{2}\\
 a_{3}\\
@@ -337,7 +335,7 @@ a_{3}\\
 a&#39;_{1}\\
 a&#39;_{2}\\
 a&#39;_{3}\\
-\end{bmatrix}\]</span> 两边同时左乘一个 <span class="math inline">\(\begin{bmatrix} e^T_{1}\\ e^T_{2}\\ e^T_{3}\\ \end{bmatrix}\)</span>。</p>
+\end{bmatrix}\]</span> multiply <span class="math inline">\(\begin{bmatrix} e^T_{1}\\ e^T_{2}\\ e^T_{3}\\ \end{bmatrix}\)</span> on both sides at the same time.</p>
 <p><span class="math display">\[\begin{bmatrix}
 a_{1}\\
 a_{2}\\
@@ -359,17 +357,19 @@ a&#39;_{1}\\
 a&#39;_{2}\\
 a&#39;_{3}\\
 \end{bmatrix}=R\vec a&#39;\]</span></p>
-<p>其中 <span class="math inline">\(R\)</span> 就是旋转矩阵 <em>此处解释了旋转矩阵为啥是乘法</em>，旋转矩阵满足一下性质</p>
+<p>where <span class="math inline">\(R\)</span> denotes rotation matrix <em>we explained why does rotation matrix mapping to multiply</em>, notice that a rotation matrix meet the follow properties.</p>
 <ol type="1">
-<li>秩为1</li>
-<li>该矩阵与其转置相乘等于单位矩阵 我们把旋转矩阵的集合定义如下： <span class="math display">\[SO(3)=\{R\ \in \mathbb{R}^{n*n}|RR^T=I,det(R)=1\}\]</span></li>
+<li>the det of matrix is 1.</li>
+<li>the matrix multiply with its transpose equals to a identity matrix.</li>
 </ol>
-<p><span class="math inline">\(SO(3)\)</span>是特殊正交群的意思。 由于旋转的特殊性质，即可逆性。</p>
+<p>我们把旋转矩阵的集合定义如下：<br> we definite transform matrix</p>
+<p><span class="math display">\[SO(3)=\{R\ \in \mathbb{R}^{n*n}|RR^T=I,det(R)=1\}\]</span></p>
+<p><span class="math inline">\(SO(3)\)</span> is Special orthogonal Group.<br> because of rotation has a special property, reversibility.</p>
 <p><span class="math display">\[\vec a&#39;=R^{-1}\vec a=R^T\vec a\]</span></p>
-<p>在欧式变换里，除了考虑旋转，还有平移。考虑到世界坐标系下的一个向量 <span class="math inline">\(\vec a\)</span>,经过旋转和平移之后得到 <span class="math inline">\(\vec a&#39;\)</span>。 <span class="math display">\[\vec {a&#39;}=R\vec a+t\]</span></p>
-<h3 id="变换矩阵">变换矩阵</h3>
-<p>假设我们做了两次变换: <span class="math inline">\(R_{1},t_{1}和 R_{2},t_{2}\)</span>，满足 <span class="math display">\[\vec b=R_{1}\vec a+t_{1}, \vec c=R_{2}\vec b+t_{2}\]</span> 这样一来向量 <span class="math inline">\(\vec c\)</span>计算比较复杂 <span class="math display">\[\vec c=R_{2}(R_{1}\vec a+t_{1})+t_{2}\]</span></p>
-<p>引入齐次坐标和变换矩阵</p>
+<p>In Euclidean Transformation, not only considering rotation, but also translation. Considering to a vector <span class="math inline">\(\vec a\)</span> in world coordinate system, after roaton and translation, we will obtain <span class="math inline">\(\vec a&#39;\)</span>。 <span class="math display">\[\vec {a&#39;}=R\vec a+t\]</span></p>
+<h3 id="transform-matrix">Transform Matrix</h3>
+<p>Assumeption we had finished two transforms: <span class="math inline">\(R_{1},t_{1}和 R_{2},t_{2}\)</span>，meeting <span class="math display">\[\vec b=R_{1}\vec a+t_{1}, \vec c=R_{2}\vec b+t_{2}\]</span> but it cause the calculation of a vector <span class="math inline">\(\vec c\)</span> will be more complicated. <span class="math display">\[\vec c=R_{2}(R_{1}\vec a+t_{1})+t_{2}\]</span></p>
+<p>引入齐次坐标和变换矩阵 introducing * and Transform Matrix</p>
 <p><span class="math display">\[\begin{bmatrix}
 \vec {a&#39;}\\
 1\\
@@ -382,11 +382,11 @@ R&amp;t\\
 \end{bmatrix}=T\begin{bmatrix}
 \vec a\\
 1\\
-\end{bmatrix}\]</span> 其中， <span class="math inline">\(T\)</span>是变换矩阵(Transform Matrix)，本文我们定义 <span class="math inline">\(\tilde{a}\)</span> 表示 <span class="math inline">\(\vec a\)</span>的齐次坐标, <span class="math inline">\(\tilde{b}\)</span> 表示 <span class="math inline">\(\vec b\)</span>的齐次坐标, <span class="math inline">\(\tilde{c}\)</span> 表示 <span class="math inline">\(\vec c\)</span>的齐次坐标, <span class="math display">\[\tilde{b}=T_{1} \tilde{a},\ \ \tilde{c}=T_{2} \tilde{b} =&gt; \tilde{c}=T_{2}T_{1} \tilde{a}\]</span> 区分齐次和非齐次坐标符号很麻烦，我们直接就用 <span class="math inline">\(\vec b=T \vec a\)</span>，代表齐次坐标。</p>
+\end{bmatrix}\]</span> where, <span class="math inline">\(T\)</span> is Transform Matrix, in this paper, we definite本文我们定义 <span class="math inline">\(\tilde{a}\)</span> denotes <span class="math inline">\(\vec a\)</span>的齐次坐标, <span class="math inline">\(\tilde{b}\)</span> denotes <span class="math inline">\(\vec b\)</span>的齐次坐标, <span class="math inline">\(\tilde{c}\)</span> 表示 <span class="math inline">\(\vec c\)</span>的齐次坐标, <span class="math display">\[\tilde{b}=T_{1} \tilde{a},\ \ \tilde{c}=T_{2} \tilde{b} =&gt; \tilde{c}=T_{2}T_{1} \tilde{a}\]</span> 区分齐次和非齐次坐标符号很麻烦，我们直接就用 <span class="math inline">\(\vec b=T \vec a\)</span>，代表齐次坐标。</p>
 <p>关于变换矩阵 <span class="math inline">\(T\)</span>，它的结构比较特殊，左上角为旋转矩阵，右上角为平移向量，左下角为0向量，右下角为1。这种特殊矩阵又称为特殊欧式群（Special Euclidean Group）： <span class="math display">\[SE(3)=\begin{Bmatrix}T=\begin{bmatrix}R&amp;t\\0^T&amp;1\\\end{bmatrix} \in \mathbb{R}^{4*4}|R \in SO(3),t \in \mathbb{R}^3 \end{Bmatrix}\]</span></p>
 <p>同理该矩阵的逆</p>
 <p><span class="math display">\[T^{-1}=\begin{bmatrix}R^T&amp;-R^Tt\\0^T&amp;1\end{bmatrix}\]</span></p>
-<h3 id="旋转向量">旋转向量</h3>
+<h3 id="rotation-vector">Rotation Vector</h3>
 <p>假设有一个旋转轴为 <span class="math inline">\(\vec n\)</span>，角度为 <span class="math inline">\(\theta\)</span>，显然他对于的旋转向量为 <span class="math inline">\(\vec n\theta\)</span>。从旋转向量都旋转矩阵的转换过程由罗德里格斯公式： <span class="math display">\[R=cos\theta I+(1-cos\theta)\vec n\vec n^T+sin\theta \vec n^{\wedge}\]</span> 这里 <span class="math inline">\(^\wedge\)</span>是向量到反对称矩阵的转换符，见前面公式。</p>
 <p><em>补充一个知识点，单位矩阵 <span class="math inline">\(I=\begin{bmatrix}1&amp;0&amp;0\\0&amp;1&amp;0\\0&amp;0&amp;1\end{bmatrix}\)</span></em></p>
 <p>对于转角 <span class="math inline">\(\theta\)</span>，有： <span class="math display">\[tr(R)=cos\theta tr(I)+(1-cos\theta)tr(\vec n \vec n^T)+sin\theta tr(\vec n^{\wedge})\]</span> <span class="math display">\[=3cos\theta +(1-cos\theta)\]</span> <span class="math display">\[=1+2cos\theta\]</span></p>
@@ -410,7 +410,7 @@ a_{3}&amp;0&amp;-a_{1}\\
 <p>对其换种写法也即</p>
 <p><span class="math display">\[R(t)=exp(\phi_0^\wedge t)\]</span></p>
 <p><span class="math display">\[\Phi=\phi^\wedge=\begin{bmatrix}0&amp;-\phi_3&amp;\phi_2\\\phi_3&amp;0&amp;-\phi_1\\-\phi_2&amp;\phi_1&amp;0\end{bmatrix}\in\mathbb{R}^{3\times 3} \]</span> 一般我们说 <span class="math inline">\(so(3)\)</span>的元素是3维向量或者3维反对称矩阵。 <span class="math display">\[so(3)=\begin{Bmatrix} \phi \in \mathbb{R}^3, \Phi=\phi^\wedge \in \mathbb{R}^{3\times 3} \end{Bmatrix}\]</span></p>
-<p>与<span class="math inline">\(SO(3)\)</span>的关系对应为 <span class="math display">\[R=exp(\phi^\wedge)\]</span></p>
+<p>与 <span class="math inline">\(SO(3)\)</span> 的关系对应为 <span class="math display">\[R=exp(\phi^\wedge)\]</span></p>
 <h4 id="se3"><span class="math inline">\(se(3)\)</span></h4>
 <p>同理我们可以推导 <span class="math display">\[se(3)=\begin{Bmatrix}\xi=\begin{bmatrix}\rho \\ \phi \end{bmatrix}\in \mathbb{R}^6,\ \rho \in \mathbb{R}^3,\ \phi \in so(3),\ \xi^\wedge=\begin{bmatrix}\phi^\wedge &amp; \rho\\0^T&amp;1 \end{bmatrix} \in \mathbb{R}^{4\times 4}\end{Bmatrix}\]</span> 每个<span class="math inline">\(se(3)\)</span> 的元素 <span class="math inline">\(\xi\)</span>是六维向量，前三维是平移向量，记做 <span class="math inline">\(\rho\)</span>。 后三维是旋转向量，记做 <span class="math inline">\(\phi\)</span>。同时我们这里的 <span class="math inline">\(\wedge\)</span>不再单纯表示向量到反对称矩阵，而是向量到矩阵的转换， <span class="math inline">\(\vee\)</span>表示矩阵到向量的转换。</p>
 <h3 id="so3rphiwedge-指数映射"><span class="math inline">\(SO(3)=R=\phi^\wedge\)</span> 指数映射</h3>
@@ -446,397 +446,7 @@ a_{3}&amp;0&amp;-a_{1}\\
 \varphi \rightarrow 0}\frac{-(exp(\phi^{\wedge})p)^{\wedge}\varphi}{\varphi}\]</span> <span class="math display">\[=-(Rp)^{\wedge}\]</span></p>
 <h3 id="se3-1">SE(3)</h3>
 <p>其中， 是已知深度域 相机的位置和方向在k时刻用刚体变换 表示 SE(3) 我们可以映射一个3D点从世界坐标框架到参考相机框架 Tk,w就是上面说的外参， 两个连续帧直接相关变化可以用 计算 在优化过程中，我们需要最小的表示变化，因此，使用李代数se(3) 对应恒等于正切空间SE(3)。我们用代数元素ξ=〖(ω,υ)〗<sup>T∈R</sup>6表示旋转坐标，其中w是角速度和v线性速度。旋转坐标ξ用指数映射到SE(3)</p>
-<h2 id="对极约束">对极约束</h2>
-<p><span class="math display">\[s_{1}p_{1}=KP \ \ \ s_{2}p_{2}=K(RP+t)\]</span></p>
-<p><span class="math inline">\(s_{1}\)</span> 是一个数值，表示距离</p>
-<p>对其进行归于化，得</p>
-<p><span class="math display">\[p_{1}=KP \ \ \ p_{2}=K(RP+t)\]</span></p>
-<p>记</p>
-<p><span class="math display">\[x_{1}=K^{-1}p_{1} \ \ \ \ x_{2}=K^{-1}p_{2}\]</span> <span class="math display">\[x_{2}=Rx_{1}+t\]</span> 两边同时乘以<span class="math inline">\(t^{\wedge}\)</span>，由于<span class="math inline">\(t^{\wedge}t=0\)</span> <span class="math display">\[t^{\wedge}x_{2}=t^{\wedge}Rx_{1}\]</span> 两边同时乘以<span class="math inline">\(x_{2}^{T}\)</span> <span class="math display">\[x_{2}^{T}t^{\wedge}x_{2}=x_{2}^{T}t^{\wedge}Rx_{1}\]</span> 由于向量也是一维矩阵，所以左边满足矩阵乘法结合律 <span class="math display">\[(AB)C=A(BC)\]</span> 由于<span class="math inline">\(t^{\wedge}x_{2}\)</span> 是垂直于<span class="math inline">\(t\)</span> 和 <span class="math inline">\(x_{2}\)</span> 的向量（一维矩阵），所以左边等0，即 <span class="math display">\[x_{2}^{T}t^{\wedge}Rx_{1}=0\]</span> 将上面的<span class="math inline">\(x_{1},x_{2}\)</span> 代入 <span class="math display">\[p_{2}^{T}K^{-T}t^{\wedge}RK^{-1}p_{1}=0\]</span> 令<span class="math inline">\(E=t^{\wedge}R\)</span>(本质矩阵)，<span class="math inline">\(F=K^{-T}EK^{-1}\)</span>（基础矩阵）</p>
-<p>故</p>
-<p><span class="math display">\[x_{2}^{T}Ex_{1}=0, \ p_{2}^{T}Fp_{1}=0\]</span> 根据特征点匹配求出<span class="math inline">\(E\)</span>，从中分解出<span class="math inline">\(R 和 t\)</span> 出来即可 由E的性质可知，E为3*3的矩阵</p>
-<p>对于任意的一对匹配点<span class="math inline">\(x_{1}=[u_{1}, v_{1}, 1]^{T},x_{2}=[u_{2}, v_{2}, 1]^{T}\)</span> <span class="math display">\[x_{2}^{T}Ex_{1}=0\]</span> <span class="math display">\[\begin{bmatrix}
-u_{2} &amp; v_{2} &amp; 1
-\end{bmatrix}\begin{bmatrix}
-e_{1} &amp; e_{2} &amp; e_{3}\\
-e_{4} &amp; e_{5} &amp; e_{6}\\
-e_{7} &amp; e_{8} &amp; e_{9}
-\end{bmatrix}\begin{bmatrix}
-u_{1}\\
-v_{1}\\
-1
-\end{bmatrix}=0\]</span> 由矩阵乘法结合律</p>
-<p><span class="math display">\[\begin{bmatrix}
-u_{2} &amp; v_{2} &amp; 1
-\end{bmatrix}\begin{bmatrix}
-u_{1}\\
-v_{1}\\
-1
-\end{bmatrix}\begin{bmatrix}
-e_{1} &amp; e_{2} &amp; e_{3}\\
-e_{4} &amp; e_{5} &amp; e_{6}\\
-e_{7} &amp; e_{8} &amp; e_{9}
-\end{bmatrix}=0\]</span> 将<span class="math inline">\(E\)</span>写成向量的形式 <span class="math display">\[e=[e_{1}, e_{2}, e_{3}, e_{4}, e_{5}, e_{6}, e_{7}, e_{8}, e_{9}]^{T}\]</span></p>
-<p>上式可以写成 <span class="math display">\[[u_{1}u_{2}, u_{2}v_{1}, u_{2}, v_{2}u_{1}, v_{1}v_{2}, v_{2}, u_{1}, v_{1}, 1]e=0\]</span></p>
-<p>对于其他特征点也有同样的性质 <span class="math display">\[\begin{bmatrix}
- u_{1}^{1}u_{2}^{1}&amp; u_{2}^{1}v_{1}^{1}&amp; u_{2}^{1}&amp; v_{2}^{1}u_{1}^{1}&amp; v_{1}^{1}v_{2}^{1}&amp; v_{2}^{1}&amp; u_{1}^{1}&amp; v_{1}^{1}&amp; 1\\
- u_{1}^{2}u_{2}^{2}&amp; u_{2}^{2}v_{1}^{2}&amp; u_{2}^{2}&amp; v_{2}^{2}u_{1}^{2}&amp; v_{1}^{2}v_{2}^{2}&amp; v_{2}^{2}&amp; u_{1}^{2}&amp; v_{1}^{2}&amp; 1\\
- \vdots &amp; \vdots &amp; \vdots &amp; \vdots &amp; \vdots &amp; \vdots &amp; \vdots &amp; \vdots &amp; 1\\
- u_{1}^{8}u_{2}^{8}&amp; u_{2}^{8}v_{1}^{8}&amp; u_{2}^{8}&amp; v_{2}^{8}u_{1}^{8}&amp; v_{1}^{8}v_{2}^{8}&amp; v_{2}^{8}&amp; u_{1}^{8}&amp; v_{1}^{8}&amp; 1\\
-\end{bmatrix}\begin{bmatrix}
- e_{1}\\
- e_{2}\\
- e_{3}\\
- e_{4}\\
- e_{5}\\
- e_{6}\\
- e_{7}\\
- e_{8}\\
- e_{9}
-\end{bmatrix}=0\]</span></p>
-<h2 id="光束平差法bundle-ajustment">光束平差法(Bundle Ajustment)</h2>
-<p>我们通过特征匹配的方式，已经可以到N组特征点 <span class="math display">\[z_{1}=\begin{Bmatrix}
-z_{1}^{1},z_{1}^{2}....,z_{1}^{N}
-\end{Bmatrix},z_{2}=\begin{Bmatrix}
-z_{2}^{1},z_{2}^{2}....,z_{2}^{N}
-\end{Bmatrix}\]</span> 其中<span class="math inline">\(z_{i}^{j}\)</span> 下标是指第几帧图，上标表示第几个特征点，其在图像上的坐标为 <span class="math inline">\(z_{i}^{j}=\left [ u,v \right ]_{i}^{j}\)</span></p>
-<p><img src="/img/camera.png"> 上图模型表示为相机在1处，2处分别观测空间中X点位置。 <span class="math display">\[
-\lambda_{1}\begin{bmatrix}
-z_{1}^{j}\\
-1
-\end{bmatrix}=CX^{j},\lambda_{2}\begin{bmatrix}
-z_{2}^{j}\\
-1
-\end{bmatrix}=C\left ( RX^{j}+t \right )
-\]</span> 其中 <span class="math inline">\(\lambda_{1},\lambda_{2}\)</span> 表示像素深度值，也就是相机的z坐标。正常的思路就行，两个公式约掉 <span class="math inline">\(X^{j}\)</span> ，使用对极约束和SVD分解，理论上我们需要8个点就可以解算出来<span class="math inline">\(R, t\)</span>，这是常规思路，我们这里主要介绍图优化。 我们尝试构造一个优化问题 由于存在着精度误差，所以 <span class="math inline">\(\left \| \frac{1}{\lambda_{1}}CX^{j}-\left [ z_{1}^{j},1 \right ]^{T} \right \|^{2}，\left \| \frac{1}{\lambda_{2}}C(RX^{j}+t)-\left [ z_{2}^{j},1 \right ]^{T} \right \|^{2}\)</span> 不可能都为0，所以我们只能通过调整 <span class="math inline">\(R,t\)</span> 来使他们的误差尽量下。</p>
-<p>所以可以构造一个最优化问题，调整<span class="math inline">\(R,t\)</span>使得对于所有的特征点<span class="math inline">\(z^{j}\)</span>，误差二范数累计最小，也即 <span class="math display">\[
-min_{X,R,t}\sum_{j=1}^{N}\left \| \frac{1}{\lambda_{1}}CX^{j}-\left [ z_{1}^{j},1 \right ]^{T}  \right \|^{2} + \left \| \frac{1}{\lambda_{2}}C(RX^{j}+t)-\left [ z_{2}^{j},1 \right ]^{T}  \right \|^{2}
-\]</span> 这个就是最小化重投影误差问题（minimizaiton of reprojection error），实际操作中，我们在调整每个<span class="math inline">\(X^{j}\)</span>，使得更符合每一次观测<span class="math inline">\(z^{j}\)</span>，也就是每个误差项都尽量小。由于这个原因，所以他也叫捆绑调整（Bundle Adjustment）。</p>
-<p>BA很容易描述成图优化形式。图的结点为</p>
-<ul>
-<li><p>相机的位置位姿：一个SE(3)的元素</p></li>
-<li><p>空间中的特征点：是个XYZ坐标</p></li>
-</ul>
-<p>边主要是有空间点到像素坐标的投影关系。也就是 <span class="math display">\[\lambda_{2}\begin{bmatrix}
-z_{2}^{j}\\
-1
-\end{bmatrix}=C\left ( RX^{j}+t \right )\]</span> <em>注：向量转置与其本身实质和意义都是一样的，与矩阵不同</em></p>
-<h2 id="g2o">g2o</h2>
-<p>其主要步骤如下：</p>
-<ol type="1">
-<li>选择一个线性方程求解器，从 PCG, CSparse, Choldmod中选，实际则来自 g2o/solvers 文件夹中定义的文件夹。</li>
-</ol>
-<p><img src="/img/solvers.png"></p>
-<figure class="highlight plain"><figcaption><span>使用Cholmod中的线性方程求解器</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">g2o::BlockSolver_6_3::LinearSolverType* linearSolver = new  g2o::LinearSolverCholmod&lt;g2o::BlockSolver_6_3::PoseMatrixType&gt; ();</div></pre></td></tr></table></figure>
-<ol start="2" type="1">
-<li><p>选择一个 BlockSolver。 <figure class="highlight plain"><figcaption><span>6*3 的参数</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">g2o::BlockSolver_6_3* block_solver = new g2o::BlockSolver_6_3( linearSolver );</div></pre></td></tr></table></figure></p></li>
-<li><p>选择一个迭代策略，从GN, LM, Doglog中选。 <figure class="highlight plain"><figcaption><span>L-M 下降</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">g2o::OptimizationAlgorithmLevenberg* algorithm = new g2o::OptimizationAlgorithmLevenberg( block_solver );</div></pre></td></tr></table></figure></p></li>
-<li><p>构造结点和边</p></li>
-</ol>
-<p>结点，空间中的点和位姿，边是有空间中的点跟像素坐标的投影关系</p>
-<h4 id="测试ba和对级约束求解详见ubuntu虚拟机的代码">测试BA和对级约束求解(详见ubuntu虚拟机的代码)</h4>
-<p><em>对极约束</em> <span class="math display">\[ R=\begin{bmatrix}
-0.9989066940689537 &amp; -0.01520945268654653 &amp; 0.04420507994800801\\
-0.01389019427348682 &amp; 0.9994533963165625 &amp; 0.02999951823502051\\
--0.04463719354169673 &amp; -0.02935270243545288 &amp; 0.9985719502431745
- \end{bmatrix}, t=\begin{bmatrix}
- -0.287181547543988\\
-  -0.1877533687454072\\
-  -0.9392951779259762
- \end{bmatrix}\]</span> <em>BA</em> <span class="math display">\[
- R=\begin{bmatrix}
- 0.999959 &amp; -0.00778231 &amp; -0.00471191\\
-  0.0079586 &amp; 0.999222 &amp; 0.0386278\\
- 0.00440763 &amp; -0.0386637 &amp; 0.999243
-  \end{bmatrix}, t=\begin{bmatrix}
-0.046212\\
--0.00945899\\
--0.00141173
-  \end{bmatrix}
- \]</span></p>
-<h3 id="最小光度误差">最小光度误差</h3>
-<p>直接法主要根据灰度不变性假设进行实验，所以我们要实现最小光度误差 等价于一个空间中的点，在两个不同位置上的相机投影产生的光度理论上是应该一致，所以整个最小化光度误差公式应由灰度方程组成。即</p>
-<p><span class="math display">\[
-e=I_{1}(p_{1})-I_{2}(p_{2}),
-\min_{\xi}J(\xi)=e^{T}e
-\]</span></p>
-<p><span class="math inline">\(\xi\)</span>为相机变换李代数，不断调整相机位姿使得<span class="math inline">\(e\)</span>的二范数值最小，这就是整个最小光度误差的原理。</p>
-<p>由前面的投影方程可知 <span class="math display">\[
-p_{1}=\begin{bmatrix}
-u\\
-v
-\end{bmatrix}_{1}=D\frac{1}{Z_{1}}KP,p_{2}=\begin{bmatrix}
-u\\
-v
-\end{bmatrix}_{2}=D\frac{1}{Z_{2}}K(RP+t)=D\frac{1}{Z_{2}}Kexp(\xi^\wedge)P
-\]</span></p>
-<p>其中D是齐次到非齐次的转换</p>
-<p><span class="math display">\[
-D=\begin{bmatrix}
-1&amp;0&amp;0\\
-0&amp;1&amp;0
-\end{bmatrix}
-\]</span></p>
-<p>因为空间中可能有许多类似于上述的三维点，所以构成了一个累和公式</p>
-<p><span class="math display">\[
-\min_{\xi}J(\xi)=\sum_{i=1}^{N}e_{i}^{T}e_{i},e_{i}=I_{1}(p_{1,i})-I_{2}(p_{2,i})
-\]</span></p>
-<p>既然要求最小值，所以一般我们先考虑其导数的情况，对于 <span class="math inline">\(\min_{\xi}J(\xi)\)</span> 的最小值，等价于求 <span class="math inline">\(e_{i}\)</span> 最小值，一般来说，我们想要求最小值先分析其导数比较合适，但是<span class="math inline">\(e_{i}\)</span>不便对其进行求导，所以我们采用最基本的导数公式 <span class="math display">\[
-f^{&#39;}(x_{0})=\frac{f(x_{0}+\Delta x)-f(x_{0})}{\Delta x}
-\]</span></p>
-<p>所以我们对 <span class="math inline">\(e_{i}\)</span> 加个扰动量，即</p>
-<p><span class="math display">\[
-e(\xi \oplus \delta \xi )\\
-=I_{1}(\frac{1}{Z_{1}}DKP)-I_{2}(\frac{1}{Z_{2}}DKexp(\delta\xi^\wedge)exp(\xi^\wedge)P)\\
-\approx I_{1}(\frac{1}{Z_{1}}DKP)-I_{2}(\frac{1}{Z_{2}}DK(1+\delta\xi^\wedge)exp(\xi^\wedge)P)\\
-=I_{1}(\frac{1}{Z_{1}}DKP)-I_{2}(\frac{1}{Z_{2}}DKexp(\xi^\wedge)P)-I_{2}(\frac{1}{Z_{2}}DK\delta\xi^\wedge exp(\xi^\wedge)P)\\
-=e(\xi)-I_{2}(\frac{1}{Z_{2}}DK\delta\xi^\wedge exp(\xi^\wedge)P)\\
-\]</span></p>
-<p>记， <span class="math inline">\(q=\delta\xi^\wedge exp(\xi^\wedge)P\)</span>，<span class="math inline">\(u=\frac{1}{Z_{2}}DKq\)</span> 所以，上式一阶泰勒展开等于</p>
-<p><span class="math display">\[
-e(\xi \oplus \delta \xi )\\
-=e(\xi)-I_{2}(u)\\
-\approx e(\xi)-\frac{\partial I_{2}}{\partial u}\frac{\partial u}{\partial q}\frac{\partial q}{\partial \delta\xi^\wedge}\delta\xi^\wedge
-\]</span> 第一个式子 <span class="math inline">\(\frac{\delta I_{2}}{\mathbf{u}}\)</span> 是在 <span class="math inline">\(\mathbf{u}\)</span> 处的像素梯度 第二个式子 <span class="math inline">\(\frac{\delta \mathbf{u}}{\delta q}\)</span> 是投影方程关于相机坐标系下的三维点的导数。由前面的投影方程可知 <span class="math display">\[
-u=\frac{f_{x}X+c_{x}}{Z},v=\frac{f_{y}Y+c_{y}}{Z}
-\]</span> 于是，导数为</p>
-<p><span class="math display">\[
-\frac{\partial \mathbf{u}}{\partial q}=\begin{bmatrix}
-\frac{\partial u}{\partial X} &amp; \frac{\partial u}{\partial Y} &amp; \frac{\partial u}{\partial Z}\\
-\frac{\partial v}{\partial X} &amp; \frac{\partial v}{\partial Y} &amp; \frac{\partial v}{\partial Z}
-\end{bmatrix}\\
-=\begin{bmatrix}
-\end{bmatrix}
-\]</span></p>
-<p>误差相对于李代数的雅克比矩阵</p>
-<p><span class="math display">\[
-J=\frac{\partial I_{2}}{\partial u}\frac{\partial u}{\partial \delta \xi }
- \]</span></p>
-<h2 id="section">2018.2.25</h2>
-<h3 id="sophus">Sophus</h3>
-<p>Li algebra Eigen is a matrix operation library, including create Vector and Matrix</p>
-<h3 id="opencv">Opencv</h3>
-<p>Mat can from a image file, and it’s has many invariables, like rows, cols, channel_number</p>
-<p>also, we learn PointCloud, its has a function <strong>push_back（）</strong>, which can storage class PointT, IsometryId, ImageDepth, and ImageColor</p>
-<p>In addition, formation from pixel frame to 3D frame. However, real World Point must use 3D frame multiple SE(3). like this:</p>
-<p><code>Eigen::Vector3d pointWorld = T ** point;</code></p>
-<p><strong>this function can save pointcloud map</strong></p>
-<p><code>pcl::io::savePCDFileBinary(&quot;map.pcd&quot;, **pointCloud);</code></p>
-<h2 id="section-1">2018.2.26</h2>
-<h3 id="point">point</h3>
-<p>when we define a type point, like char* p, it means p is the type char of start address, as we all known each type has different bytes, float is 4 bytes, char is 1 bytes, each address is a bytes.</p>
-<pre><code>char var = &#39;s&#39;;
-int var = 12;
-char* p = &amp;var;  // right</code></pre>
-<p><code>*p = var is value, and p = &amp;var is address</code></p>
-<h3 id="optimizationalgorithm">OptimizationAlgorithm</h3>
-<h4 id="guass-newton">Guass-Newton</h4>
-<p><span class="math display">\[
-f(x+\Delta x)\approx f(x)+J(x)\Delta x. \\
-\left \| f(x+\Delta x) \right \|_{2}^{2} \approx _{\Delta x}^{argmin}\frac{1}{2}\left \| f(x)+J(x)\Delta x \right \|_{2}^{2}.\\
-=\frac{1}{2}(f(x)+J(x)\Delta x)^{T}(f(x)+J(x)\Delta x) \\
-=\frac{1}{2}(\left \| f(x) \right \|_{2}^{2}+2f(x)J(x)^{T}\Delta x+\Delta x^{T}J(x)^{T}J(x)\Delta x)). \\
-\]</span> 对 <span class="math inline">\(\Delta x\)</span>进行求导，并令其为零。 so, <span class="math display">\[
-J(x)^{T}J(x)\Delta x=-f(x)J(x)^{T}
-\]</span> 将左侧定义为H，右侧定义为g <span class="math display">\[
-H\Delta x=  g
-\]</span></p>
-<h4 id="levenberg-marquardt">Levenberg-Marquardt</h4>
-<p><span class="math display">\[
-_{\Delta x}^{min}\frac{1}{2}\left \| f(x_{k})+J(x_{k})\Delta x_{k}\right \|^{2}+\frac{\lambda}{2}\left \|D\Delta x\right \|^{2}.\\
-(H+\lambda D^{T}D)\Delta x = g.\\
-\]</span></p>
-<p>we assume <span class="math inline">\(D=I\)</span> so, <span class="math display">\[
-(H+\lambda D^{T}D)\Delta x = g.\\
-\]</span></p>
-<h4 id="eigen">Eigen</h4>
-<p>functions:</p>
-<p><code>1. Identity()</code></p>
-<p>solve identity matrix（单位矩阵）</p>
-<p><span class="math display">\[
-\begin{bmatrix}
-1 &amp; 0 &amp; 0\\
-0 &amp; 1 &amp; 0\\
-0 &amp; 0 &amp; 1
-\end{bmatrix}
-\]</span></p>
-<p><code>2. transpose()</code></p>
-<p>transposition of a matrix（矩阵的转置）</p>
-<p><code>3. norm()</code></p>
-<p>求向量的模长</p>
-<h4 id="g2o-1">g2o</h4>
-<h3 id="section-2">2018.3.1</h3>
-<h4 id="function-img.at">function: <code>img.at()</code></h4>
-<p>for a single channel grey scale image, <em>img.at()</em> is get the value of intensity</p>
-<p><code>Scalar intensity = img.at&lt;uchar&gt;(y, x)</code></p>
-<p>when consider a 3 channel image with RGB color</p>
-<pre><code>Vec3b intensity = img.at&lt;Vec3b&gt;(y, x);
-uchar blue = intensity.val[0];
-uchar green = intensity.val[1];
-uchar red = intensity.val[2];</code></pre>
-<h4 id="struct-dmatch">struct DMatch</h4>
-<p>Class for matching keypoint descriptors: query descriptor index, train descriptor index, train image index, and distance between descriptors.</p>
-<h4 id="class-keypoint">class KeyPoint</h4>
-<p>Data structure for salient point detectors.</p>
-<p><em>Point2f pt</em></p>
-<p>coordinates of the keypoint</p>
-<p>so, <code>keypoints[m.queryIdx].pt.y</code> is y direction coordinate.</p>
-<h4 id="pixel2cam">pixel2cam</h4>
-<p><span class="math display">\[ Z=d\]</span> <span class="math display">\[ X=\frac{u-c_{x}}{f_{x}}Z\]</span> <span class="math display">\[ Y=\frac{u-c_{x}}{f_{x}}Z\]</span></p>
-<p>this forum is <strong>pixel2cam</strong></p>
-<h3 id="section-3">2018.3.9</h3>
-<h4 id="lk-opticalflow">LK OpticalFlow</h4>
-<p>it’s main function is tracking and match features. it saves more time with respect to tranditional feature methods. So, when it finish match features, then, we should use SVD, PnP, ICP.</p>
-<p><strong>calcOpticalFlowPyrLK(prevImg, nextImg, prevPts, nextPts, status, erros)</strong></p>
-<h4 id="parameter">Parameter:</h4>
-<p>status – Output status vector. Each element of the vector is set to 1 if the flow for the corresponding features has been found. Otherwise, it is set to 0.</p>
-<p><strong>简单说光流法是不是只做到了特征点跟踪的而已，等于替换了特征点法的特征点匹配那个步骤 如果要基于光流法得到相机的运动，是不是就需要继续补充PnP或者ICP，而且光流法如果想进一步使用BA原理进行计算运动的话，那是不是就是直接法的第一种，稀疏直接法</strong></p>
-<h3 id="section-4">2018.3.14</h3>
-<h4 id="opticalflow-essence">OpticalFlow essence</h4>
-<ol type="1">
-<li>extract features with fast</li>
-<li>match features using intensity consistent assume</li>
-<li>if we want to farther get the pose of camera, in addition to, it needs to PnP or ICP after matching</li>
-<li>if step three is to solver pose using BA based on the assume of consistent intensity, it is called direct method.</li>
-</ol>
-<h3 id="section-5">2018.3.18</h3>
-<h4 id="eigen-1">Eigen</h4>
-<p>这里是双精度，如果是单精度，只需要修改d为f即可</p>
-<p>旋转矩阵（3*3）： Eigen::Matrix3d</p>
-<p>旋转向量（3*1）：Eigen::AngleAxisd</p>
-<p>欧拉角（3*1）：Eigen::Vector3d</p>
-<p>四元数（4*1）：Eigen::Quaterniond</p>
-<p>欧式变换矩阵（4*4）：Eigen::Isometry3d</p>
-<p>仿射变换（4*4）：Eigen::Affine3d</p>
-<p>射影变换（4*4）：Eigen::Projective3d</p>
-<h4 id="schur消元">schur消元</h4>
-<p>对于线性方程 <span class="math display">\[
-H \Delta x = g
-\]</span> 求H矩阵的方法，其中 <span class="math inline">\(\Delta x\)</span> 是 <span class="math inline">\(\Delta x_{c}=\begin{bmatrix} \xi_{1}, &amp; \xi_{2}, &amp; ..., &amp; \xi_{m} \end{bmatrix}^{T} \in \mathbb{R}^{6m}, \Delta x_{p}=\begin{bmatrix} p_{1}, &amp; p_{2}, &amp; ..., &amp; p_{n} \end{bmatrix}^{T} \in \mathbb{R}^{3n}\)</span> 的统称，分别表示相机位姿和空间点的变量。</p>
-<p>针对H矩阵的性质，我们将H矩阵分解成4块，<span class="math inline">\(B, E, E^T, C\)</span>，该方法的精髓在于将一次性求解 <span class="math inline">\(\Delta x, \Delta p\)</span> 变成了先求解 <span class="math inline">\(\Delta x\)</span>，再求解 <span class="math inline">\(\Delta p\)</span> <span class="math display">\[
-\begin{bmatrix}
-B &amp; E\\
-E^T &amp; C
-\end{bmatrix}
-\begin{bmatrix}
-\Delta x_{c} \\
-\Delta x_{p}
-\end{bmatrix}=\begin{bmatrix}
-\nu  \\
-\omega
-\end{bmatrix}
-\]</span> 我们将两边同时乘以 <span class="math inline">\(\begin{bmatrix} I &amp; -EC^{-1} \\ 0 &amp; I \end{bmatrix}\)</span></p>
-<p><span class="math display">\[
-\begin{bmatrix}
-I &amp; -EC^{-1}  \\
-0 &amp; I
-\end{bmatrix}
-\begin{bmatrix}
-B &amp; E\\
-E^T &amp; C
-\end{bmatrix}
-\begin{bmatrix}
-\Delta x_{c} \\
-\Delta x_{p}
-\end{bmatrix}=\begin{bmatrix}
-I &amp; -EC^{-1}  \\
-0 &amp; I
-\end{bmatrix}
-\begin{bmatrix}
-\nu  \\
-\omega
-\end{bmatrix}
-\]</span></p>
-<p><span class="math display">\[
-\begin{bmatrix}
-B-EC^{-1}E^T &amp; 0  \\
-E^T &amp; C
-\end{bmatrix}
-\begin{bmatrix}
-\Delta x_{c} \\
-\Delta x_{p}
-\end{bmatrix}=\begin{bmatrix}
-\nu-EC^{-1}\omega  \\
-\omega
-\end{bmatrix}
-\]</span> 所以，就变成了先求 <span class="math inline">\((B-EC^{-1}E^T)\Delta x_{c} = \nu - EC^{-1}\omega\)</span></p>
-<p>之后将 <span class="math inline">\(\Delta x_{c}\)</span> 带入到 <span class="math inline">\(\Delta x_{p}=C^{-1}(\omega - E^T\Delta x_{c})\)</span> 即可</p>
-<h2 id="section-6">2018.3.19</h2>
-<h3 id="光流法的核心">光流法的核心</h3>
-<p><span class="math display">\[
-A\Delta x = -b \\
-\Delta x = -(A^TA)^{-1}A^Tb
-\]</span> 为啥要进行同时左乘一个 <span class="math inline">\(A^T\)</span> ，因为左边不是一个方阵，所以没法直接移过来求逆，所以我们需要通过变换，将其变成方阵</p>
-<h3 id="卡尔曼滤波的推导">卡尔曼滤波的推导</h3>
-<p><strong>复合高斯分布的概念</strong></p>
-<p>假设随机变量 <span class="math inline">\(x \sim N(u_{x},\Sigma_{xx})\)</span>，另一个变量y满足： <span class="math display">\[
-y=Ax+b+w
-\]</span> 其中 <span class="math inline">\(A, b\)</span> 为线性变量的系数矩阵和偏移量，<span class="math inline">\(w\)</span>为噪声项，<span class="math inline">\(w\)</span> 为零均值的高斯分布：<span class="math inline">\(w \sim N(0, R)\)</span></p>
-<p>y的高斯分布即为： <span class="math display">\[
-p(y)=N(Au_{x}+b, R+A\Sigma_{xx}A^{T})
-\]</span></p>
-<p><strong>状态估计</strong></p>
-<p>我们知道对于一个物体的状态估计应该分为预测和测量，其中预测主要是基于运动方程动模型得到的数据，测量主要是基于传感器等感知的数据 <span class="math display">\[
-x_{k}=f(x_{k-1},u_{k}) + w  \\
-z_{k}=h(x_{k}) + v
-\]</span> 具体来说应该符合如下线性方程来描述： <span class="math display">\[
-x_{k}=A_{k}x_{k-1}+u_{k}+w_{k}  \\
-z_{k}=C_{k}x_{k}+v_{k}
-\]</span> <span class="math inline">\(C_{k}\)</span> 也是状态变量到测量的转换矩阵。利用马尔可夫性，我们知道了k-1时刻的后验（在k-1时刻看来）状态估计 <span class="math inline">\(\hat x_{k-1}\)</span> 以及协方差 <span class="math inline">\(\hat P_{k-1}\)</span> ，现在要根据k时刻的输入（ <span class="math inline">\(\hat x_{k-1}, \hat P_{k-1}\)</span> ）和观测数据（ <span class="math inline">\(z_{k}\)</span> ），确定k时刻的后验分布 <span class="math inline">\(\hat{x}_{k}\)</span> 。为区分先验和后验，我们分别以 <span class="math inline">\(\bar{x}_{k}\)</span> ，<span class="math inline">\(\hat{x}_{k}\)</span> 表示。</p>
-<p>其中假设 <span class="math inline">\(x_{k-1}, z_{k}, w_{k}, v_{k}\)</span> 是满足高斯分布，分别为 <span class="math inline">\(x_{k-1} \sim N(\hat{x}_{k-1}, \hat{P}_{k-1}), w_{k} \sim N(0, R), v_{k} \sim N(0, Q)\)</span></p>
-<p>通过运动方程，确定 <span class="math inline">\(x_{k}\)</span> 的先验分布，根据复合高斯分布的性质，显然有 <span class="math display">\[
-x_{k}\sim N(\bar{x}_{k},\bar P_{k}) \\
-\bar{P}_{k}=A_{k}\hat{P}_{k-1}A^T_{k}+Q \\
-\bar{x}_{k}=A_{k}\hat{x}_{k-1}+u_{k}\\
-\\
-z_{k} \sim N(C_{k}\bar{x}_{k}, C_{k}\bar{P}_{k-1}C^T_{k}+Q)\]</span> 所以 <span class="math inline">\(x_{k}\)</span> ， <span class="math inline">\(z_{k}\)</span> 组成的联合高斯分布的形式为： <span class="math display">\[
-P(x_{k},z_{k})=N(\begin{bmatrix}
-u_{x} \\
-u_{y}
-\end{bmatrix},\begin{bmatrix}
-\Sigma_{xx} &amp; \Sigma_{xy} \\
-\Sigma_{yx} &amp; \Sigma_{yy}
-\end{bmatrix})\\
-=N(\begin{bmatrix}
-\bar x_{k} \\
-C_{k}\bar x_{k}
-\end{bmatrix},\begin{bmatrix}
-\bar P_{k} &amp; \bar P_{k}C^T_{k} \\
-C_{k}\bar{P}_{k} &amp; C_{k}\bar{P}_{k-1}C^T_{k}+Q
-\end{bmatrix})
-\]</span> 由于 <span class="math inline">\(x_{k-1} \sim N(\hat{x}_{k-1}, \hat{P}_{k-1})\)</span>，即 <span class="math inline">\(x_{k} \sim N(\hat{x}_{k}, \hat{P}_{k})\)</span> 。由贝叶斯公式 <span class="math inline">\(p(x,y)=p(x|y)p(y)\)</span>，下文引自公式 <span class="math display">\[
-x_{k} \sim N(\hat{x}_{k}, \hat{P}_{k})=p(x|y)=p(x_{k}|z_{k})=N(u_{x}+\Sigma_{xx}\Sigma^{-1}_{xy}(y_{k}-u_{y}),\Sigma_{xx}-\Sigma_{xy}\Sigma^{-1}_{yy}\Sigma_{yx})
-\]</span></p>
-<p><span class="math display">\[
-\hat x_{k}=\bar x_{k} + K_{k}(z_{k}-C_{k}\bar x_{k})\\
-K_{k}=\bar P_{k}C^T_{k}(C_{k}\bar P_{k}C^T_{k}+R_{k})^{-1}\\
-\hat P_{k}=(1-K_{k}C_{k})\bar P_{k}
-\]</span></p>
-<p>贝叶斯滤波的基本假设：</p>
-<ol type="1">
-<li>马儿可夫性假设：t时刻的状态由t-1时刻的状态和t时刻的动作决定。t时刻的观测仅同t时刻的状态相关，即： <span class="math display">\[
-p(x_t|x_{1:t-1}, z_{1:t}, u_{1:t})=p(x_t|x_{t-1},u_t)\\
-\]</span></li>
-<li>观测噪声、模型噪声等是相互独立的</li>
-<li>静态环境，即对象周边的环境假设是不变的</li>
-</ol>
-<p><span class="math display">\[
-Bel(x_t)=P(x_t|u_1, z_1, ..., u_t, z_t)\\
-=\eta P(z_t|x_t) \int P(x_t|u_t, x_{t-1})P(x_{t-1}|u_1, z_1,...,z_{t-1})dx_{t-1}
-\]</span></p>
-<h2 id="section-7">2018.3.20</h2>
-<h3 id="名词解释">名词解释</h3>
-<p>先验概率 P(X)：仅仅依赖主观上的经验，事先根据已有的知识的推断</p>
-<p>后验概率 P(X|Z)：是在相关证据或者背景给定并纳入考虑以后的条件概率</p>
-<p>似然P(Z|X)：已知结果去推测固有性质的可能性</p>
-<p>贝叶斯公式： <span class="math display">\[
-P(A|B)=\frac{P(A)\times P(B|A)}{P(B)}
-\]</span> 后验分布正比于先验分布乘以似然</p>
-<h2 id="section-8">2018.3.25</h2>
-<h3 id="最大似然估计maximize-likelihood-estimation-mle">最大似然估计（Maximize Likelihood Estimation, MLE)</h3>
-<p><span class="math display">\[
-x_{MLE}^{*}=argmaxP(z|x)
-\]</span> <strong>在怎样的状态下，最可能产生现在观测到的数据</strong></p>
+<p><span class="math display">\[I_2(u) \approx I^{&#39;}_2(u) \delta \varepsilon =链式法则* \delta \varepsilon \]</span></p>
 
       
     </div>
@@ -887,6 +497,8 @@ with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElemen
 
 <!-- 页面导航 -->
  <nav id="pagination" >
+    
+    <a href="/2018/05/07/diary/" class="alignleft prev" >Prev</a>
     
     
     <a href="/2018/01/19/《黑镜之光》综合科教书籍出版计划/" class="alignright next" >Next</a>

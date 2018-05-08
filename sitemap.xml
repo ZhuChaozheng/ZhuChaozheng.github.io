@@ -2,6 +2,20 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://blog.blackant.org/2018/05/07/diary/</loc>
+    
+    <lastmod>2018-05-07T09:36:42.556Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://blog.blackant.org/2018/05/07/content_en/</loc>
+    
+    <lastmod>2018-05-07T08:42:15.871Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://blog.blackant.org/2017/09/15/SVO-SEMI-DIRECT-MONOCULAR-VISUAL-ODOMETRY/</loc>
     
     <lastmod>2018-05-07T01:44:08.207Z</lastmod>
@@ -47,13 +61,6 @@
     <loc>http://blog.blackant.org/about/index.html</loc>
     
     <lastmod>2018-05-07T00:42:29.610Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://blog.blackant.org/2018/05/07/SVO%E8%AF%A6%E8%A7%A3/</loc>
-    
-    <lastmod>2018-05-07T00:34:06.461Z</lastmod>
     
   </url>
   

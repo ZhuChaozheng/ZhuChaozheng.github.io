@@ -4,6 +4,36 @@
 
     
   <url>
+    <loc>http://blog.blackant.org/2018/05/07/diary/</loc>
+    <lastmod>2018-05-07T09:36:42.556Z</lastmod>
+    <data>
+        <display>
+        <title>SVO详解（二）</title>
+        <pubTime>2018-05-07T08:01:58.000Z</pubTime>
+        
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://blog.blackant.org/2018/05/07/content_en/</loc>
+    <lastmod>2018-05-07T08:42:15.871Z</lastmod>
+    <data>
+        <display>
+        <title>SVO详解（一）</title>
+        <pubTime>2018-05-07T08:01:45.000Z</pubTime>
+        
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://blog.blackant.org/2017/09/15/SVO-SEMI-DIRECT-MONOCULAR-VISUAL-ODOMETRY/</loc>
     <lastmod>2018-05-07T01:44:08.207Z</lastmod>
     <data>
@@ -102,21 +132,6 @@
     </url>
 
     
-    
-  <url>
-    <loc>http://blog.blackant.org/2018/05/07/SVO%E8%AF%A6%E8%A7%A3/</loc>
-    <lastmod>2018-05-07T00:34:06.461Z</lastmod>
-    <data>
-        <display>
-        <title>SVO详解</title>
-        <pubTime>2018-05-07T00:25:58.000Z</pubTime>
-        
-         
-           
-        </display>
-    </data>
-    </url>
-
     
   <url>
     <loc>http://blog.blackant.org/2017/09/18/%E4%B8%80%E6%AD%A5%E6%AD%A5%E5%AE%8C%E5%96%84%E8%A7%86%E8%A7%89%E9%87%8C%E7%A8%8B%E8%AE%A14%E2%80%94%E2%80%94%E8%BF%90%E5%8A%A8%E4%BC%B0%E8%AE%A1image-align/</loc>
@@ -322,4 +337,5 @@
     </data>
     </url>
 
+    
 </urlset>
