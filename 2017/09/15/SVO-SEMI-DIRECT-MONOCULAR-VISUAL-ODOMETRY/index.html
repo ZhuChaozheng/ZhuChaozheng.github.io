@@ -113,13 +113,13 @@
 <p>下面分别来说这两点。</p>
 <ol>
 <li><p>Frame-to-Frame的位姿变换</p>
-<p> 追踪的第一步是将当前帧与上一个追踪成功的帧进行对比，粗略估计当前帧的位姿。该问题的基本形式为：已知上一帧对地图点的观测（包括2D投影位置和深度），以及当前帧的图像，如何计算当前帧的位姿？用数学语言说，已经k-1帧的位姿$T<em>{k-1}$，并且知道它的观测量$u_i$, i=1, \ldots, N时，求解$T</em>{k-1,k}$。</p>
+<p> 追踪的第一步是将当前帧与上一个追踪成功的帧进行对比，粗略估计当前帧的位姿。该问题的基本形式为：已知上一帧对地图点的观测（包括2D投影位置和深度），以及当前帧的图像，如何计算当前帧的位姿？用数学语言说，已经k-1帧的位姿$T_{k-1}$，并且知道它的观测量$u_i$, i=1, \ldots, N时，求解$T_{k-1,k}$。</p>
 </li>
 </ol>
-<p>在SVO里，该问题被称为 Model-based Image Alignment （带有相机模型的图像配准），实际上就是我们平时说的稀疏直接法。直接法的原理在我的博客中给出过比较细的推导：<a href="http://www.cnblogs.com/gaoxiang12/p/5689927.html" target="_blank" rel="noopener">直接法 – 半闲居士 – 博客园</a> ，此外我也讲过一次讲座：<a href="http://www.bilibili.com/video/av6299156/" target="_blank" rel="noopener">直接法的原理与实现<em>高翔_bilibili</em>演讲•公开课<em>科技_bilibili</em>哔哩哔哩弹幕视频网</a> 。本质上，它通过最小化前一帧和当前帧之间的光度误差来求得当前帧的（粗略）位姿：</p>
+<p>在SVO里，该问题被称为 Model-based Image Alignment （带有相机模型的图像配准），实际上就是我们平时说的稀疏直接法。直接法的原理在我的博客中给出过比较细的推导：<a href="http://www.cnblogs.com/gaoxiang12/p/5689927.html" target="_blank" rel="noopener">直接法 – 半闲居士 – 博客园</a> ，此外我也讲过一次讲座：<a href="http://www.bilibili.com/video/av6299156/" target="_blank" rel="noopener">直接法的原理与实现_高翔_bilibili_演讲•公开课_科技_bilibili_哔哩哔哩弹幕视频网</a> 。本质上，它通过最小化前一帧和当前帧之间的光度误差来求得当前帧的（粗略）位姿：</p>
 <p>要理解它，你需要非线性优化的基本知识。同时，为了求目标函数相对于位姿的导数，你需要学习一些李代数的知识。这在我的博客和讲座中均有比较详细的探讨：</p>
 <ul>
-<li><a href="http://www.bilibili.com/video/av7705856/" target="_blank" rel="noopener">视觉slam第4章<em>演讲•公开课</em>科技<em>bilibili</em>哔哩哔哩弹幕视频网</a></li>
+<li><a href="http://www.bilibili.com/video/av7705856/" target="_blank" rel="noopener">视觉slam第4章_演讲•公开课_科技_bilibili_哔哩哔哩弹幕视频网</a></li>
 <li><a href="https://pan.baidu.com/s/1c2qPdle" target="_blank" rel="noopener">非线性优化与g2o录像：http://pan.baidu.com/s/1c2qPdle</a></li>
 </ul>
 <p>由于不想在知乎打公式，所以请读者去看视频和讲座以了解其中原理（因为都已经讲过一遍了）。实现当中，SVO自己实现了高斯——牛顿法的迭代下降，并且比较取巧地使用了一种反向的求导方式：即雅可比在k-1帧图像上进行估计，而不在k帧上估计。这样做法的好处是在迭代过程中只需计算一次雅可比，其余部分只需更新残差即可（即G-N等式右侧的$-J^{T}e$）。这能够节省一定程度的计算量。另一个好处是，我们能够保证k-1帧的像素具有梯度，但没法保证在k帧上的投影也具有梯度，所以这样做至少能保证像素点的梯度是明显的。</p>
@@ -185,13 +185,13 @@
 <li>但是开源实现存在诸多缺点，不实用。论文中效果应该不是这个开源代码能够实现的。</li>
 </ol>
 <p>参考文献&lt;/br&gt;<br>[1] Foster et al., SVO: Fast semi-direct monocular visual odometry, ICRA 2014.&lt;/br&gt;<br>[2] SVO 2.0  &lt;/br&gt;<br>[3] Foster et al., IMU preintegration on manifold for efficient visual-inertial maximum-a-posteriori estimation, RSS 2015.&lt;/br&gt;<br>[4] Pizzoli, Matia and Forster, Christian and Scaramuzza, Davide, REMODE: Probabilistic, monocular dense reconstruction in real time, ICRA 2014.&lt;/br&gt;<br>[5] Engel, Jakob and Schops, Thomas and Cremers, Daniel, LSD-SLAM: Large-scale direct monocular SLAM, ECCV, 2014.&lt;/br&gt;<br>[6] Engel, Jakob and Koltun, Vladlen and Cremers, Daniel, Direct sparse odometry, 2016.&lt;/br&gt;<br>[7] George Vogiatzis and Carlos Hernández, Video-based, real-time multi-view stereo, Image and Vision Computing, 2011.&lt;/br&gt;<br>[8] Civera, Javier and Davison, Andrew J and Montiel, JM Martinez, Inverse depth parametrization for monocular SLAM, IEEE transactions on robotics, 2008.</p>
-<p>附：SVO相关中文博客、材料&lt;/br&gt;<br><a href="http://fengbing.net/" target="_blank" rel="noopener">冯兵的博客|内外兼修 &lt;一步步完善视觉里程计&gt;是对SVO比较完整的介绍。</a>&lt;/br&gt;<br><a href="http://www.voidcn.com/blog/wxzxur" target="_blank" rel="noopener">白巧克力亦唯心的博客 – 程序园</a> 贺一家的博客，有几篇关于SVO的介绍。&lt;/br&gt;<br><a href="http://www.cnblogs.com/luyb/" target="_blank" rel="noopener">路游侠 – 博客园</a> 这个是谁。。。知道的回复我一下。。。&lt;/br&gt;<br><a href="http://www.bilibili.com/video/av5934066/" target="_blank" rel="noopener">ORB-LSD-SVO比较-刘浩敏<em>bilibili</em>演讲•公开课<em>科技_bilibili</em>哔哩哔哩弹幕视频网</a> 浩敏师兄讲的一次ppt&lt;/br&gt;</p>
+<p>附：SVO相关中文博客、材料&lt;/br&gt;<br><a href="http://fengbing.net/" target="_blank" rel="noopener">冯兵的博客|内外兼修 &lt;一步步完善视觉里程计&gt;是对SVO比较完整的介绍。</a>&lt;/br&gt;<br><a href="http://www.voidcn.com/blog/wxzxur" target="_blank" rel="noopener">白巧克力亦唯心的博客 – 程序园</a> 贺一家的博客，有几篇关于SVO的介绍。&lt;/br&gt;<br><a href="http://www.cnblogs.com/luyb/" target="_blank" rel="noopener">路游侠 – 博客园</a> 这个是谁。。。知道的回复我一下。。。&lt;/br&gt;<br><a href="http://www.bilibili.com/video/av5934066/" target="_blank" rel="noopener">ORB-LSD-SVO比较-刘浩敏_bilibili_演讲•公开课_科技_bilibili_哔哩哔哩弹幕视频网</a> 浩敏师兄讲的一次ppt&lt;/br&gt;</p>
 <p>作者：半闲居士&lt;/br&gt;<br>链接：<a href="https://www.zhihu.com/question/39904950/answer/138644975" target="_blank" rel="noopener">https://www.zhihu.com/question/39904950/answer/138644975</a>&lt;/br&gt;<br>来源：知乎&lt;/br&gt;<br>著作权归作者所有，转载请联系作者获得授权。</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/09/15/SVO-SEMI-DIRECT-MONOCULAR-VISUAL-ODOMETRY/" data-id="ck3irjt8r001mkcazq0ot7gz9" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/09/15/SVO-SEMI-DIRECT-MONOCULAR-VISUAL-ODOMETRY/" data-id="ck3pxlfrk001mxwaz0qzadk5t" class="article-share-link">Share</a>
       
       
     </footer>

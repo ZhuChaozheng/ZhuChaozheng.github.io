@@ -155,7 +155,7 @@ a_{3}\\
 a'_{1}\\
 a'_{2}\\
 a'_{3}\\
-\end{bmatrix}</script><p>两边同时左乘一个 \begin{bmatrix}<br>e^T<em>{1}\<br>e^T</em>{2}\<br>e^T_{3}\<br>\end{bmatrix}。</p>
+\end{bmatrix}</script><p>两边同时左乘一个 \begin{bmatrix}<br>e^T_{1}\<br>e^T_{2}\<br>e^T_{3}\<br>\end{bmatrix}。</p>
 <script type="math/tex; mode=display">\begin{bmatrix}
 a_{1}\\
 a_{2}\\
@@ -268,12 +268,12 @@ a_{3}&0&-a_{1}\\
 <script type="math/tex; mode=display">x_{1}=K^{-1}p_{1} \ \ \ \ x_{2}=K^{-1}p_{2}</script><script type="math/tex; mode=display">x_{2}=Rx_{1}+t</script><p>两边同时乘以$t^{\wedge}$，由于$t^{\wedge}t=0$</p>
 <script type="math/tex; mode=display">t^{\wedge}x_{2}=t^{\wedge}Rx_{1}</script><p>两边同时乘以$x_{2}^{T}$</p>
 <script type="math/tex; mode=display">x_{2}^{T}t^{\wedge}x_{2}=x_{2}^{T}t^{\wedge}Rx_{1}</script><p>由于向量也是一维矩阵，所以左边满足矩阵乘法结合律</p>
-<script type="math/tex; mode=display">(AB)C=A(BC)</script><p>由于$t^{\wedge}x<em>{2}$ 是垂直于$t$ 和 $x</em>{2}$ 的向量（一维矩阵），所以左边等0，即</p>
-<script type="math/tex; mode=display">x_{2}^{T}t^{\wedge}Rx_{1}=0</script><p>将上面的$x<em>{1},x</em>{2}$ 代入</p>
+<script type="math/tex; mode=display">(AB)C=A(BC)</script><p>由于$t^{\wedge}x_{2}$ 是垂直于$t$ 和 $x_{2}$ 的向量（一维矩阵），所以左边等0，即</p>
+<script type="math/tex; mode=display">x_{2}^{T}t^{\wedge}Rx_{1}=0</script><p>将上面的$x_{1},x_{2}$ 代入</p>
 <script type="math/tex; mode=display">p_{2}^{T}K^{-T}t^{\wedge}RK^{-1}p_{1}=0</script><p>令$E=t^{\wedge}R$(本质矩阵)，$F=K^{-T}EK^{-1}$（基础矩阵）</p>
 <p>故</p>
 <script type="math/tex; mode=display">x_{2}^{T}Ex_{1}=0, \ p_{2}^{T}Fp_{1}=0</script><p>根据特征点匹配求出$E$，从中分解出$R 和 t$ 出来即可<br>由E的性质可知，E为3*3的矩阵</p>
-<p>对于任意的一对匹配点$x<em>{1}=[u</em>{1}, v<em>{1}, 1]^{T},x</em>{2}=[u<em>{2}, v</em>{2}, 1]^{T}$</p>
+<p>对于任意的一对匹配点$x_{1}=[u_{1}, v_{1}, 1]^{T},x_{2}=[u_{2}, v_{2}, 1]^{T}$</p>
 <script type="math/tex; mode=display">x_{2}^{T}Ex_{1}=0</script><script type="math/tex; mode=display">\begin{bmatrix}
 u_{2} & v_{2} & 1
 \end{bmatrix}\begin{bmatrix}
@@ -318,7 +318,7 @@ e_{7} & e_{8} & e_{9}
 z_{1}^{1},z_{1}^{2}....,z_{1}^{N}
 \end{Bmatrix},z_{2}=\begin{Bmatrix}
 z_{2}^{1},z_{2}^{2}....,z_{2}^{N}
-\end{Bmatrix}</script><p>其中$z<em>{i}^{j}$ 下标是指第几帧图，上标表示第几个特征点，其在图像上的坐标为 $z</em>{i}^{j}=\left [ u,v \right ]_{i}^{j}$</p>
+\end{Bmatrix}</script><p>其中$z_{i}^{j}$ 下标是指第几帧图，上标表示第几个特征点，其在图像上的坐标为 $z_{i}^{j}=\left [ u,v \right ]_{i}^{j}$</p>
 <p><img src="/img/camera.png" alt><br>上图模型表示为相机在1处，2处分别观测空间中X点位置。</p>
 <script type="math/tex; mode=display">
 \lambda_{1}\begin{bmatrix}
@@ -327,7 +327,7 @@ z_{1}^{j}\\
 \end{bmatrix}=CX^{j},\lambda_{2}\begin{bmatrix}
 z_{2}^{j}\\
 1
-\end{bmatrix}=C\left ( RX^{j}+t \right )</script><p>其中 $\lambda<em>{1},\lambda</em>{2}$ 表示像素深度值，也就是相机的z坐标。正常的思路就行，两个公式约掉 $X^{j}$ ，使用对极约束和SVD分解，理论上我们需要8个点就可以解算出来$R, t$，这是常规思路，我们这里主要介绍图优化。<br>我们尝试构造一个优化问题<br>由于存在着精度误差，所以 $\left | \frac{1}{\lambda<em>{1}}CX^{j}-\left [ z</em>{1}^{j},1 \right ]^{T}  \right |^{2}，\left | \frac{1}{\lambda<em>{2}}C(RX^{j}+t)-\left [ z</em>{2}^{j},1 \right ]^{T}  \right |^{2}$ 不可能都为0，所以我们只能通过调整 $R,t$ 来使他们的误差尽量下。</p>
+\end{bmatrix}=C\left ( RX^{j}+t \right )</script><p>其中 $\lambda_{1},\lambda_{2}$ 表示像素深度值，也就是相机的z坐标。正常的思路就行，两个公式约掉 $X^{j}$ ，使用对极约束和SVD分解，理论上我们需要8个点就可以解算出来$R, t$，这是常规思路，我们这里主要介绍图优化。<br>我们尝试构造一个优化问题<br>由于存在着精度误差，所以 $\left | \frac{1}{\lambda_{1}}CX^{j}-\left [ z_{1}^{j},1 \right ]^{T}  \right |^{2}，\left | \frac{1}{\lambda_{2}}C(RX^{j}+t)-\left [ z_{2}^{j},1 \right ]^{T}  \right |^{2}$ 不可能都为0，所以我们只能通过调整 $R,t$ 来使他们的误差尽量下。</p>
 <p>所以可以构造一个最优化问题，调整$R,t$使得对于所有的特征点$z^{j}$，误差二范数累计最小，也即</p>
 <script type="math/tex; mode=display">
 min_{X,R,t}\sum_{j=1}^{N}\left \| \frac{1}{\lambda_{1}}CX^{j}-\left [ z_{1}^{j},1 \right ]^{T}  \right \|^{2} + \left \| \frac{1}{\lambda_{2}}C(RX^{j}+t)-\left [ z_{2}^{j},1 \right ]^{T}  \right \|^{2}</script><p>这个就是最小化重投影误差问题（minimizaiton of reprojection error），实际操作中，我们在调整每个$X^{j}$，使得更符合每一次观测$z^{j}$，也就是每个误差项都尽量小。由于这个原因，所以他也叫捆绑调整（Bundle Adjustment）。</p>
@@ -399,7 +399,7 @@ D=\begin{bmatrix}
 0&1&0
 \end{bmatrix}</script><p>因为空间中可能有许多类似于上述的三维点，所以构成了一个累和公式</p>
 <script type="math/tex; mode=display">
-\min_{\xi}J(\xi)=\sum_{i=1}^{N}e_{i}^{T}e_{i},e_{i}=I_{1}(p_{1,i})-I_{2}(p_{2,i})</script><p>既然要求最小值，所以一般我们先考虑其导数的情况，对于 $\min<em>{\xi}J(\xi)$ 的最小值，等价于求 $e</em>{i}$ 最小值，一般来说，我们想要求最小值先分析其导数比较合适，但是$e_{i}$不便对其进行求导，所以我们采用最基本的导数公式</p>
+\min_{\xi}J(\xi)=\sum_{i=1}^{N}e_{i}^{T}e_{i},e_{i}=I_{1}(p_{1,i})-I_{2}(p_{2,i})</script><p>既然要求最小值，所以一般我们先考虑其导数的情况，对于 $\min_{\xi}J(\xi)$ 的最小值，等价于求 $e_{i}$ 最小值，一般来说，我们想要求最小值先分析其导数比较合适，但是$e_{i}$不便对其进行求导，所以我们采用最基本的导数公式</p>
 <script type="math/tex; mode=display">
 f^{'}(x_{0})=\frac{f(x_{0}+\Delta x)-f(x_{0})}{\Delta x}</script><p>所以我们对 $e_{i}$ 加个扰动量，即</p>
 <script type="math/tex; mode=display">
@@ -491,7 +491,7 @@ uchar red = intensity.val[2];
 <p>射影变换（4*4）：Eigen::Projective3d</p>
 <h4 id="schur消元"><a href="#schur消元" class="headerlink" title="schur消元"></a>schur消元</h4><p>对于线性方程</p>
 <script type="math/tex; mode=display">
-H \Delta x = g</script><p>求H矩阵的方法，其中 $\Delta x$ 是 $\Delta x<em>{c}=\begin{bmatrix}<br>\xi</em>{1}, &amp; \xi<em>{2}, &amp; …, &amp; \xi</em>{m}<br>\end{bmatrix}^{T} \in \mathbb{R}^{6m}, \Delta x<em>{p}=\begin{bmatrix}<br>p</em>{1}, &amp; p<em>{2}, &amp; …, &amp; p</em>{n}<br>\end{bmatrix}^{T} \in \mathbb{R}^{3n}$ 的统称，分别表示相机位姿和空间点的变量。</p>
+H \Delta x = g</script><p>求H矩阵的方法，其中 $\Delta x$ 是 $\Delta x_{c}=\begin{bmatrix}<br>\xi_{1}, &amp; \xi_{2}, &amp; …, &amp; \xi_{m}<br>\end{bmatrix}^{T} \in \mathbb{R}^{6m}, \Delta x_{p}=\begin{bmatrix}<br>p_{1}, &amp; p_{2}, &amp; …, &amp; p_{n}<br>\end{bmatrix}^{T} \in \mathbb{R}^{3n}$ 的统称，分别表示相机位姿和空间点的变量。</p>
 <p>针对H矩阵的性质，我们将H矩阵分解成4块，$B, E, E^T, C$，该方法的精髓在于将一次性求解 $\Delta x, \Delta p$ 变成了先求解 $\Delta x$，再求解 $\Delta p$</p>
 <script type="math/tex; mode=display">
 \begin{bmatrix}
@@ -536,12 +536,12 @@ E^T & C
 \nu-EC^{-1}\omega  \\
 \omega
 \end{bmatrix}</script><p>所以，就变成了先求 $(B-EC^{-1}E^T)\Delta x_{c} = \nu - EC^{-1}\omega$</p>
-<p>之后将 $\Delta x<em>{c}$ 带入到 $\Delta x</em>{p}=C^{-1}(\omega - E^T\Delta x_{c})$ 即可</p>
+<p>之后将 $\Delta x_{c}$ 带入到 $\Delta x_{p}=C^{-1}(\omega - E^T\Delta x_{c})$ 即可</p>
 <h2 id="2018-3-19"><a href="#2018-3-19" class="headerlink" title="2018.3.19"></a>2018.3.19</h2><h3 id="光流法的核心"><a href="#光流法的核心" class="headerlink" title="光流法的核心"></a>光流法的核心</h3><script type="math/tex; mode=display">
 A\Delta x = -b \\
 \Delta x = -(A^TA)^{-1}A^Tb</script><p>为啥要进行同时左乘一个 $A^T$ ，因为左边不是一个方阵，所以没法直接移过来求逆，所以我们需要通过变换，将其变成方阵</p>
 <h3 id="卡尔曼滤波的推导"><a href="#卡尔曼滤波的推导" class="headerlink" title="卡尔曼滤波的推导"></a>卡尔曼滤波的推导</h3><p><strong>复合高斯分布的概念</strong></p>
-<p>假设随机变量 $x \sim N(u<em>{x},\Sigma</em>{xx})$，另一个变量y满足：</p>
+<p>假设随机变量 $x \sim N(u_{x},\Sigma_{xx})$，另一个变量y满足：</p>
 <script type="math/tex; mode=display">
 y=Ax+b+w</script><p>其中 $A, b$ 为线性变量的系数矩阵和偏移量，$w$为噪声项，$w$ 为零均值的高斯分布：$w \sim N(0, R)$</p>
 <p>y的高斯分布即为：</p>
@@ -553,15 +553,15 @@ x_{k}=f(x_{k-1},u_{k}) + w  \\
 z_{k}=h(x_{k}) + v</script><p>具体来说应该符合如下线性方程来描述：</p>
 <script type="math/tex; mode=display">
 x_{k}=A_{k}x_{k-1}+u_{k}+w_{k}  \\
-z_{k}=C_{k}x_{k}+v_{k}</script><p>$C<em>{k}$ 也是状态变量到测量的转换矩阵。利用马尔可夫性，我们知道了k-1时刻的后验（在k-1时刻看来）状态估计 $\hat x</em>{k-1}$ 以及协方差 $\hat P<em>{k-1}$ ，现在要根据k时刻的输入（ $\hat x</em>{k-1}, \hat P<em>{k-1}$ ）和观测数据（ $z</em>{k}$ ），确定k时刻的后验分布 $\hat{x}<em>{k}$ 。为区分先验和后验，我们分别以 $\bar{x}</em>{k}$ ，$\hat{x}_{k}$ 表示。</p>
-<p>其中假设 $x<em>{k-1}, z</em>{k}, w<em>{k}, v</em>{k}$ 是满足高斯分布，分别为 $x<em>{k-1} \sim N(\hat{x}</em>{k-1}, \hat{P}<em>{k-1}), w</em>{k} \sim N(0, R), v_{k} \sim N(0, Q)$</p>
+z_{k}=C_{k}x_{k}+v_{k}</script><p>$C_{k}$ 也是状态变量到测量的转换矩阵。利用马尔可夫性，我们知道了k-1时刻的后验（在k-1时刻看来）状态估计 $\hat x_{k-1}$ 以及协方差 $\hat P_{k-1}$ ，现在要根据k时刻的输入（ $\hat x_{k-1}, \hat P_{k-1}$ ）和观测数据（ $z_{k}$ ），确定k时刻的后验分布 $\hat{x}_{k}$ 。为区分先验和后验，我们分别以 $\bar{x}_{k}$ ，$\hat{x}_{k}$ 表示。</p>
+<p>其中假设 $x_{k-1}, z_{k}, w_{k}, v_{k}$ 是满足高斯分布，分别为 $x_{k-1} \sim N(\hat{x}_{k-1}, \hat{P}_{k-1}), w_{k} \sim N(0, R), v_{k} \sim N(0, Q)$</p>
 <p>通过运动方程，确定 $x_{k}$ 的先验分布，根据复合高斯分布的性质，显然有</p>
 <script type="math/tex; mode=display">
 x_{k}\sim N(\bar{x}_{k},\bar P_{k}) \\
 \bar{P}_{k}=A_{k}\hat{P}_{k-1}A^T_{k}+Q \\
 \bar{x}_{k}=A_{k}\hat{x}_{k-1}+u_{k}\\
 \\
-z_{k} \sim N(C_{k}\bar{x}_{k}, C_{k}\bar{P}_{k-1}C^T_{k}+Q)</script><p>所以 $x<em>{k}$ ， $z</em>{k}$ 组成的联合高斯分布的形式为：</p>
+z_{k} \sim N(C_{k}\bar{x}_{k}, C_{k}\bar{P}_{k-1}C^T_{k}+Q)</script><p>所以 $x_{k}$ ， $z_{k}$ 组成的联合高斯分布的形式为：</p>
 <script type="math/tex; mode=display">
 P(x_{k},z_{k})=N(\begin{bmatrix}
 u_{x} \\
@@ -576,7 +576,7 @@ C_{k}\bar x_{k}
 \end{bmatrix},\begin{bmatrix}
 \bar P_{k} & \bar P_{k}C^T_{k} \\
 C_{k}\bar{P}_{k} & C_{k}\bar{P}_{k-1}C^T_{k}+Q
-\end{bmatrix})</script><p>由于 $x<em>{k-1} \sim N(\hat{x}</em>{k-1}, \hat{P}<em>{k-1})$，即 $x</em>{k} \sim N(\hat{x}<em>{k}, \hat{P}</em>{k})$ 。由贝叶斯公式 $p(x,y)=p(x|y)p(y)$，下文引自公式</p>
+\end{bmatrix})</script><p>由于 $x_{k-1} \sim N(\hat{x}_{k-1}, \hat{P}_{k-1})$，即 $x_{k} \sim N(\hat{x}_{k}, \hat{P}_{k})$ 。由贝叶斯公式 $p(x,y)=p(x|y)p(y)$，下文引自公式</p>
 <script type="math/tex; mode=display">
 x_{k} \sim N(\hat{x}_{k}, \hat{P}_{k})=p(x|y)=p(x_{k}|z_{k})=N(u_{x}+\Sigma_{xx}\Sigma^{-1}_{xy}(y_{k}-u_{y}),\Sigma_{xx}-\Sigma_{xy}\Sigma^{-1}_{yy}\Sigma_{yx})</script><script type="math/tex; mode=display">
 \hat x_{k}=\bar x_{k} + K_{k}(z_{k}-C_{k}\bar x_{k})\\
@@ -602,7 +602,7 @@ x_{MLE}^{*}=argmaxP(z|x)</script><p><strong>在怎样的状态下，最可能产
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/05/07/SVO详解/" data-id="ck3irjt8z001rkcazt5l8wkt9" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/05/07/SVO详解/" data-id="ck3pxlfue001rxwazj9rgaggv" class="article-share-link">Share</a>
       
       
     </footer>
