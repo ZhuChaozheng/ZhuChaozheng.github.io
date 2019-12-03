@@ -16,7 +16,7 @@
 <meta property="og:description" content="Basic knowledgeBayes&apos; theorem \begin{align}P(x|y)&amp;=\frac{P(x,y)}{P(y)}\tag{1}\end{align} \begin{align}&amp;=\frac{P(x,y)}{\int_{x}^{}P(x,y)dx}\tag{2}\end{align} \begin{align}&amp;=\frac{P(y|x)P(x)}{\int_{x}^{">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="http://yoursite.com/img/thenatureofKalman.png">
-<meta property="og:updated_time" content="2019-12-03T13:58:00.431Z">
+<meta property="og:updated_time" content="2019-12-03T14:08:52.853Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Derivation of Kalman Filtering step by step">
 <meta name="twitter:description" content="Basic knowledgeBayes&apos; theorem \begin{align}P(x|y)&amp;=\frac{P(x,y)}{P(y)}\tag{1}\end{align} \begin{align}&amp;=\frac{P(x,y)}{\int_{x}^{}P(x,y)dx}\tag{2}\end{align} \begin{align}&amp;=\frac{P(y|x)P(x)}{\int_{x}^{">
@@ -118,8 +118,7 @@ u_2
 \end{bmatrix},\begin{bmatrix}H\Sigma_{22}H^T+R&H\Sigma_{22}\\ \Sigma_{22}H^T&\Sigma_{22} \end{bmatrix})\tag{7}</script><h4 id="Marginalization"><a href="#Marginalization" class="headerlink" title="Marginalization"></a><a name="Marginalization">Marginalization</a></h4><p>if we want to marginalize a joint probability distribution, just remove the corresponding row and column of variable. Specifically, like that:</p>
 <script type="math/tex; mode=display">
 \begin{align}\int_{x_2}P(x_1,x_2)dx_2 &= \int_{x_2}P(x_2|x_1)P(x_1)dx_2\\ &= \int_{x_2}P(x_2|x_1)dx_2P(x_1)\\ &=\int_{x_2}P(x_1,x_2)dx_2\\ &=P(x_1)=N(u_1, \Sigma_{11})=N(\begin{bmatrix}u_1\\ u_2\end{bmatrix}, \begin{bmatrix}\Sigma_{11}& \Sigma_{12}\\ \Sigma_{21}\Sigma_{22}&\Sigma_{22}\end{bmatrix})\tag{8}\end{align}</script><p><strong>Since the markdown can not add the delete line above the concrete symbols, you may find the last equation lacks some essential contents.</strong></p>
-<h2 id="State-estimation"><a href="#State-estimation" class="headerlink" title="State estimation"></a>State estimation</h2><p>$ z<sub>1+1</sub> $</p>
-<p>For a practical case of state estimation, we often know the initial state $ x_0 $ and measurement, $ z_{22} $, then it usually is described by the following linear equations:</p>
+<h2 id="State-estimation"><a href="#State-estimation" class="headerlink" title="State estimation"></a>State estimation</h2><p>For a practical case of state estimation, we often know the initial state $ x_0 $ and measurement, $ z_{1:k} $, then it usually is described by the following linear equations:</p>
 <script type="math/tex; mode=display">
 \left\{\begin{matrix}
 prediction\ \ model:\ x_k=A_k x_{k-1}+w_k\\ 
@@ -185,7 +184,7 @@ measurement\ model:\ z_k=h(x_k)+v_k
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/11/27/Derivation of Kalman Filtering step by step/" data-id="ck3pxlfqa001cxwazsjqdsgom" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/11/27/Derivation of Kalman Filtering step by step/" data-id="ck3pyi7j500195wazmcnhoyv6" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/article/">article</a></li></ul>
