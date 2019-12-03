@@ -144,7 +144,7 @@
 <p>X˜表示通过双目进行3角定位获得的3D点。</p>
 <h2 id="3D-to-2D"><a href="#3D-to-2D" class="headerlink" title="3D-to-2D"></a>3D-to-2D</h2><p>对于这个问题就是PnP问题，OpenCV中就有方法solvePnP以及solvePnPRansac，具体优化通过：</p>
 <p><img src="http://7xl6tk.com1.z0.glb.clouddn.com/3d_to_2d.png" alt></p>
-<p>$\widehat{p}^i<em>{k−1}$为上一帧特征$p^{i}</em>{k-1}$对应3D点投影到当前帧的特征。&lt;/br&gt;<br>对于目前单目情况，这个3D点需要根据相连两帧来确定，然后将得到的3D点投影匹配到第三幅图像中。</p>
+<p>$\widehat{p}^i_{k−1}$为上一帧特征$p^{i}_{k-1}$对应3D点投影到当前帧的特征。&lt;/br&gt;<br>对于目前单目情况，这个3D点需要根据相连两帧来确定，然后将得到的3D点投影匹配到第三幅图像中。</p>
 <h2 id="关键帧"><a href="#关键帧" class="headerlink" title="关键帧"></a>关键帧</h2><p>我们确定3D点的时候，有如下几个因素影响这个3D点的准确性。</p>
 <ol>
 <li>图像噪声</li>
@@ -174,7 +174,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/09/16/视觉里程计总介绍/" data-id="ck3irjt7y000qkcaz09ujb2yl" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/09/16/视觉里程计总介绍/" data-id="ck3pyi7io000k5waziwao7r47" class="article-share-link">Share</a>
       
       
     </footer>

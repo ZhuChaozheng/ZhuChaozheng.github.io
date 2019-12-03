@@ -7,19 +7,19 @@
   
   <title>Derivation of Kalman Filtering step by step | Blackant</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Basic knowledgeBayes&apos; theorem$\begin{align}P(x|y)&amp;amp;=\frac{P(x,y)}{P(y)}\tag{1}\end{align}$ $\begin{align}&amp;amp;=\frac{P(x,y)}{\int_{x}^{}P(x,y)dx}\tag{2}\end{align}$ $\begin{align}&amp;amp;=\frac{P(y|x)">
+  <meta name="description" content="Basic knowledgeBayes&apos; theorem \begin{align}P(x|y)&amp;=\frac{P(x,y)}{P(y)}\tag{1}\end{align} \begin{align}&amp;=\frac{P(x,y)}{\int_{x}^{}P(x,y)dx}\tag{2}\end{align} \begin{align}&amp;=\frac{P(y|x)P(x)}{\int_{x}^{">
 <meta name="keywords" content="article">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Derivation of Kalman Filtering step by step">
 <meta property="og:url" content="http://yoursite.com/2019/11/27/Derivation of Kalman Filtering step by step/index.html">
 <meta property="og:site_name" content="Blackant">
-<meta property="og:description" content="Basic knowledgeBayes&apos; theorem$\begin{align}P(x|y)&amp;amp;=\frac{P(x,y)}{P(y)}\tag{1}\end{align}$ $\begin{align}&amp;amp;=\frac{P(x,y)}{\int_{x}^{}P(x,y)dx}\tag{2}\end{align}$ $\begin{align}&amp;amp;=\frac{P(y|x)">
+<meta property="og:description" content="Basic knowledgeBayes&apos; theorem \begin{align}P(x|y)&amp;=\frac{P(x,y)}{P(y)}\tag{1}\end{align} \begin{align}&amp;=\frac{P(x,y)}{\int_{x}^{}P(x,y)dx}\tag{2}\end{align} \begin{align}&amp;=\frac{P(y|x)P(x)}{\int_{x}^{">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="http://yoursite.com/img/thenatureofKalman.png">
-<meta property="og:updated_time" content="2019-11-28T13:44:13.225Z">
+<meta property="og:updated_time" content="2019-12-03T14:08:52.853Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Derivation of Kalman Filtering step by step">
-<meta name="twitter:description" content="Basic knowledgeBayes&apos; theorem$\begin{align}P(x|y)&amp;amp;=\frac{P(x,y)}{P(y)}\tag{1}\end{align}$ $\begin{align}&amp;amp;=\frac{P(x,y)}{\int_{x}^{}P(x,y)dx}\tag{2}\end{align}$ $\begin{align}&amp;amp;=\frac{P(y|x)">
+<meta name="twitter:description" content="Basic knowledgeBayes&apos; theorem \begin{align}P(x|y)&amp;=\frac{P(x,y)}{P(y)}\tag{1}\end{align} \begin{align}&amp;=\frac{P(x,y)}{\int_{x}^{}P(x,y)dx}\tag{2}\end{align} \begin{align}&amp;=\frac{P(y|x)P(x)}{\int_{x}^{">
 <meta name="twitter:image" content="http://yoursite.com/img/thenatureofKalman.png">
   
     <link rel="alternate" href="/atom.xml" title="Blackant" type="application/atom+xml">
@@ -89,71 +89,90 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="Basic-knowledge"><a href="#Basic-knowledge" class="headerlink" title="Basic knowledge"></a>Basic knowledge</h2><h3 id="Bayes-theorem"><a href="#Bayes-theorem" class="headerlink" title="Bayes' theorem"></a><a name="Bayes’ theorem">Bayes' theorem</a></h3><p>$\begin{align}P(x|y)&amp;=\frac{P(x,y)}{P(y)}\tag{1}\end{align}$</p>
-<p>$\begin{align}&amp;=\frac{P(x,y)}{\int_{x}^{}P(x,y)dx}\tag{2}\end{align}$</p>
-<p>$\begin{align}&amp;=\frac{P(y|x)P(x)}{\int_{x}^{}P(x,y)dx} \tag{3}\end{align}$</p>
-<p>Note that, $P(x|y)$ is not only a conditional probability, but a Posterior probability for $x$, which means The probability of occurrence of $x$ after y occurs. $P(x)$ is not only a marginal probability, but a prior probability. $P(y|x)$ has three meanings, first is a conditional probability, and secondly, a Posterior probability for y, last but not least, is called by likelihood function. Also, $P(y)$ has three meanings, first is a marginal probability, and secondly, a prior probability, last but not least, is called by normalized constant.<br><a id="more"></a></p>
+        <h2 id="Basic-knowledge"><a href="#Basic-knowledge" class="headerlink" title="Basic knowledge"></a>Basic knowledge</h2><h3 id="Bayes-theorem"><a href="#Bayes-theorem" class="headerlink" title="Bayes' theorem"></a><a name="Bayes’ theorem">Bayes' theorem</a></h3><script type="math/tex; mode=display">
+\begin{align}P(x|y)&=\frac{P(x,y)}{P(y)}\tag{1}\end{align}</script><script type="math/tex; mode=display">
+\begin{align}&=\frac{P(x,y)}{\int_{x}^{}P(x,y)dx}\tag{2}\end{align}</script><script type="math/tex; mode=display">
+\begin{align}&=\frac{P(y|x)P(x)}{\int_{x}^{}P(x,y)dx} \tag{3}\end{align}</script><p>Note that, $ P(x|y) $ is not only a conditional probability, but a Posterior probability for $x$, which means The probability of occurrence of $x$ after y occurs. $P(x)$ is not only a marginal probability, but a prior probability. $P(y|x)$ has three meanings, first is a conditional probability, and secondly, a Posterior probability for y, last but not least, is called by likelihood function. Also, $P(y)$ has three meanings, first is a marginal probability, and secondly, a prior probability, last but not least, is called by normalized constant.<br><a id="more"></a></p>
 <h3 id="Features-of-Gaussian-distribution"><a href="#Features-of-Gaussian-distribution" class="headerlink" title="Features of Gaussian distribution"></a>Features of Gaussian distribution</h3><h4 id="Divided-equation"><a href="#Divided-equation" class="headerlink" title="Divided equation"></a><a name="divided equation">Divided equation</a></h4><p>Suppose that this distribution is : </p>
-<p>$x=\begin{bmatrix}<br>x<em>1\<br>x_2<br>\end{bmatrix}\sim N(\begin{bmatrix}<br>u_1\<br>u_2<br>\end{bmatrix},\begin{bmatrix}\Sigma</em>{11}&amp;\Sigma<em>{12}\ \Sigma</em>{21}&amp;\Sigma_{22} \end{bmatrix})\tag4{}$</p>
-<p>As we all known, a joint distribution can be divided to the multiple of prior probability and conditional probability</p>
-<p>$P(x)=P(x_1, x_2)=P(x_1|x_2)P(x_2) \tag{5}$</p>
-<p>Then, we can directly derive the result of conditional probability:</p>
-<p>$ P(x<em>1|x_2)\sim N(u_1+\Sigma</em>{12}\Sigma<em>{22}^{-1}(x_2-u_2), \Sigma</em>{11}-\Sigma<em>{12}\Sigma</em>{22}^{-1}\Sigma_{21})\tag{6}$</p>
-<h4 id="Combined-equation"><a href="#Combined-equation" class="headerlink" title="Combined equation"></a><a name="combined equation">Combined equation</a></h4><p>if we known conditional probability and prior probability, like the following:</p>
-<p>$\begin{align}P(x<em>2) &amp;= N(u_2, \Sigma</em>{22})\P(x_1|x_2) &amp;= N(Hx_2, R)\end{align}$</p>
-<p>So, their joint distribution $P(x)$, equation (4) :</p>
-<p>$x=\begin{bmatrix}<br>x<em>1\<br>x_2<br>\end{bmatrix}\sim N(\begin{bmatrix}<br>Hu_2\<br>u_2<br>\end{bmatrix},\begin{bmatrix}H\Sigma</em>{22}H^T+R&amp;H\Sigma<em>{22}\ \Sigma</em>{22}H^T&amp;\Sigma_{22} \end{bmatrix})\tag{7}$</p>
-<h4 id="Marginalization"><a href="#Marginalization" class="headerlink" title="Marginalization"></a><a name="Marginalization">Marginalization</a></h4><p>if we want to marginalize a joint probability distribution, just remove the corresponding row and column of variable. Specifically, like that:</p>
-<script type="math/tex; mode=display">\begin{align}\int_{x_2}P(x_1,x_2)dx_2 &= \int_{x_2}P(x_2|x_1)P(x_1)dx_2\\ &= \int_{x_2}P(x_2|x_1)dx_2P(x_1)\\ &=\int_{x_2}P(x_1,x_2)dx_2\\ &=P(x_1)=N(u_1, \Sigma_{11})=N(\begin{bmatrix}u_1\\ u_2\end{bmatrix}, \begin{bmatrix}\Sigma_{11}& \Sigma_{12}\\ \Sigma_{21}\Sigma_{22}&\Sigma_{22}\end{bmatrix})\tag{8}\end{align}</script><p><strong>Since the markdown can not add the delete line above the concrete symbols, you may find the last equation lacks some essential contents.</strong></p>
-<h2 id="State-estimation"><a href="#State-estimation" class="headerlink" title="State estimation"></a>State estimation</h2><p>For a practical case of state estimation, we often know the initial state $x<em>0$ and measurement $z</em>{1:k}$ , then it usually is described by the following linear equations:</p>
+<script type="math/tex; mode=display">
+x=\begin{bmatrix}
+x_1\\
+x_2
+\end{bmatrix}\sim N(\begin{bmatrix}
+u_1\\ 
+u_2
+\end{bmatrix},\begin{bmatrix}\Sigma_{11}&\Sigma_{12}\\ \Sigma_{21}&\Sigma_{22} \tag{4}\end{bmatrix})</script><p>As we all known, a joint distribution can be divided to the multiple of prior probability and conditional probability</p>
+<script type="math/tex; mode=display">
+P(x)=P(x_1, x_2)=P(x_1|x_2)P(x_2) \tag{5}</script><p>Then, we can directly derive the result of conditional probability:</p>
+<script type="math/tex; mode=display">
+P(x_1|x_2)\sim N(u_1+\Sigma_{12}\Sigma_{22}^{-1}(x_2-u_2), \Sigma_{11}-\Sigma_{12}\Sigma_{22}^{-1}\Sigma_{21})\tag{6}</script><h4 id="Combined-equation"><a href="#Combined-equation" class="headerlink" title="Combined equation"></a><a name="combined equation">Combined equation</a></h4><p>if we known conditional probability and prior probability, like the following:</p>
+<script type="math/tex; mode=display">
+\begin{align}P(x_2) &= N(u_2, \Sigma_{22})\\P(x_1|x_2) &= N(Hx_2, R)\end{align}</script><p>So, their joint distribution $P(x)$, equation (4) :</p>
+<script type="math/tex; mode=display">
+x=\begin{bmatrix}
+x_1\\
+x_2
+\end{bmatrix}\sim N(\begin{bmatrix}
+Hu_2\\ 
+u_2
+\end{bmatrix},\begin{bmatrix}H\Sigma_{22}H^T+R&H\Sigma_{22}\\ \Sigma_{22}H^T&\Sigma_{22} \end{bmatrix})\tag{7}</script><h4 id="Marginalization"><a href="#Marginalization" class="headerlink" title="Marginalization"></a><a name="Marginalization">Marginalization</a></h4><p>if we want to marginalize a joint probability distribution, just remove the corresponding row and column of variable. Specifically, like that:</p>
+<script type="math/tex; mode=display">
+\begin{align}\int_{x_2}P(x_1,x_2)dx_2 &= \int_{x_2}P(x_2|x_1)P(x_1)dx_2\\ &= \int_{x_2}P(x_2|x_1)dx_2P(x_1)\\ &=\int_{x_2}P(x_1,x_2)dx_2\\ &=P(x_1)=N(u_1, \Sigma_{11})=N(\begin{bmatrix}u_1\\ u_2\end{bmatrix}, \begin{bmatrix}\Sigma_{11}& \Sigma_{12}\\ \Sigma_{21}\Sigma_{22}&\Sigma_{22}\end{bmatrix})\tag{8}\end{align}</script><p><strong>Since the markdown can not add the delete line above the concrete symbols, you may find the last equation lacks some essential contents.</strong></p>
+<h2 id="State-estimation"><a href="#State-estimation" class="headerlink" title="State estimation"></a>State estimation</h2><p>For a practical case of state estimation, we often know the initial state $ x_0 $ and measurement, $ z_{1:k} $, then it usually is described by the following linear equations:</p>
 <script type="math/tex; mode=display">
 \left\{\begin{matrix}
 prediction\ \ model:\ x_k=A_k x_{k-1}+w_k\\ 
 measurement\ \ model:\ z_k=H_k x_k+v_k
-\end{matrix}\right. ,\ where\ w_k\sim N(0,R_k),v_k\sim N(0, Q_k)\tag{9}</script><p>where $\ A_k$ is the state transition matrix, $H_k$ is measurement matrix (the transformation matrix used to map state vector parameters into the measurement domain).</p>
+\end{matrix}\right. ,\ where\ w_k\sim N(0,R_k),v_k\sim N(0, Q_k)\tag{9}</script><p>where $ A_k $ is the state transition matrix, $H_k$ is measurement matrix (the transformation matrix used to map state vector parameters into the measurement domain).</p>
 <p>Also, we can describe the nature from the figure 1.</p>
 <p><img src="/img/thenatureofKalman.png" alt="Figure 1: the nature of Kalman, note that it exists some wrongs in symbol $F_k$, please replace it to $A_k$"></p>
 <p>a robot move forward from initial state $\hat{x}_0$, after a constant time, its state may becomes state $\bar{x}_1$ which be calculated from certain interior nature $F_1$, and as we do not complete believe the state is $\bar{x}_1$, so we slightly make a measurement by another way at the same state, such as ultrasonic, laser lidar, and etc.. it will return to us a concrete value $z_1$. however, each sensor has different measure method, they will offer us some weird unit to express the same mean as the state. So, we should define a argument $H_1$ to map state into measurement domain. Our target is to calculate fused state $\hat{x}_1$, which combined with $\bar{x}_1$ and $z_k$.</p>
-<h3 id="conditional-probability"><a href="#conditional-probability" class="headerlink" title="conditional probability"></a>conditional probability</h3><p>when considering the conditional probability of $P(x<em>k|x</em>{k-1})$, it is easy to know $x<em>{k-1}$ as a concrete value not the variable at this time. therefore, $A_kx</em>{k-1}$ is also a constant and $x<em>k=A_k x</em>{k-1}+w_k$ means that a constant plus a Gaussian distribution. </p>
-<p>$P(x<em>k|x</em>{k-1})\sim N(A<em>kx</em>{k-1}, R_k)\tag{10}$</p>
-<p>similarly, we can easily derive the following equation:</p>
-<p>$P(z<em>k|x</em>{k})\sim N(H<em>kx</em>{k}, Q_k)\tag{11}$</p>
-<h3 id="Kalman-Filtering"><a href="#Kalman-Filtering" class="headerlink" title="Kalman Filtering"></a>Kalman Filtering</h3><p>For state estimation, the core work is to derive $P(x<em>{1:k}|z</em>{1:k},x<em>0)$. Mostly, we main concern present state  $x_k$, so the core work becomes to derive $P(x_k|z</em>{1:k}, x<em>{1:k-1},x_0)$. Moreover, based on Markov Model, the present state $x_k$ is only influenced by last state $x</em>{k-1}$. Finally, our target is to derive $P(x<em>k|z</em>{1:k},x_{k-1},x_0)$.</p>
+<h3 id="conditional-probability"><a href="#conditional-probability" class="headerlink" title="conditional probability"></a>conditional probability</h3><p>when considering the conditional probability of $P(x_k|x_{k-1})$ , it is easy to know $x_{k-1}$ as a concrete value not the variable at this time. therefore, $ A_kx_{k-1} $ is also a constant and $x_k=A_k x_{k-1}+w_k$ means that a constant plus a Gaussian distribution. </p>
+<script type="math/tex; mode=display">
+P(x_k|x_{k-1})\sim N(A_kx_{k-1}, R_k)\tag{10}</script><p>similarly, we can easily derive the following equation:</p>
+<script type="math/tex; mode=display">
+P(z_k|x_{k})\sim N(H_kx_{k}, Q_k)\tag{11}</script><h3 id="Kalman-Filtering"><a href="#Kalman-Filtering" class="headerlink" title="Kalman Filtering"></a>Kalman Filtering</h3><p>For state estimation, the core work is to derive $P(x_{1:k}|z_{1:k},x_0)$ . Mostly, we main concern present state  $x_k$ , so the core work becomes to derive $P(x_k|z_{1:k}, x_{1:k-1},x_0)$. Moreover, based on Markov Model, the present state $x_k$ is only influenced by last state $x_{k-1}$. Finally, our target is to derive $P(x_k|z_{1:k},x_{k-1},x_0)$.</p>
 <p>Now, Let’s start a exciting journey.</p>
 <p>Firstly, recall that the bayes’ theorem.</p>
 <p>As we all known, the Kalman Filtering saftifies the nature of Markov, so it can be simply written as the following:</p>
-<p>$\begin{align}P(x<em>k|z</em>{1:k},x<em>{k-1:0})=P(x_k|z</em>{1:k},x<em>{k-1})\sim N(\hat{u}_k,\hat{\Sigma}</em>{k})\end{align} \tag{12}$</p>
-<p>$\begin{align}&amp;=\frac{P(x<em>k,z_k|z</em>{1:k-1},x<em>{k-1},x_0)}{P(z_k|z</em>{1:k-1},x<em>{k,k-1},x_0)}\&amp;=\frac{P(x_k,z_k|z</em>{1:k-1},x<em>{k-1},x_0)}{\int</em>{x<em>k}P(x_k,z_k|z</em>{1:k-1},x<em>{k-1},x_0)dx_k}\ &amp;\propto P(x_k,z_k|z</em>{1:k-1},x_{k-1},x_0)\end{align}\tag{13}$</p>
-<p>Now, we have a great idea that as our target is a conditional probability, if we can get the joint probability distribution, we can directly use the <a href="#divided equation">divided equation</a> to obtain the final result.</p>
+<script type="math/tex; mode=display">
+\begin{align}P(x_k|z_{1:k},x_{k-1:0})=P(x_k|z_{1:k},x_{k-1})\sim N(\hat{u}_k,\hat{\Sigma}_{k})\end{align} \tag{12}</script><script type="math/tex; mode=display">
+\begin{align}&=\frac{P(x_k,z_k|z_{1:k-1},x_{k-1},x_0)}{P(z_k|z_{1:k-1},x_{k,k-1},x_0)}\\&=\frac{P(x_k,z_k|z_{1:k-1},x_{k-1},x_0)}{\int_{x_k}P(x_k,z_k|z_{1:k-1},x_{k-1},x_0)dx_k}\\ &\propto P(x_k,z_k|z_{1:k-1},x_{k-1},x_0)\end{align}\tag{13}</script><p>Now, we have a great idea that as our target is a conditional probability, if we can get the joint probability distribution, we can directly use the <a href="#divided equation">divided equation</a> to obtain the final result.</p>
 <p>So, Let’s mainly consider the joint probability distribution.</p>
-<p>$\begin{align}P(x<em>k,z_k|z</em>{1:k-1},x<em>{k-1},x_0)=P(z_k|x_k,z</em>{1:k-1},x<em>{k-1},x_0)P(x_k|z</em>{1:k-1},x_{k-1},x_0)\end{align}\tag{14}$</p>
-<p>as we all known, $z<em>k$ is only related to $x_k$, $P(z_k|x_k,z</em>{1:k-1},x_{k-1},x_0)$ is equal to $P(z_k|x_k)$. Then, continue to derive the equation.(during all the process of derivation, <a href="#Bayes&#39; theorem">Bayes’ theorem</a> will be used frequently)</p>
-<p>$=P(z<em>k|x_k)P(x_k|z</em>{1:k-1},x<em>{k-1},x_0)\=P(z_k|x_k)\int</em>{x<em>{k-1}}P(x_k,x</em>{k-1}|z<em>{1:k-1},x_0)dx</em>{k-1}\=P(z<em>k|x_k)\int</em>{x<em>{k-1}}P(x_k|x</em>{k-1})P(x<em>{k-1}|z</em>{1:k-1},x<em>0)dx</em>{k-1}\tag{15}$</p>
-<p>sOK, now, Let’s try to decompose the above equation to three parts, <em>measurement</em> $P(z<em>k|x_k)$, <em>prediction</em>$\ P(x_k|x</em>{k-1})$, <em>state distribution of last time</em>$\ P(x<em>{k-1}|z</em>{1:k-1},x_0)$. </p>
-<p>Please carefully note the last part $P(x<em>{k-1}|z</em>{1:k-1},x_0)$, do you remember the equation (12), so </p>
-<p>$P(x<em>{k-1}|z</em>{1:k-1},x<em>0)\sim N(\hat{u}</em>{k-1},\hat{\Sigma}_{k-1})\tag{16}$.再补一个</p>
+<script type="math/tex; mode=display">
+\begin{align}P(x_k,z_k|z_{1:k-1},x_{k-1},x_0)=P(z_k|x_k,z_{1:k-1},x_{k-1},x_0)P(x_k|z_{1:k-1},x_{k-1},x_0)\end{align}\tag{14}</script><p>as we all known, $z_k$ is only related to $x_k$, $P(z_k|x_k,z_{1:k-1},x_{k-1},x_0)$ is equal to $P(z_k|x_k)$ . Then, continue to derive the equation.(during all the process of derivation, <a href="#Bayes&#39; theorem">Bayes’ theorem</a> will be used frequently)</p>
+<script type="math/tex; mode=display">
+=P(z_k|x_k)P(x_k|z_{1:k-1},x_{k-1},x_0)\\=P(z_k|x_k)\int_{x_{k-1}}P(x_k,x_{k-1}|z_{1:k-1},x_0)dx_{k-1}\\=P(z_k|x_k)\int_{x_{k-1}}P(x_k|x_{k-1})P(x_{k-1}|z_{1:k-1},x_0)dx_{k-1}\tag{15}</script><p>sOK, now, Let’s try to decompose the above equation to three parts, <em>measurement</em> $P(z_k|x_k)$, <em>prediction</em>$\ P(x_k|x_{k-1})$, <em>state distribution of last time</em>$\ P(x_{k-1}|z_{1:k-1},x_0)$. </p>
+<p>Please carefully note the last part $P(x_{k-1}|z_{1:k-1},x_0)$, do you remember the equation (12), so </p>
+<p>$<br>P(x_{k-1}|z_{1:k-1},x_0)\sim N(\hat{u}_{k-1},\hat{\Sigma}_{k-1})\tag{16}<br>$.再补一个</p>
 <p>Listing all the local results, $(10)(11)(16)$:</p>
-<p>$\begin{align}P(z<em>k|x</em>{k})&amp;\sim N(H<em>kx</em>{k}, Q<em>k)\P(x_k|x</em>{k-1})&amp;\sim N(A<em>kx</em>{k-1}, R<em>k)\P(x</em>{k-1}|z<em>{1:k-1},x_0)&amp;\sim N(\hat{u}</em>{k-1},\hat{\Sigma}_{k-1})\end{align}$</p>
-<p>Then, based on <a href="#combined equation">combined equation</a>, we can easily obtain the following equation:</p>
-<p>$P(x<em>k|x</em>{k-1})P(x<em>{k-1}|z</em>{1:k-1},x<em>0)\sim N(A_kx</em>{k-1},R<em>{k})N(\hat{u}</em>{k-1},\hat{\Sigma}<em>{k-1})=N(\begin{bmatrix}A_k\hat{u}</em>{k-1}\ \hat{u}<em>{k-1}\end{bmatrix},\begin{bmatrix}A_k\hat{\Sigma}</em>{k-1}A<em>{k}^T+R_k&amp;A</em>{k}\hat\Sigma<em>{k-1}\ \hat\Sigma</em>{k-1}A<em>k^T&amp;\hat\Sigma</em>{k-1} \end{bmatrix}) \tag{17}$</p>
-<p>Based on <a href="#Marginalization">Marginalization</a>, </p>
-<p>$\int<em>{x</em>{k-1}}P(x<em>k|x</em>{k-1})P(x<em>{k-1}|z</em>{1:k-1},x<em>0)dx</em>{k-1}\sim N(A<em>k\hat{u}</em>{k-1}, A<em>k\hat{\Sigma}</em>{k-1}A_{k}^T+R_k)\tag{18}$</p>
-<p>Now, we would like to define another symbol $\bar{u}<em>k,\ \bar{\Sigma}_k$ to express $N(A_ku</em>{k-1}, A<em>k\hat{\Sigma}</em>{k-1}A_{k}^T+R_k)$, so equation (18) convert to (19):</p>
-<p>$\int<em>{x</em>{k-1}}P(x<em>k|x</em>{k-1})P(x<em>{k-1}|z</em>{1:k-1},x<em>0)dx</em>{k-1}\sim N(A<em>k\hat{u}</em>{k-1}, A<em>k\hat{\Sigma}</em>{k-1}A<em>{k}^T+R_k)=N(\bar{u}_k, \bar{\Sigma}</em>{k})\tag{19}$</p>
-<script type="math/tex; mode=display">\bar{u}_k=A_k\hat{u}_{k-1}\tag{20}</script><script type="math/tex; mode=display">\bar\Sigma_k=A_k\hat{\Sigma}_{k-1}A_{k}^T+R_k\tag{21}</script><p>for the equation (15) is equal to the multiple of  equation (11) and (19):</p>
-<p>$P(z<em>k|x_k)\int</em>{x<em>{k-1}}P(x_k|x</em>{k-1})P(x<em>{k-1}|z</em>{1:k-1},x<em>0)dx</em>{k-1}\sim N(H<em>kx</em>{k}, Q<em>k)N(\bar{u}_k, \bar{\Sigma}</em>{k})\tag{18}$</p>
-<p>based on <a href="#combined equation">combined equation</a>, equation (19) is equal to (20)</p>
-<p>$N(\begin{bmatrix}\bar{u}<em>k\ H_k\bar{u}_k\end{bmatrix},\ \begin{bmatrix}\bar\Sigma</em>{k}&amp;\bar\Sigma<em>{k}H_k^T\H</em>{k}\bar\Sigma<em>{k}&amp;H_k\bar{\Sigma}</em>{k}H_{k}^T+Q_k\end{bmatrix}) \tag{20}$</p>
-<p>So, we have successfully derive the joint probability of state $x_k$ and measurement $z_k$:</p>
-<p>$P(x<em>k,z_k|z</em>{1:k-1},x<em>{k-1},x_0)=\begin{bmatrix}x_k\ z_k\end{bmatrix}\sim N(\begin{bmatrix}\bar{u}_k\ H_k\bar{u}_k\end{bmatrix},\ \begin{bmatrix}\bar\Sigma</em>{k}&amp;\bar\Sigma<em>{k}H_k^T\H</em>{k}\bar\Sigma<em>{k}&amp;H_k\bar{\Sigma}</em>{k}H_{k}^T+Q_k\end{bmatrix}) \tag{21}$</p>
-<p>according to the theorem of equation (13), the last step is to use <a href="#divided equation">divided equation</a> to derive conditional probability $P(x<em>k|z</em>{1:k},x_{k-1},x_0)$. </p>
-<p>$P(x<em>k|z</em>{1:k},x<em>{k-1},x_0)\sim N(\bar{u}_k+\bar{\Sigma}</em>{k}H<em>k^T(H_k\bar{\Sigma}</em>{k}H<em>{k}^T+Q_k)^{-1}(z_k-H_k\bar{u}_k), \bar{\Sigma}</em>{k}-\bar{\Sigma}<em>{k}H_k^T(H_k\bar{\Sigma}</em>{k}H<em>{k}^T+Q_k)^{-1}H_k\bar\Sigma</em>{k}) \tag{22}$</p>
-<p>define</p>
-<script type="math/tex; mode=display">K=\bar{\Sigma}_{k}H_k^T(H_k\bar{\Sigma}_{k}H_{k}^T+Q_k)^{-1} \tag{23}</script><p> (22) will convert to (24):</p>
-<p>$P(x<em>k|z</em>{1:k},x<em>{k-1},x_0)\sim N(\bar{u}_k+K(z_k-H_k\bar{u}_k), \bar{\Sigma}</em>{k}-KH<em>k\bar\Sigma</em>{k}) \tag{24}$</p>
-<p>at the start of this section, we define equation (12), so we can easily obtain the following equation:</p>
-<script type="math/tex; mode=display">\hat{u}_k=\bar{u}_k+K(z_k-H_k\bar{u}_k) \tag{25}</script><script type="math/tex; mode=display">\hat\Sigma_k= \bar{\Sigma}_{k}-KH_k\bar\Sigma_{k} \tag{26}</script><p>Now, let’s make a conclusion. Kalman Filtering has five important equation (18), (19), (22), (24), (25). Those equations are listed:</p>
-<script type="math/tex; mode=display">\bar{u}_k=A_k\hat{u}_{k-1}\\\bar\Sigma_k=A_k\hat{\Sigma}_{k-1}A_{k}^T+R_k\\K=\bar{\Sigma}_{k}H_k^T(H_k\bar{\Sigma}_{k}H_{k}^T+Q_k)^{-1} \\\hat{u}_k=\bar{u}_k+K(z_k-H_k\bar{u}_k) \\\hat\Sigma_k= \bar{\Sigma}_{k}-KH_k\bar\Sigma_{k} \tag{27}</script><h3 id="Extended-Kalman-Filtering"><a href="#Extended-Kalman-Filtering" class="headerlink" title="Extended Kalman Filtering"></a>Extended Kalman Filtering</h3><p>for a more usual case, the state and measurement equations are not belonged to linear, but the variable of state still meet Gaussian and Markov Model.</p>
+<script type="math/tex; mode=display">
+\begin{align}P(z_k|x_{k})&\sim N(H_kx_{k}, Q_k)\\P(x_k|x_{k-1})&\sim N(A_kx_{k-1}, R_k)\\P(x_{k-1}|z_{1:k-1},x_0)&\sim N(\hat{u}_{k-1},\hat{\Sigma}_{k-1})\end{align}</script><p>Then, based on <a href="#combined equation">combined equation</a>, we can easily obtain the following equation:</p>
+<script type="math/tex; mode=display">
+P(x_k|x_{k-1})P(x_{k-1}|z_{1:k-1},x_0)\sim N(A_kx_{k-1},R_{k})N(\hat{u}_{k-1},\hat{\Sigma}_{k-1})=N(\begin{bmatrix}A_k\hat{u}_{k-1}\\ \hat{u}_{k-1}\end{bmatrix},\begin{bmatrix}A_k\hat{\Sigma}_{k-1}A_{k}^T+R_k&A_{k}\hat\Sigma_{k-1}\\ \hat\Sigma_{k-1}A_k^T&\hat\Sigma_{k-1} \end{bmatrix}) \tag{17}</script><p>Based on <a href="#Marginalization">Marginalization</a>, </p>
+<script type="math/tex; mode=display">
+\int_{x_{k-1}}P(x_k|x_{k-1})P(x_{k-1}|z_{1:k-1},x_0)dx_{k-1}\sim N(A_k\hat{u}_{k-1}, A_k\hat{\Sigma}_{k-1}A_{k}^T+R_k)\tag{18}</script><p>Now, we would like to define another symbol $\bar{u}_k,\ \bar{\Sigma}_k$ to express $N(A_ku_{k-1}, A_k\hat{\Sigma}_{k-1}A_{k}^T+R_k)$, so equation (18) convert to (19):</p>
+<script type="math/tex; mode=display">
+\int_{x_{k-1}}P(x_k|x_{k-1})P(x_{k-1}|z_{1:k-1},x_0)dx_{k-1}\sim N(A_k\hat{u}_{k-1}, A_k\hat{\Sigma}_{k-1}A_{k}^T+R_k)=N(\bar{u}_k, \bar{\Sigma}_{k})\tag{19}</script><script type="math/tex; mode=display">
+\bar{u}_k=A_k\hat{u}_{k-1}\tag{20}</script><script type="math/tex; mode=display">
+\bar\Sigma_k=A_k\hat{\Sigma}_{k-1}A_{k}^T+R_k\tag{21}</script><p>for the equation (15) is equal to the multiple of  equation (11) and (19):</p>
+<script type="math/tex; mode=display">
+P(z_k|x_k)\int_{x_{k-1}}P(x_k|x_{k-1})P(x_{k-1}|z_{1:k-1},x_0)dx_{k-1}\sim N(H_kx_{k}, Q_k)N(\bar{u}_k, \bar{\Sigma}_{k})\tag{18}</script><p>based on <a href="#combined equation">combined equation</a>, equation (19) is equal to (20)</p>
+<script type="math/tex; mode=display">
+N(\begin{bmatrix}\bar{u}_k\\ H_k\bar{u}_k\end{bmatrix},\ \begin{bmatrix}\bar\Sigma_{k}&\bar\Sigma_{k}H_k^T\\H_{k}\bar\Sigma_{k}&H_k\bar{\Sigma}_{k}H_{k}^T+Q_k\end{bmatrix}) \tag{20}</script><p>So, we have successfully derive the joint probability of state $x_k$ and measurement $z_k$:</p>
+<script type="math/tex; mode=display">
+P(x_k,z_k|z_{1:k-1},x_{k-1},x_0)=\begin{bmatrix}x_k\\ z_k\end{bmatrix}\sim N(\begin{bmatrix}\bar{u}_k\\ H_k\bar{u}_k\end{bmatrix},\ \begin{bmatrix}\bar\Sigma_{k}&\bar\Sigma_{k}H_k^T\\H_{k}\bar\Sigma_{k}&H_k\bar{\Sigma}_{k}H_{k}^T+Q_k\end{bmatrix}) \tag{21}</script><p>according to the theorem of equation (13), the last step is to use <a href="#divided equation">divided equation</a> to derive conditional probability $P(x_k|z_{1:k},x_{k-1},x_0)$. </p>
+<script type="math/tex; mode=display">
+P(x_k|z_{1:k},x_{k-1},x_0)\sim N(\bar{u}_k+\bar{\Sigma}_{k}H_k^T(H_k\bar{\Sigma}_{k}H_{k}^T+Q_k)^{-1}(z_k-H_k\bar{u}_k), \bar{\Sigma}_{k}-\bar{\Sigma}_{k}H_k^T(H_k\bar{\Sigma}_{k}H_{k}^T+Q_k)^{-1}H_k\bar\Sigma_{k}) \tag{22}</script><p>define</p>
+<script type="math/tex; mode=display">
+ K=\bar{\Sigma}_{k}H_k^T(H_k\bar{\Sigma}_{k}H_{k}^T+Q_k)^{-1} \tag{23}</script><p> (22) will convert to (24):</p>
+<script type="math/tex; mode=display">
+P(x_k|z_{1:k},x_{k-1},x_0)\sim N(\bar{u}_k+K(z_k-H_k\bar{u}_k), \bar{\Sigma}_{k}-KH_k\bar\Sigma_{k}) \tag{24}</script><p>at the start of this section, we define equation (12), so we can easily obtain the following equation:</p>
+<script type="math/tex; mode=display">
+\hat{u}_k=\bar{u}_k+K(z_k-H_k\bar{u}_k) \tag{25}</script><script type="math/tex; mode=display">
+\hat\Sigma_k= \bar{\Sigma}_{k}-KH_k\bar\Sigma_{k} \tag{26}</script><p>Now, let’s make a conclusion. Kalman Filtering has five important equation (18), (19), (22), (24), (25). Those equations are listed:</p>
+<script type="math/tex; mode=display">
+\bar{u}_k=A_k\hat{u}_{k-1}\\\bar\Sigma_k=A_k\hat{\Sigma}_{k-1}A_{k}^T+R_k\\K=\bar{\Sigma}_{k}H_k^T(H_k\bar{\Sigma}_{k}H_{k}^T+Q_k)^{-1} \\\hat{u}_k=\bar{u}_k+K(z_k-H_k\bar{u}_k) \\\hat\Sigma_k= \bar{\Sigma}_{k}-KH_k\bar\Sigma_{k} \tag{27}</script><h3 id="Extended-Kalman-Filtering"><a href="#Extended-Kalman-Filtering" class="headerlink" title="Extended Kalman Filtering"></a>Extended Kalman Filtering</h3><p>for a more usual case, the state and measurement equations are not belonged to linear, but the variable of state still meet Gaussian and Markov Model.</p>
 <script type="math/tex; mode=display">
 \left\{\begin{matrix}
 prediction\ model:\ x_k=f(x_{k-1})+w_k\\ 
@@ -165,7 +184,7 @@ measurement\ model:\ z_k=h(x_k)+v_k
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/11/27/Derivation of Kalman Filtering step by step/" data-id="ck3irjt8c0019kcazw73docqp" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/11/27/Derivation of Kalman Filtering step by step/" data-id="ck3pyi7j500195wazmcnhoyv6" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/article/">article</a></li></ul>
