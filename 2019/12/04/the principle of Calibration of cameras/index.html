@@ -15,13 +15,14 @@
 <meta property="og:site_name" content="Blackant">
 <meta property="og:description" content="some papers always describe they present a novel method of Intrinsic Calibration of cameras, but few say they can realize intrinsic and extrinsic calibration of cameras. How they implement that? And,">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="http://yoursite.com/img/introductionofframes.jpg">
-<meta property="og:image" content="http://yoursite.com/img/projection.jpg">
-<meta property="og:updated_time" content="2019-12-04T04:15:30.218Z">
+<meta property="og:image" content="http://yoursite.com/img/introductionofframes1.png">
+<meta property="og:image" content="http://yoursite.com/img/projection1.png">
+<meta property="og:image" content="http://yoursite.com/img/core1.png">
+<meta property="og:updated_time" content="2019-12-04T08:18:07.338Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="the principle of Calibration of cameras">
 <meta name="twitter:description" content="some papers always describe they present a novel method of Intrinsic Calibration of cameras, but few say they can realize intrinsic and extrinsic calibration of cameras. How they implement that? And,">
-<meta name="twitter:image" content="http://yoursite.com/img/introductionofframes.jpg">
+<meta name="twitter:image" content="http://yoursite.com/img/introductionofframes1.png">
   
     <link rel="alternate" href="/atom.xml" title="Blackant" type="application/atom+xml">
   
@@ -96,7 +97,7 @@
 <p>For the camera frame, it often considers as the bridge between the world frame and the image/pixel frame, which observes other object from its origin. besides, it should describe 3 degrees of freedom information.</p>
 <p>in order to describe the relation of projection between camera and image, the image frame is introduced naturally. Moreover, its origin often locates on the center of image and it have 2 degrees of freedom imformation. </p>
 <p>Lastly, we will talk about the pixel frame. Its origin often locates on the left upper corner and it have 2 degrees of freedom imformation. Concretely, (342, 123) means that the pixel is on the 342 rows, 123 columns.</p>
-<p><img src="/img/introductionofframes.jpg" alt="introduction of frames"></p>
+<p><img src="/img/introductionofframes1.png" alt="introduction of frames"></p>
 <p>the world frame: $X_w$, $Y_w$, $Z_w$, the camera frame: $X_c$, $Y_c$, $Z_c$, the image frame: $x$, $y$, the pixel frame: $u$, $v$</p>
 <p>where, the z aixs of the camera frame is equal to the focal axis, it’s also perpendicular to the image plane and through the origin of the image frame. the distance between them is focal length $f$. Besides, it can be seen the planes of pixel and image are the same, while the origin of the pixel frame is left upper corner.</p>
 <h3 id="Transformation"><a href="#Transformation" class="headerlink" title="Transformation"></a>Transformation</h3><p>the transformation of frame of a rigid object from the world frame to the camera frame can be calculated by rotation and translation. It usually consider as a homogeneous coordinate matrix, which was combined with a rotation matrix and translation vector. </p>
@@ -107,7 +108,7 @@
 \begin{bmatrix}R & t\\ 0^{T}_3&1\end{bmatrix}\tag{2}</script><p>so, it’s the <strong>Extrinsic</strong> which has 6 parameters.</p>
 <h2 id="Intrinsiic"><a href="#Intrinsiic" class="headerlink" title="Intrinsiic"></a>Intrinsiic</h2><p>now, let’s revise the projection of camera. firstly, we talk about the undistortion circumstance. </p>
 <h3 id="undistortion"><a href="#undistortion" class="headerlink" title="undistortion"></a>undistortion</h3><p>It turns to talk about the transformation from the camera frame to the image frame.</p>
-<p><img src="/img/projection.jpg" alt="the principle of projection"></p>
+<p><img src="/img/projection1.png" alt="the principle of projection"></p>
 <p>Suppose that there is a point $(x_M, y_M, z_M)$ in the space, which has three degrees of freedom information when it is observed from the camera frame. So, if the undistortion happens, it can be derived as the following:</p>
 <script type="math/tex; mode=display">
 x_p=f\frac{x_M}{z_M}, y_p=f\frac{y_M}{z_M}\tag{3}</script><p>it can be considered as the formula of homogeneous coordinate:</p>
@@ -130,7 +131,7 @@ u=\frac{x_c}{d_x}+u_0, v=\frac{y_c}{d_y}+v_0\tag{7}</script><p>it is more convin
 <script type="math/tex; mode=display">
 M=\begin{bmatrix}\frac{1}{d_x}&0&u_0\\0&\frac{1}{d_y}&v_0\\0&0&1\end{bmatrix}\begin{bmatrix}f&0&0\\0&f&0\\0&0&1\end{bmatrix}=\begin{bmatrix}\frac{f}{d_x}&0&u_0\\0&\frac{f}{d_y}&v_0\\0&0&1\end{bmatrix} \tag{9}</script><p>Thus, the Intrinsic has 4 parameters which will not change as thing goes. </p>
 <p>Lastly, it can be sum up by a graph.</p>
-<p>(lack a graph)</p>
+<p><img src="/img/core1.png" alt></p>
 <h2 id="Method-to-Solve-Intrinsic-and-Extrinsic"><a href="#Method-to-Solve-Intrinsic-and-Extrinsic" class="headerlink" title="Method to Solve Intrinsic and Extrinsic"></a>Method to Solve Intrinsic and Extrinsic</h2><p>If we can offer $K$ Checkboard images, each Checkboard has $N$ corners, then it will have $2KN$ constrain equations. Meanwhile, if the distortion will not take into account, it needs to know $4$ intrinsic and $6K$ extrinsic, since the extrinsic will change once the pose moves. Thereby, when the condition satisfies $2KN &gt; =4+6K$, namely $K(N-3)&gt;=2$, it can solve the matrix of extrinsic and intrinsic. Moreover, as the shape of Checkboard has beed already decided, the corners always keep 4. So, when $N=4$, namely $K&gt;=2$. In other words, it needs at least 2 Checkboard images to derive the extrinsic and intrinsic of camera while overlooking the distortion.</p>
 <p>Actually, to eliminate the noise and keep the stability of value, it often prepare more than 10 Checkboard images to obtain accurate results.</p>
 <p>Meanwhile, it turns to introduce the conception of Homography, which defines the relationship of projection from one plane to another plane, to contain Intrinsic and Extrinsic. According to the prior knowledge about the relationship of  coordinate projection from the pixel frame to the world frame (equation 1) :</p>
@@ -170,7 +171,7 @@ v^T_{12}b=0\\(v^T_{11}-v^T_{22})b=0,\ namely, \begin{bmatrix}v^T_{12}\\(v^T_{11}
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/12/04/the principle of Calibration of cameras/" data-id="ck3qs4rn5001emkazyz4k5mkr" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/12/04/the principle of Calibration of cameras/" data-id="ck3r0x64f001ep8azsvhiiqih" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/article/">article</a></li></ul>
