@@ -16,7 +16,7 @@
 <meta property="og:description" content="Basic knowledgeBayes&apos; theorem \begin{align}P(x|y)&amp;=\frac{P(x,y)}{P(y)}\tag{1}\end{align} \begin{align}&amp;=\frac{P(x,y)}{\int_{x}^{}P(x,y)dx}\tag{2}\end{align} \begin{align}&amp;=\frac{P(y|x)P(x)}{\int_{x}^{">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="http://yoursite.com/img/thenatureofKalman.png">
-<meta property="og:updated_time" content="2019-12-03T14:08:52.853Z">
+<meta property="og:updated_time" content="2019-12-03T14:29:57.768Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Derivation of Kalman Filtering step by step">
 <meta name="twitter:description" content="Basic knowledgeBayes&apos; theorem \begin{align}P(x|y)&amp;=\frac{P(x,y)}{P(y)}\tag{1}\end{align} \begin{align}&amp;=\frac{P(x,y)}{\int_{x}^{}P(x,y)dx}\tag{2}\end{align} \begin{align}&amp;=\frac{P(y|x)P(x)}{\int_{x}^{">
@@ -143,8 +143,7 @@ P(z_k|x_{k})\sim N(H_kx_{k}, Q_k)\tag{11}</script><h3 id="Kalman-Filtering"><a h
 \begin{align}P(x_k,z_k|z_{1:k-1},x_{k-1},x_0)=P(z_k|x_k,z_{1:k-1},x_{k-1},x_0)P(x_k|z_{1:k-1},x_{k-1},x_0)\end{align}\tag{14}</script><p>as we all known, $z_k$ is only related to $x_k$, $P(z_k|x_k,z_{1:k-1},x_{k-1},x_0)$ is equal to $P(z_k|x_k)$ . Then, continue to derive the equation.(during all the process of derivation, <a href="#Bayes&#39; theorem">Bayes’ theorem</a> will be used frequently)</p>
 <script type="math/tex; mode=display">
 =P(z_k|x_k)P(x_k|z_{1:k-1},x_{k-1},x_0)\\=P(z_k|x_k)\int_{x_{k-1}}P(x_k,x_{k-1}|z_{1:k-1},x_0)dx_{k-1}\\=P(z_k|x_k)\int_{x_{k-1}}P(x_k|x_{k-1})P(x_{k-1}|z_{1:k-1},x_0)dx_{k-1}\tag{15}</script><p>sOK, now, Let’s try to decompose the above equation to three parts, <em>measurement</em> $P(z_k|x_k)$, <em>prediction</em>$\ P(x_k|x_{k-1})$, <em>state distribution of last time</em>$\ P(x_{k-1}|z_{1:k-1},x_0)$. </p>
-<p>Please carefully note the last part $P(x_{k-1}|z_{1:k-1},x_0)$, do you remember the equation (12), so </p>
-<p>$<br>P(x_{k-1}|z_{1:k-1},x_0)\sim N(\hat{u}_{k-1},\hat{\Sigma}_{k-1})\tag{16}<br>$.再补一个</p>
+<p>Please carefully note the last part $P(x_{k-1}|z_{1:k-1},x_0)$, do you remember the equation (12), so<br>$P(x_{k-1}|z_{1:k-1},x_0)\sim N(\hat{u}_{k-1},\hat{\Sigma}_{k-1})\tag{16}$.再补一个</p>
 <p>Listing all the local results, $(10)(11)(16)$:</p>
 <script type="math/tex; mode=display">
 \begin{align}P(z_k|x_{k})&\sim N(H_kx_{k}, Q_k)\\P(x_k|x_{k-1})&\sim N(A_kx_{k-1}, R_k)\\P(x_{k-1}|z_{1:k-1},x_0)&\sim N(\hat{u}_{k-1},\hat{\Sigma}_{k-1})\end{align}</script><p>Then, based on <a href="#combined equation">combined equation</a>, we can easily obtain the following equation:</p>
@@ -184,7 +183,7 @@ measurement\ model:\ z_k=h(x_k)+v_k
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/11/27/Derivation of Kalman Filtering step by step/" data-id="ck3pyi7j500195wazmcnhoyv6" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/11/27/Derivation of Kalman Filtering step by step/" data-id="ck3qs4rmz0019mkaz9trl30uj" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/article/">article</a></li></ul>
@@ -194,6 +193,15 @@ measurement\ model:\ z_k=h(x_k)+v_k
   
     
 <nav id="article-nav">
+  
+    <a href="/2019/12/04/the principle of Calibration of cameras/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          the principle of Calibration of cameras
+        
+      </div>
+    </a>
   
   
     <a href="/2019/10/18/[转]如何提高英文的科研写作能力/" id="article-nav-older" class="article-nav-link-wrap">
@@ -243,7 +251,7 @@ measurement\ model:\ z_k=h(x_k)+v_k
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">November 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">October 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">May 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">January 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/">September 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/08/">August 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/01/">January 2016</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">December 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">November 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">October 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">May 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">January 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/">September 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/08/">August 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/01/">January 2016</a></li></ul>
     </div>
   </div>
 
@@ -254,6 +262,10 @@ measurement\ model:\ z_k=h(x_k)+v_k
     <h3 class="widget-title">Recent Posts</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2019/12/04/the principle of Calibration of cameras/">the principle of Calibration of cameras</a>
+          </li>
         
           <li>
             <a href="/2019/11/27/Derivation of Kalman Filtering step by step/">Derivation of Kalman Filtering step by step</a>
@@ -269,10 +281,6 @@ measurement\ model:\ z_k=h(x_k)+v_k
         
           <li>
             <a href="/2019/10/18/[转]MIT教授关于学术写作的十大要诀/">『转』MIT教授关于学术写作的十大要诀</a>
-          </li>
-        
-          <li>
-            <a href="/2019/03/21/角度光流/">角度光流</a>
           </li>
         
       </ul>
