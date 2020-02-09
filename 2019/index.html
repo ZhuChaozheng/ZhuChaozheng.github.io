@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>Blackant</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="nyu Chen，原文链接：https://zhuanlan.zhihu.com/p/37609917">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Blackant">
+<meta property="og:url" content="http://yoursite.com/2020/02/09/[转]协方差公式/index.html">
+<meta property="og:site_name" content="Blackant">
+<meta property="og:description" content="nyu Chen，原文链接：https://zhuanlan.zhihu.com/p/37609917">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="https://pic2.zhimg.com/80/v2-e6b0b47edeb3135a808271c205f587c1_hd.jpg">
+<meta property="og:image" content="https://pic2.zhimg.com/80/v2-30d691f2fcfe89f6390d1c589e97ce79_hd.jpg">
+<meta property="og:updated_time" content="2020-02-09T11:14:23.013Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Blackant">
+<meta name="twitter:description" content="nyu Chen，原文链接：https://zhuanlan.zhihu.com/p/37609917">
+<meta name="twitter:image" content="https://pic2.zhimg.com/80/v2-e6b0b47edeb3135a808271c205f587c1_hd.jpg">
+  
+    <link rel="alternate" href="/atom.xml" title="Blackant" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Blackant</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-[转]协方差公式" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/02/09/[转]协方差公式/" class="article-date">
+  <time datetime="2020-02-09T11:14:23.013Z" itemprop="datePublished">2020-02-09</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>nyu Chen，原文链接：<a href="https://zhuanlan.zhihu.com/p/37609917" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/37609917</a></p>
+<a id="more"></a>
+<h2 id="文章结构"><a href="#文章结构" class="headerlink" title="文章结构"></a>文章结构</h2><ol>
+<li>方差和协方差的定义</li>
+<li>从方差/协方差到协方差矩阵</li>
+<li>多元正态分布与线性变换</li>
+<li>协方差矩阵的特征值分解</li>
+</ol>
+<h2 id="1-方差和协方差的定义"><a href="#1-方差和协方差的定义" class="headerlink" title="1.方差和协方差的定义"></a>1.方差和协方差的定义</h2><p>​    在统计学中，<strong>方差</strong>是用来度量<strong>单个随机变量</strong>的<strong>离散程度</strong>，而协方差则一般用来刻画<strong>两个随机变量</strong>的<strong>相似程度</strong>，其中，<strong>方差</strong>的计算公式为</p>
+<script type="math/tex; mode=display">
+\sigma_{x}^{2}=\frac{1}{n-1} \sum_{i=1}^{n}\left(x_{i}-\bar{x}\right)^{2}</script><p>​    其中，$n$ 表示样本量，符号$\bar x$  表示观测样本的均值，这个定义在初中阶段就已经开始接触了。</p>
+<p>​    在此基础上，<strong>协方差</strong>的计算公式被定义为</p>
+<script type="math/tex; mode=display">
+\sigma(x, y)=\frac{1}{n-1} \sum_{i=1}^{n}\left(x_{i}-\bar{x}\right)\left(y_{i}-\bar{y}\right)</script><p>在公式中，符号$\bar{x},\bar{y}$ 分别表示两个随机变量所对应的观测样本均值，据此，我们发现：方差$\sigma^2_x$  可视作随机变量$x$  关于其自身的协方差$\sigma(x,x)$  .    </p>
+<h2 id="2-从方差-协方差到协方差矩阵"><a href="#2-从方差-协方差到协方差矩阵" class="headerlink" title="2.从方差/协方差到协方差矩阵"></a>2.<strong>从方差/协方差到协方差矩阵</strong></h2><p>根据方差的定义，给定$d$  个随机变量$x_k,k=1,2,…d$  ，则这些<strong>随机变量的方差</strong>为</p>
+<script type="math/tex; mode=display">
+\sigma\left(x_{k}, x_{k}\right)=\frac{1}{n-1} \sum_{i=1}^{n}\left(x_{k i}-\bar{x}_{k}\right)^{2}, k=1,2, \ldots, d</script><p>其中，为方便书写，$x_{ki}$  表示随机变量$x_k$  中的第$i$  个观测样本，$n$  表示样本量，每个随机变量所对应的观测样本数量均为$n$  。</p>
+<p>对于这些随机变量，我们还可以根据协方差的定义，求出<strong>两两之间的协方差</strong>，即</p>
+<script type="math/tex; mode=display">
+\sigma\left(x_{m}, x_{k}\right)=\frac{1}{n-1} \sum_{i=1}^{n}\left(x_{m i}-\bar{x}_{m}\right)\left(x_{k i}-\bar{x}_{k}\right)</script><p>因此，<strong>协方差矩阵</strong>为</p>
+<script type="math/tex; mode=display">
+\Sigma=\left[\begin{array}{ccc}
+{\sigma\left(x_{1}, x_{1}\right)} & {\cdots} & {\sigma\left(x_{1}, x_{d}\right)} \\
+{\vdots} & {\ddots} & {\vdots} \\
+{\sigma\left(x_{d}, x_{1}\right)} & {\cdots} & {\sigma\left(x_{d}, x_{d}\right)}
+\end{array}\right] \in \mathbb{R}^{d \times d}</script><p>其中，对角线上的元素为各个随机变量的方差，非对角线上的元素为两两随机变量之间的协方差，根据协方差的定义，我们可以认定：矩阵$\Sigma$  为<strong>对称矩阵</strong>(symmetric matrix)，其大小为$d \times d$ 。</p>
+<h3 id="3-多元正态分布与线性变换"><a href="#3-多元正态分布与线性变换" class="headerlink" title="3.多元正态分布与线性变换"></a>3.<strong>多元正态分布与线性变换</strong></h3><ul>
+<li>假设一个向量$x$  服从均值向量为$\mu$  、协方差矩阵为$\Sigma$  的多元正态分布(multi-variate Gaussian distribution)，则<script type="math/tex; mode=display">
+p(\boldsymbol{x})=|2 \pi \Sigma|^{-1 / 2} \exp \left(-\frac{1}{2}(\boldsymbol{x}-\boldsymbol{\mu})^{T} \Sigma^{-1}(\boldsymbol{x}-\boldsymbol{\mu})\right)</script></li>
+</ul>
+<p>令该分布的均值向量为$\mu=0$  ，由于指数项外面的系数$|2 \pi \Sigma|^{-1/2}$  通常作为常数，故可将多元正态分布简化为</p>
+<script type="math/tex; mode=display">
+p(\boldsymbol{x}) \propto \exp \left(-\frac{1}{2} \boldsymbol{x}^{T} \Sigma^{-1} \boldsymbol{x}\right)</script><p>再令$x=(y,z)^T$  ，包含两个随机变量$y$  和$z$  ，则协方差矩阵可写成如下形式：</p>
+<script type="math/tex; mode=display">
+\Sigma=\left[\begin{array}{ll}
+{\sigma(y, y)} & {\sigma(y, z)} \\
+{\sigma(z, y)} & {\sigma(z, z)}
+\end{array}\right] \in \mathbb{R}^{2 \times 2}</script><p>用<strong>单位矩阵</strong>(identity matrix) $I$ 作为协方差矩阵，随机变量$y$  和$z$  的<strong>方差均为1</strong>，则生成如干个随机数如图1所示。</p>
+<p><img src="https://pic2.zhimg.com/80/v2-e6b0b47edeb3135a808271c205f587c1_hd.jpg" alt="img"></p>
+<p><center>图1 标准的二元正态分布</center><br>在生成的若干个随机数中，每个点的似然为</p>
+<script type="math/tex; mode=display">
+\mathcal{L}(\boldsymbol{x}) \propto \exp \left(-\frac{1}{2} \boldsymbol{x}^{T} \boldsymbol{x}\right)</script><p>对图1中的所有点考虑一个<strong>线性变换</strong>(linear transformation)： $t=Ax$ ，我们能够得到图2.</p>
+<p><img src="https://pic2.zhimg.com/80/v2-30d691f2fcfe89f6390d1c589e97ce79_hd.jpg" alt="img"></p>
+<p><center>图2 经过线性变换的二元正态分布，先将图1的纵坐标压缩0.5倍，再将所有点逆时针旋转30°得到。</center><br>在线性变换中，矩阵$A$  被称为<strong>变换矩阵</strong>(transformation matrix)，为了将图1中的点经过线性变换得到我们想要的图2，其实我们需要构造两个矩阵：</p>
+<ul>
+<li><strong>尺度矩阵</strong>(scaling matrix)：</li>
+</ul>
+<script type="math/tex; mode=display">
+  \Sigma=\left[\begin{array}{ll}
+  {\sigma(y, y)} & {\sigma(y, z)} \\
+  {\sigma(z, y)} & {\sigma(z, z)}
+  \end{array}\right] \in \mathbb{R}^{2 \times 2}</script><ul>
+<li><strong>旋转矩阵</strong>(rotation matrix)</li>
+</ul>
+<script type="math/tex; mode=display">
+R=\left[\begin{array}{cc}
+  {\cos (\theta)} & {-\sin (\theta)} \\
+  {\sin (\theta)} & {\cos (\theta)}
+  \end{array}\right]</script><p>其中， $\theta$ 为<strong>顺时针旋转的度数</strong>。</p>
+<p><strong>变换矩阵、尺度矩阵和旋转矩阵三者的关系式：</strong><br>$A=RS$</p>
+<p>在这个例子中，尺度矩阵为 $S=\left[\begin{array}{ll}{1} &amp; {0} \ {0} &amp; {\frac{1}{2}}\end{array}\right]$ ，旋转矩阵为 !$R=\left[\begin{array}{ll}{\cos \left(-\frac{\pi}{6}\right)} &amp; {-\sin \left(-\frac{\pi}{6}\right)} \ {\sin \left(-\frac{\pi}{6}\right)} &amp; {\cos \left(-\frac{\pi}{6}\right)}\end{array}\right]$，故变换矩阵为</p>
+<script type="math/tex; mode=display">
+A=R S=\left[\begin{array}{cc}
+{\frac{\sqrt{3}}{2}} & {\frac{1}{4}} \\
+{-\frac{1}{2}} & {\frac{\sqrt{3}}{4}}
+\end{array}\right]</script><p>另外，需要考虑的是，经过了线性变换，$t$<strong>的分布是什么样子呢</strong>？$x=A^{-1}t$</p>
+<p>将$x=A^{-1}t$ 带入前面给出的似然$ \mathcal{L}(\boldsymbol{x})$ ，有</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+\mathcal{L}(\boldsymbol{t}) & \propto \exp \left(-\frac{1}{2}\left(A^{-1} \boldsymbol{t}\right)^{T}\left(A^{-1} \boldsymbol{t}\right)\right) \\
+&=\exp \left(-\frac{1}{2} \boldsymbol{t}^{T}\left(A A^{T}\right)^{-1} \boldsymbol{t}\right)
+\end{aligned}</script><p>由此可以得到，多元正态分布的协方差矩阵为</p>
+<script type="math/tex; mode=display">
+\Sigma=A A^{T}=\left[\begin{array}{cc}
+{\frac{\sqrt{3}}{2}} & {\frac{1}{4}} \\
+{-\frac{1}{2}} & {\frac{\sqrt{3}}{4}}
+\end{array}\right]\left[\begin{array}{cc}
+{\frac{\sqrt{3}}{2}} & {-\frac{1}{2}} \\
+{\frac{1}{4}} & {\frac{\sqrt{3}}{4}}
+\end{array}\right]=\left[\begin{array}{cc}
+{\frac{13}{16}} & {-\frac{3 \sqrt{3}}{16}} \\
+{-\frac{3 \sqrt{3}}{16}} & {\frac{7}{16}}
+\end{array}\right] .</script><h2 id="4-协方差矩阵的特征值分解"><a href="#4-协方差矩阵的特征值分解" class="headerlink" title="4. 协方差矩阵的特征值分解"></a><strong>4. 协方差矩阵的特征值分解</strong></h2><p>​    回到我们已经学过的线性代数内容，对于任意对称矩阵 $\Sigma$ ，存在一个<strong>特征值分解(eigenvalue decomposition, EVD)</strong>：</p>
+<script type="math/tex; mode=display">
+\Sigma=U \Lambda U^{T}</script><p>其中，$U$的每一列都是相互正交的特征向量，且是单位向量，满足 $U^TU=I $ ，$\Lambda $对角线上的元素是从大到小排列的特征值，非对角线上的元素均为0。</p>
+<p>当然，这条公式在这里也可以很容易地写成如下形式：</p>
+<script type="math/tex; mode=display">
+\Sigma=\left(U \Lambda^{1 / 2}\right)\left(U \Lambda^{1 / 2}\right)^{T}=A A^{T}</script><p>其中， $A=U \Lambda ^{1/2} $ ，因此，通俗地说，<strong>任意一个协方差矩阵都可以视为线性变换的结果</strong>。</p>
+<p>在上面的例子中，<strong>特征向量构成的矩阵</strong>为</p>
+<script type="math/tex; mode=display">
+U=R=\left[\begin{array}{cc}
+{\cos (\theta)} & {-\sin (\theta)} \\
+{\sin (\theta)} & {\cos (\theta)}
+\end{array}\right]=\left[\begin{array}{cc}
+{\frac{\sqrt{3}}{2}} & {\frac{1}{2}} \\
+{-\frac{1}{2}} & {\frac{\sqrt{3}}{2}}
+\end{array}\right] .</script><p><strong>特征值构成的矩阵</strong>为</p>
+<script type="math/tex; mode=display">
+\Lambda=S S^{T}=\left[\begin{array}{cc}
+{s_{y}^{2}} & {0} \\
+{0} & {s_{z}^{2}}
+\end{array}\right]=\left[\begin{array}{ll}
+{1} & {0} \\
+{0} & {\frac{1}{4}}
+\end{array}\right] .</script><p>到这里，我们发现：多元正态分布的概率密度是由<strong>协方差矩阵的特征向量控制旋转(rotation)</strong>，<strong>特征值控制尺度(scale)</strong>，除了协方差矩阵，<strong>均值向量会控制概率密度的位置</strong>，在图1和图2中，均值向量为 <strong>0</strong> ，因此，概率密度的中心位于坐标原点。</p>
+<h2 id="相关参考："><a href="#相关参考：" class="headerlink" title="相关参考："></a><strong>相关参考：</strong></h2><p><a href="https://janakiev.com/blog/covariance-matrix/" target="_blank" rel="noopener">https://janakiev.com/blog/covariance-matrix/</a></p>
+<p><a href="http://fouryears.eu/2016/11/23/what-is-the-covariance-matrix/" target="_blank" rel="noopener">http://fouryears.eu/2016/11/23/what-is-the-covariance-matrix/</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2020/02/09/[转]协方差公式/" data-id="ck6exwuor000m2ojxfu0qtb37" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2020/02/09/转-协方差公式/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">[转]协方差公式</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/algorithm/">algorithm</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/robot/">robot</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/robot/Java/">Java</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/robot/Java/Android/">Android</a></li></ul></li></ul></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/ROS/">ROS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SAE/">SAE</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/article/">article</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/bigdata/">bigdata</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/directions/">directions</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/donation/">donation</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/goal/">goal</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hello/">hello</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/helloworld/">helloworld</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/robot/">robot</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/ROS/" style="font-size: 10px;">ROS</a> <a href="/tags/SAE/" style="font-size: 10px;">SAE</a> <a href="/tags/article/" style="font-size: 20px;">article</a> <a href="/tags/bigdata/" style="font-size: 10px;">bigdata</a> <a href="/tags/directions/" style="font-size: 10px;">directions</a> <a href="/tags/donation/" style="font-size: 10px;">donation</a> <a href="/tags/goal/" style="font-size: 15px;">goal</a> <a href="/tags/hello/" style="font-size: 10px;">hello</a> <a href="/tags/helloworld/" style="font-size: 10px;">helloworld</a> <a href="/tags/robot/" style="font-size: 10px;">robot</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">February 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">December 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">November 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">October 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">May 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">January 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/">September 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/08/">August 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/01/">January 2016</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2020/02/09/[转]协方差公式/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2020/02/09/转-协方差公式/">[转]协方差公式</a>
+          </li>
+        
+          <li>
+            <a href="/2019/12/14/2the principle of Calibration of cameras/">the principle of Calibration of cameras</a>
+          </li>
+        
+          <li>
+            <a href="/2019/11/27/Derivation of Kalman Filtering step by step/">Derivation of Kalman Filtering step by step</a>
+          </li>
+        
+          <li>
+            <a href="/2019/10/18/[转]如何提高英文的科研写作能力/">『转』如何提高英文的科研写作能力</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2020 Hhu_GFBlab<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+</body>
+</html>
